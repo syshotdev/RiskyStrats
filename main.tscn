@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvb7j4gup8mxa"]
+
+[ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/node.tscn" id="1_5ulmy"]
+[ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/road.tscn" id="2_8i177"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Node" parent="." instance=ExtResource("1_5ulmy")]
+position = Vector2(-276, 68)
+
+[node name="Node3" parent="." instance=ExtResource("1_5ulmy")]
+position = Vector2(-66, -77)
+
+[node name="Node4" parent="." instance=ExtResource("1_5ulmy")]
+position = Vector2(-193, -76)
+
+[node name="Node5" parent="." instance=ExtResource("1_5ulmy")]
+position = Vector2(-73, -145)
+
+[node name="Node2" parent="." instance=ExtResource("1_5ulmy")]
+position = Vector2(-185, -21)
+
+[node name="Road" parent="." node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
+node1 = NodePath("../Node")
+node2 = NodePath("../Node2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="changeNodeColor" from="Node" to="Node/Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="Node3" to="Node3/Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="Node4" to="Node4/Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="Node5" to="Node5/Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="Node2" to="Node2/Control" method="changeNodeColor"]
