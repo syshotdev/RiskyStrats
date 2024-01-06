@@ -15,10 +15,18 @@ func _ready():
 
 
 # Simple. Pathfinds a way to endNode, asks startNode to send a unit with the route and units, colors later.
-func sendPayload(startNode : GameNode, endNode : GameNode, unitAmount  : int):
+func sendPayload(startNode : GameNode, endNode : GameNode, unit : Unit):
 	var route = pathfind(startNode,endNode)
 	
-	startNode.sendUnits(route,unitAmount)
+	var roadUnit = RoadUnit.new(unit.currentColor)
+	roadUnit.units = unit.units
+	roadUnit.route = route
+	
+	startNode.sendUnit(roadUnit)
+
+
+func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
+	return []
 
 # Gets the road's node1 and node2 and sets themselves as neighbors
 func setRoadNodeNeighbors(road : Road):
@@ -26,7 +34,3 @@ func setRoadNodeNeighbors(road : Road):
 	var node2 = road.node2
 	node1.neigbors.append(node2)
 	node2.neigbors.append(node1)
-
-
-func pathfind(startNode : GameNode, endNode : GameNode):
-	pass

@@ -2,16 +2,14 @@ extends Node2D
 
 class_name GameNode
 
-signal sendUnitsToRoad()
-
+signal unitRecieved(roadUnit : RoadUnit)
 signal addColorToDisplay(units : Array[Unit])
 signal changeNodeColor(color : GameColors.colors)
 
 
 var neigbors : Array[GameNode] = []
-
-# Key value: color, amount
-var unitAmounts : Dictionary = {}
+var neigborRoads : Dictionary = {} # Key node, value road
+var unitAmounts : Dictionary = {} # Key color, value amount
 
 var currentColor : GameColors.colors
 
@@ -19,19 +17,7 @@ var currentColor : GameColors.colors
 var killRate : float = 0.1
 
 
-func _ready():
-	var unit : Unit = Unit.new(GameColors.colors.BROWN)
-	var unit2 : Unit = Unit.new(GameColors.colors.BLUE)
-	
-	unit.units = 20
-	unit2.units = 19
-	
-	addUnit(unit)
-	addUnit(unit2)
-
-
 func _process(delta):
-	
 	unitAmounts = takeDamage(unitAmounts, delta)
 	updateColorDisplays(unitAmounts)
 
@@ -40,6 +26,10 @@ func _process(delta):
 # Lanchester's square law
 func takeDamage(colorUnits : Dictionary, delta : float) -> Dictionary:
 	colorUnits = ridOfEmptySlots(colorUnits)
+	
+	# If colorUnits dict empty, return to not crash
+	if (colorUnits.size() == 0):
+		return colorUnits
 	
 	# This if for when your node has been taken over, 
 	# and now the current color occupying it is not current color
@@ -98,20 +88,32 @@ func getEnemyUnits(colorUnits : Dictionary) -> Array[Unit]:
 	return units
 
 
-func changeCurrentColorToBiggestColor(colorUnits):
-	var biggestAmount := 0
-	# For every color, check if it's bigger than the current color and set it to the current color if true
-	for color in colorUnits:
-		var unitAmount = colorUnits[color]
-		
-		if(unitAmount > biggestAmount):
-			currentColor = color
-			biggestAmount = unitAmount
-
-
-# Find out how to pick a road Idk
-func sendRoadUnit(road):
+# Will be function to recieve roadUnit color or forward roadUnit to other nodes
+func recieveRoadUnit(roadUnit : RoadUnit):
 	pass
+
+# Sends a unit to the next road based on the route
+func sendUnit(roadUnit : RoadUnit):
+	var route = roadUnit.route
+	
+	# Get rid of first destination
+	route.remove_at(0)
+	
+	# If the route is empty, we've arrived at our destination.
+	if(route.is_empty()):
+		addRoadUnit(roadUnit)
+		return
+	
+	roadUnit.route = route
+	
+	var road = getRoadToNode(route[0])
+	# If road.node1 == self, that means we are node1. We should then send to node2.
+	roadUnit.toSecondNode = road.node1 == self
+	road.addUnitToRoad(roadUnit)
+
+# From this node to the node specified, which road is it?
+func getRoadToNode(node : GameNode) -> Road:
+	return neigborRoads[node]
 
 # Translates to unit and adds it to this node
 func addRoadUnit(roadUnit : RoadUnit):
@@ -136,6 +138,17 @@ func ridOfEmptySlots(dictionary : Dictionary) -> Dictionary:
 		if(dictionary[key] <= 0):
 			dictionary.erase(key)
 	return dictionary
+
+
+func changeCurrentColorToBiggestColor(colorUnits):
+	var biggestAmount := 0
+	# For every color, check if it's bigger than the current color and set it to the current color if true
+	for color in colorUnits:
+		var unitAmount = colorUnits[color]
+		
+		if(unitAmount > biggestAmount):
+			currentColor = color
+			biggestAmount = unitAmount
 
 # Updates the color of the colorRect and the label displays
 func updateColorDisplays(colorUnits : Dictionary):
