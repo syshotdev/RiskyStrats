@@ -43,13 +43,7 @@ func addUnitToRoad(roadUnit : RoadUnit):
 	# So it doesnt jank
 	roadUnit.position = Vector2.ZERO
 	
-	var goingToSecondNode = roadUnit.toSecondNode
-	
-	# If going to node 2, start at node 1
-	if(goingToSecondNode):
-		roadUnit.progress = 0
-	else:
-		roadUnit.progress = roadLength
+	roadUnit.progress = 0
 	
 	currentUnits.append(roadUnit)
 	add_child(roadUnit)
@@ -60,7 +54,7 @@ func moveAllRoadUnits(delta):
 		var roadUnit = currentUnits[unitIndex]
 		
 		# Percentage goes up speed * delta (Or down if direction is node1)
-		var howMuchToMove = calculateRoadUnitMovement(roadUnit, delta)
+		var howMuchToMove = calculateRoadUnitSpeed(roadUnit, delta)
 		roadUnit.progress += howMuchToMove
 		
 		roadUnit.global_position = calculateRoadUnitPosition(roadUnit)
@@ -82,36 +76,34 @@ func calculateRoadUnitPosition(roadUnit : RoadUnit):
 	var pos2 = node2.position
 	var progress = roadUnit.progress
 	
-	outPosition = pos1.lerp(pos2,(progress / roadLength))
+	if(roadUnit.toSecondNode == true):
+		# Start at first, go to sencond
+		outPosition = pos1.lerp(pos2, (progress / roadLength))
+	else:
+		# Start at second, go to first
+		outPosition = pos2.lerp(pos1, (progress/roadLength))
 	
 	return outPosition
 
 
 # Name is misleading, but checks the node's progress towards a node and gives it if it's close enough
 func tryMergeWithNearestNode(roadUnit : RoadUnit):
-	if(roadUnit.progress > roadLength):
-		node2.processRoadUnit(roadUnit)
-		return true
-	elif(roadUnit.progress < 0):
-		node1.processRoadUnit(roadUnit)
-		return true
+	# If the road unit is not at 100% completion, don't try
+	if(roadUnit.progress < roadLength):
+		return false
 	
-	# Not close enough to nodes
-	return false
-
-# Calculates how much it should move per tick
-func calculateRoadUnitMovement(roadUnit : RoadUnit, delta : float):
-	# If going to the second node, go up in percentage.
-	# If going to first node, go down in percentage.
-	if (roadUnit.toSecondNode == true):
-		return calculateRoadUnitSpeed(roadUnit) * delta
+	# If road unit is 100%, send it to the correct node. If going to second node, node2 gets the thing
+	if(roadUnit.toSecondNode == true):
+		node2.processRoadUnit(roadUnit)
 	else:
-		return -calculateRoadUnitSpeed(roadUnit) * delta
+		node1.processRoadUnit(roadUnit)
+	
+	return true
 
-
-func calculateRoadUnitSpeed(roadUnit : RoadUnit):
+# How much the roadUnit should move per second
+func calculateRoadUnitSpeed(roadUnit : RoadUnit, delta : float):
 	var speed = 0
 	
 	# As the units increase, the slower it will go. It will only get about 3x slower at 100 units, 4x slower at 1000, and so on.
 	speed = nodeSpeed / (log(roadUnit.units) + 1)
-	return speed
+	return speed * delta

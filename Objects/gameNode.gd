@@ -40,6 +40,7 @@ func processRoadUnit(roadUnit : RoadUnit):
 
 # Sends a unit to the next road based on the route
 func sendRoadUnit(roadUnit : RoadUnit):
+	var route = roadUnit.route
 	var road = getRoadToNode(roadUnit.route[0])
 	# Get rid of first destination to mark that we've been to this node
 	roadUnit.route.remove_at(0)
@@ -57,6 +58,7 @@ func sendRoadUnit(roadUnit : RoadUnit):
 
 # From this node to the node specified, which road is it?
 func getRoadToNode(node : GameNode) -> Road:
+	print(neigborRoads)
 	return neigborRoads[node]
 
 # Translates to unit and adds it to this node
