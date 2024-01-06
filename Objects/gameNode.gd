@@ -8,6 +8,8 @@ signal addColorToDisplay(units : Array[Unit])
 signal changeNodeColor(color : GameColors.colors)
 
 
+var neigbors : Array[GameNode] = []
+
 # Key value: color, amount
 var unitAmounts : Dictionary = {}
 

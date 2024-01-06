@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Road
+
 @export var node1 : GameNode
 @export var node2 : GameNode
 @export var roadUnitScene : PackedScene
@@ -10,14 +12,16 @@ extends Node2D
 
 # For ALL RoadUnits
 var nodeSpeed = 100
-var roadLength = 100
+var roadLength = 100 # Calculated in ready
 
 # For each road unit, to move them all along the road and keep track of them
 var currentUnits : Array[RoadUnit]
 
 
 func _ready():
-	position = Vector2.ZERO
+	roadLength = node1.position.distance_to(node2.position) # Find road length
+	position = Vector2.ZERO # This is not needed technically but if not at 0,0 it breaks
+	
 	var unit : Unit = Unit.new(GameColors.colors.BLUE)
 	unit.units = 60
 	addUnitToRoad(unit, true)
