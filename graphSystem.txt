@@ -33,7 +33,7 @@ to the next road based on the route.
 
 For example, it's at node1. node1 is connected to node3, node5, node2 and node8, meaning all of those are in the node's "neigbor" list.
 The unit object will be sent to the road corresponding to the node it needs to go to next. I don't know how to do that though because I'd need to keep
-track of the roads connecting to nodes and that more complex but checking every single road to see if they match the node1 and node3 match would
+track of the roads connecting to nodes and thats more complex but checking every single road to see if they match the node1 and node3 match would
 be cpu intensive. Whatever, let's just say I solved it.
 Given that conclusion, the unit object would have a "route" variable with the nodes it needs to travel to in order.
 Node1 to node3 to node6 to node15 would look like [node1,node3,node6,node15], and when you get to the next destination you get rid
@@ -42,3 +42,8 @@ of the first element. If the list is empty, the work is done and you just transf
 func sendUnits(route,unit);
 	unit.route = route
 	sendToRoad(?)???
+
+Some other things:
+	When given a unit via the processRoadUnit() function, the unit will either be added or sent off again.
+	This will be an automatic operation, meaning the only function other nodes connect with eachother is this
+	function. It basically handles all the game object IO.

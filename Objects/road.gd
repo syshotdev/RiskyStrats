@@ -11,7 +11,7 @@ class_name Road
 
 
 # For ALL RoadUnits
-var nodeSpeed = 100
+var nodeSpeed = 1000
 var roadLength = 100 # Calculated in ready
 
 # For each road unit, to move them all along the road and keep track of them
@@ -21,6 +21,8 @@ var currentUnits : Array[RoadUnit]
 func _ready():
 	roadLength = node1.position.distance_to(node2.position) # Find road length
 	position = Vector2.ZERO # This is not needed technically but if not at 0,0 it breaks
+	print("road's position:")
+	print(position)
 
 
 func _process(delta):
@@ -38,6 +40,9 @@ func drawRoad(position1 : Vector2, position2 : Vector2):
 # Adds the road to all the nessesary variables to keep track of.
 # Also the function that the "node1" or "node2" calls to send a unit payload
 func addUnitToRoad(roadUnit : RoadUnit):
+	# So it doesnt jank
+	roadUnit.position = Vector2.ZERO
+	
 	var goingToSecondNode = roadUnit.toSecondNode
 	
 	# If going to node 2, start at node 1
@@ -58,7 +63,7 @@ func moveAllRoadUnits(delta):
 		var howMuchToMove = calculateRoadUnitMovement(roadUnit, delta)
 		roadUnit.progress += howMuchToMove
 		
-		roadUnit.position = calculateRoadUnitPosition(roadUnit)
+		roadUnit.global_position = calculateRoadUnitPosition(roadUnit)
 		
 		# Tries to merge with node1 or node2, and if it does, it gives success = true
 		var success = tryMergeWithNearestNode(roadUnit)
@@ -73,8 +78,8 @@ func calculateRoadUnitPosition(roadUnit : RoadUnit):
 	var outPosition : Vector2 = Vector2.ZERO
 	
 	# Lerp from pos1 to pos2 using the percentage of progress / roadlength
-	var pos1 = node1.global_position
-	var pos2 = node2.global_position
+	var pos1 = node1.position
+	var pos2 = node2.position
 	var progress = roadUnit.progress
 	
 	outPosition = pos1.lerp(pos2,(progress / roadLength))
@@ -85,10 +90,10 @@ func calculateRoadUnitPosition(roadUnit : RoadUnit):
 # Name is misleading, but checks the node's progress towards a node and gives it if it's close enough
 func tryMergeWithNearestNode(roadUnit : RoadUnit):
 	if(roadUnit.progress > roadLength):
-		node2.addRoadUnit(roadUnit)
+		node2.processRoadUnit(roadUnit)
 		return true
 	elif(roadUnit.progress < 0):
-		node1.addRoadUnit(roadUnit)
+		node1.processRoadUnit(roadUnit)
 		return true
 	
 	# Not close enough to nodes

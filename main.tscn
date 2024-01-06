@@ -12,7 +12,10 @@ script = ExtResource("1_0f1fw")
 [node name="Nodes" type="Node2D" parent="."]
 
 [node name="Node" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(-276, 68)
+position = Vector2(-195, -298)
+
+[node name="Node2" parent="Nodes" instance=ExtResource("1_5ulmy")]
+position = Vector2(0, 100)
 
 [node name="Node3" parent="Nodes" instance=ExtResource("1_5ulmy")]
 position = Vector2(-66, -77)
@@ -22,9 +25,6 @@ position = Vector2(-193, -76)
 
 [node name="Node5" parent="Nodes" instance=ExtResource("1_5ulmy")]
 position = Vector2(510, -173)
-
-[node name="Node2" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(-185, -21)
 
 [node name="Roads" type="Node2D" parent="."]
 

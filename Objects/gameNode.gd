@@ -22,6 +22,58 @@ func _process(delta):
 	updateColorDisplays(unitAmounts)
 
 
+# Adds a neighbor and associates that neighbor with the road.
+func addNeigbor(neigbor : GameNode, road : Road):
+	neigbors.append(neigbor)
+	# To get the road from the neigbor
+	neigborRoads[neigbor] = road
+
+# Will be function to recieve roadUnit color or forward roadUnit to other nodes
+func processRoadUnit(roadUnit : RoadUnit):
+	var arrived = roadUnit.route.size() == 0
+	
+	# If it has arrived, add it. Otherwise forward to next path.
+	if(arrived):
+		addRoadUnit(roadUnit)
+	else:
+		sendRoadUnit(roadUnit)
+
+# Sends a unit to the next road based on the route
+func sendRoadUnit(roadUnit : RoadUnit):
+	var road = getRoadToNode(roadUnit.route[0])
+	# Get rid of first destination to mark that we've been to this node
+	roadUnit.route.remove_at(0)
+	# If road.node1 == self, that means we are node1. We should then send to node2.
+	roadUnit.toSecondNode = road.node1 == self
+	
+	# Exact replica so it doesn't confuse the engine
+	var newRoadUnit = RoadUnit.new(roadUnit.currentColor,roadUnit.units)
+	newRoadUnit.route = roadUnit.route
+	newRoadUnit.toSecondNode = roadUnit.toSecondNode
+	road.addUnitToRoad(newRoadUnit)
+	
+	# Free the last used thing as it won't be used again
+	roadUnit.queue_free()
+
+# From this node to the node specified, which road is it?
+func getRoadToNode(node : GameNode) -> Road:
+	return neigborRoads[node]
+
+# Translates to unit and adds it to this node
+func addRoadUnit(roadUnit : RoadUnit):
+	var unit := Unit.new(roadUnit.currentColor, roadUnit.units)
+	addUnit(unit)
+
+# Adds it to the dictionary which is just "color, amount"
+func addUnit(unit : Unit):
+	# Detecting if unit is valid to not have error
+	if(unitAmounts.has(unit.currentColor)):
+		unitAmounts[unit.currentColor] += unit.units
+	else:
+		unitAmounts[unit.currentColor] = unit.units
+	
+	unitAmounts = ridOfEmptySlots(unitAmounts)
+
 # Every tick, it takes damage from other armies until one is dead
 # Lanchester's square law
 func takeDamage(colorUnits : Dictionary, delta : float) -> Dictionary:
@@ -86,51 +138,6 @@ func getEnemyUnits(colorUnits : Dictionary) -> Array[Unit]:
 		units.append(unit)
 	
 	return units
-
-
-# Will be function to recieve roadUnit color or forward roadUnit to other nodes
-func recieveRoadUnit(roadUnit : RoadUnit):
-	pass
-
-# Sends a unit to the next road based on the route
-func sendUnit(roadUnit : RoadUnit):
-	var route = roadUnit.route
-	
-	# Get rid of first destination
-	route.remove_at(0)
-	
-	# If the route is empty, we've arrived at our destination.
-	if(route.is_empty()):
-		addRoadUnit(roadUnit)
-		return
-	
-	roadUnit.route = route
-	
-	var road = getRoadToNode(route[0])
-	# If road.node1 == self, that means we are node1. We should then send to node2.
-	roadUnit.toSecondNode = road.node1 == self
-	road.addUnitToRoad(roadUnit)
-
-# From this node to the node specified, which road is it?
-func getRoadToNode(node : GameNode) -> Road:
-	return neigborRoads[node]
-
-# Translates to unit and adds it to this node
-func addRoadUnit(roadUnit : RoadUnit):
-	var unit := Unit.new(roadUnit.currentColor)
-	unit.units = roadUnit.units
-	addUnit(unit)
-
-# Adds it to the dictionary which is just "color, amount"
-func addUnit(unit : Unit):
-	# Detecting if unit is valid to not have error
-	if(unitAmounts.has(unit.currentColor)):
-		unitAmounts[unit.currentColor] += unit.units
-	else:
-		unitAmounts[unit.currentColor] = unit.units
-	
-	
-	unitAmounts = ridOfEmptySlots(unitAmounts)
 
 
 func ridOfEmptySlots(dictionary : Dictionary) -> Dictionary:
