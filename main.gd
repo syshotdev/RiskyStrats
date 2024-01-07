@@ -15,7 +15,7 @@ func _ready():
 		#print(node.neigborRoads)
 		pass
 	
-	var startNode = nodes[1]
+	var startNode = nodes[0]
 	var endNode = nodes[2]
 	sendPayload(startNode,endNode,Unit.new(GameColors.colors.BLUE, 30))
 
@@ -47,13 +47,17 @@ func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
 	var checked : Array[GameNode] = []
 	
 	while toCheck.size() > 0:
-		var currentNode = findLeastCostNode(startNode, endNode, toCheck) # Should return index of lowest cost node
+		var lowestCostIndex = findLeastCostNode(startNode, endNode, toCheck)
+		var currentNode = toCheck[lowestCostIndex]
+		
+		print(currentNode)
 		
 		if(currentNode == endNode):
 			return [] # Calculate path as search has ended
 		
+		# Remove current node from the search
 		checked.append(currentNode)
-		toCheck.remove_at(0) # Should remove index of current node
+		toCheck.remove_at(lowestCostIndex)
 		
 		for neighbor in currentNode.neigbors:
 			# If it's been checked or it's not our color, don't check it
@@ -66,24 +70,27 @@ func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
 	return []
 
 
+
+
+
 # Returns the lowest cost node from an array
-func findLeastCostNode(startNode : GameNode, endNode : GameNode, gameNodesToCheck : Array[GameNode]):
-	var lowestCost : float = 0
-	var lowestNode : GameNode
+func findLeastCostNode(startNode : GameNode, endNode : GameNode, gameNodesToCheck : Array[GameNode]) -> int:
+	var lowestCost : float = 9999999999
+	var lowestCostIndex : int = 0
 	
-	for node in gameNodesToCheck:
-		var fromStartCost = calculateCostOfNode(node, startNode)
-		var toEndCost = calculateCostOfNode(node, endNode)
-		var total = fromStartCost + toEndCost
+	for nodeIndex in range(gameNodesToCheck.size()):
+		var node = gameNodesToCheck[nodeIndex]
+		var nodeCost = calculateCostOfNode(node, startNode, endNode)
 		
-		if(total < lowestCost):
-			lowestNode = node
-			lowestCost = total
+		if(nodeCost < lowestCost):
+			lowestCostIndex = nodeIndex
+			lowestCost = nodeCost
 	
-	
-	return lowestNode
+	return lowestCostIndex
 
 
 # Just the distance between node1 and node2
-func calculateCostOfNode(startNode : GameNode, endNode : GameNode) -> float:
-	return node1.global_position.distance_to(node2.global_position)
+func calculateCostOfNode(node : GameNode, startNode : GameNode, endNode : GameNode) -> float:
+	var fromStartCost = node.position.distance_to(startNode.position)
+	var fromEndCost = node.position.distance_to(endNode.position)
+	return fromStartCost + fromEndCost

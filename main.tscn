@@ -14,16 +14,16 @@ script = ExtResource("1_0f1fw")
 [node name="Node" parent="Nodes" instance=ExtResource("1_5ulmy")]
 
 [node name="Node2" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(316, -23)
+position = Vector2(180, 107)
 
 [node name="Node3" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(258, -209)
+position = Vector2(236, -7)
 
 [node name="Node4" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(-169, -109)
+position = Vector2(24, -49)
 
 [node name="Node5" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(-336, -93)
+position = Vector2(243, -222)
 
 [node name="Roads" type="Node2D" parent="."]
 
@@ -41,6 +41,10 @@ node2 = NodePath("../../Nodes/Node3")
 
 [node name="Road4" parent="Roads" node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
 node1 = NodePath("../../Nodes/Node3")
+node2 = NodePath("../../Nodes/Node5")
+
+[node name="Road5" parent="Roads" node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
+node1 = NodePath("../../Nodes/Node")
 node2 = NodePath("../../Nodes/Node4")
 
 [connection signal="changeNodeColor" from="Nodes/Node" to="Nodes/Node/Control" method="changeNodeColor"]
