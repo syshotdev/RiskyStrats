@@ -12,19 +12,18 @@ script = ExtResource("1_0f1fw")
 [node name="Nodes" type="Node2D" parent="."]
 
 [node name="Node" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(-261, 103)
 
 [node name="Node2" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(0, 100)
+position = Vector2(316, -23)
 
 [node name="Node3" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(-66, -77)
+position = Vector2(258, -209)
 
 [node name="Node4" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(-193, -76)
+position = Vector2(-169, -109)
 
 [node name="Node5" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(510, -173)
+position = Vector2(-336, -93)
 
 [node name="Roads" type="Node2D" parent="."]
 
@@ -33,5 +32,19 @@ node1 = NodePath("../../Nodes/Node")
 node2 = NodePath("../../Nodes/Node2")
 
 [node name="Road2" parent="Roads" node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
-node1 = NodePath("../../Nodes/Node5")
-node2 = NodePath("../../Nodes/Node2")
+node1 = NodePath("../../Nodes/Node4")
+node2 = NodePath("../../Nodes/Node5")
+
+[node name="Road3" parent="Roads" node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
+node1 = NodePath("../../Nodes/Node2")
+node2 = NodePath("../../Nodes/Node3")
+
+[node name="Road4" parent="Roads" node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
+node1 = NodePath("../../Nodes/Node3")
+node2 = NodePath("../../Nodes/Node4")
+
+[connection signal="changeNodeColor" from="Nodes/Node" to="Nodes/Node/Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="Nodes/Node2" to="Nodes/Node2/Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="Nodes/Node3" to="Nodes/Node3/Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="Nodes/Node4" to="Nodes/Node4/Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="Nodes/Node5" to="Nodes/Node5/Control" method="changeNodeColor"]

@@ -8,7 +8,7 @@ func updateColorDisplay(units : Array[Unit]):
 	updateUnitDisplay(units)
 
 
-func changeNodeColor(color : GameColors.colors):
+func changeColor(color : GameColors.colors):
 	setColorRectColor(color)
 
 
@@ -19,7 +19,7 @@ func setColorRectColor(color : GameColors.colors):
 func updateUnitDisplay(units : Array[Unit]):
 	eraseLabelBoxChildren()
 	for unit in units:
-		var unitAmountInt : int = unit.units
+		var unitAmountInt : int = floor(unit.units)
 		var label = createTextWithColor(str(unitAmountInt), unit.currentColor)
 		labelBox.add_child(label)
 

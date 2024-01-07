@@ -11,8 +11,8 @@ class_name Road
 
 
 # For ALL RoadUnits
-var nodeSpeed = 1000
-var roadLength = 100 # Calculated in ready
+const nodeSpeed = 1000
+var roadLength # Calculated in ready
 
 # For each road unit, to move them all along the road and keep track of them
 var currentUnits : Array[RoadUnit]
@@ -21,8 +21,6 @@ var currentUnits : Array[RoadUnit]
 func _ready():
 	roadLength = node1.position.distance_to(node2.position) # Find road length
 	position = Vector2.ZERO # This is not needed technically but if not at 0,0 it breaks
-	print("road's position:")
-	print(position)
 
 
 func _process(delta):
@@ -42,7 +40,6 @@ func drawRoad(position1 : Vector2, position2 : Vector2):
 func addUnitToRoad(roadUnit : RoadUnit):
 	# So it doesnt jank
 	roadUnit.position = Vector2.ZERO
-	
 	roadUnit.progress = 0
 	
 	currentUnits.append(roadUnit)
@@ -54,10 +51,8 @@ func moveAllRoadUnits(delta):
 		var roadUnit = currentUnits[unitIndex]
 		
 		# Percentage goes up speed * delta (Or down if direction is node1)
-		var howMuchToMove = calculateRoadUnitSpeed(roadUnit, delta)
-		roadUnit.progress += howMuchToMove
-		
-		roadUnit.global_position = calculateRoadUnitPosition(roadUnit)
+		roadUnit.progress += calculateRoadUnitSpeed(roadUnit, delta)
+		roadUnit.position = calculateRoadUnitPosition(roadUnit)
 		
 		# Tries to merge with node1 or node2, and if it does, it gives success = true
 		var success = tryMergeWithNearestNode(roadUnit)
@@ -72,8 +67,8 @@ func calculateRoadUnitPosition(roadUnit : RoadUnit):
 	var outPosition : Vector2 = Vector2.ZERO
 	
 	# Lerp from pos1 to pos2 using the percentage of progress / roadlength
-	var pos1 = node1.position
-	var pos2 = node2.position
+	var pos1 = node1.global_position
+	var pos2 = node2.global_position
 	var progress = roadUnit.progress
 	
 	if(roadUnit.toSecondNode == true):
@@ -84,7 +79,6 @@ func calculateRoadUnitPosition(roadUnit : RoadUnit):
 		outPosition = pos2.lerp(pos1, (progress/roadLength))
 	
 	return outPosition
-
 
 # Name is misleading, but checks the node's progress towards a node and gives it if it's close enough
 func tryMergeWithNearestNode(roadUnit : RoadUnit):

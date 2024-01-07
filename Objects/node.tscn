@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cjpcojig6iwdw"]
 
-[ext_resource type="Script" path="res://changeColor.gd" id="1_4tmqn"]
 [ext_resource type="Script" path="res://Objects/gameNode.gd" id="1_xo6op"]
+[ext_resource type="Script" path="res://Objects/changeColor.gd" id="2_385qc"]
 [ext_resource type="Script" path="res://Objects/SelectionArea2D.gd" id="3_kltge"]
 
 [node name="GameNode" type="Node2D"]
@@ -22,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("1_4tmqn")
+script = ExtResource("2_385qc")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 layout_mode = 0
@@ -46,4 +46,4 @@ grow_vertical = 2
 script = ExtResource("3_kltge")
 
 [connection signal="addColorToDisplay" from="." to="Control" method="updateColorDisplay"]
-[connection signal="changeNodeColor" from="." to="Control" method="changeNodeColor"]
+[connection signal="changeNodeColor" from="." to="Control" method="changeColor"]
