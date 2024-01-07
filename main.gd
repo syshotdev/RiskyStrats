@@ -16,7 +16,7 @@ func _ready():
 		pass
 	
 	var startNode = nodes[0]
-	var endNode = nodes[2]
+	var endNode = nodes[4]
 	sendPayload(startNode,endNode,Unit.new(GameColors.colors.BLUE, 30))
 
 
@@ -46,31 +46,48 @@ func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
 	var toCheck : Array[GameNode] = [startNode]
 	var checked : Array[GameNode] = []
 	
+	# Simple, records the node that this node took to get here. Used to reconstruct path back
+	# Key node, value nodeItCameFrom
+	var nodeParent : Dictionary = {}
+	
 	while toCheck.size() > 0:
 		var lowestCostIndex = findLeastCostNode(startNode, endNode, toCheck)
+		
 		var currentNode = toCheck[lowestCostIndex]
 		
-		print(currentNode)
 		
+		# If we've found the goal, end search
 		if(currentNode == endNode):
-			return [] # Calculate path as search has ended
+			return calculatePathBack(startNode,endNode,nodeParent) # Return the array
 		
 		# Remove current node from the search
 		checked.append(currentNode)
 		toCheck.remove_at(lowestCostIndex)
 		
 		for neighbor in currentNode.neigbors:
+			print(neighbor)
 			# If it's been checked or it's not our color, don't check it
 			if neighbor in checked or neighbor.currentColor != currentColor:
 				continue
 			
 			toCheck.append(neighbor)
+			# Parent = currentNode, because current node neigbors is this
+			nodeParent[neighbor] = currentNode
 	
-	
+	# Return nothing because there was no path
 	return []
 
 
-
+func calculatePathBack(startNode : GameNode, endNode : GameNode, nodeParent : Dictionary) -> Array[GameNode]:
+	var currentNode := endNode
+	var route : Array[GameNode] = []
+	
+	while currentNode in nodeParent:
+		route.push_front(currentNode)
+		currentNode = nodeParent[currentNode]
+	
+	print(route)
+	return route
 
 
 # Returns the lowest cost node from an array
