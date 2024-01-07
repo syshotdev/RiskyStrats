@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvb7j4gup8mxa"]
+[gd_scene load_steps=5 format=3 uid="uid://cvb7j4gup8mxa"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_0f1fw"]
 [ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/node.tscn" id="1_5ulmy"]
 [ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/road.tscn" id="2_8i177"]
+
+[sub_resource type="Environment" id="Environment_p2hpy"]
+background_mode = 3
+background_color = Color(0.74902, 0.690196, 0.803922, 1)
+glow_enabled = true
+glow_intensity = 2.29
+glow_strength = 0.64
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+fog_light_color = Color(0.317647, 0.345098, 0.392157, 1)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0f1fw")
@@ -18,13 +28,13 @@ position = Vector2(-95, 195)
 position = Vector2(-43, 262)
 
 [node name="Node3" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(41, 217)
+position = Vector2(-132, -224)
 
 [node name="Node4" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(-215, -45)
+position = Vector2(-2, -30)
 
 [node name="Node5" parent="Nodes" instance=ExtResource("1_5ulmy")]
-position = Vector2(243, -222)
+position = Vector2(393, 247)
 
 [node name="Roads" type="Node2D" parent="."]
 
@@ -47,6 +57,9 @@ node2 = NodePath("../../Nodes/Node5")
 [node name="Road5" parent="Roads" node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
 node1 = NodePath("../../Nodes/Node")
 node2 = NodePath("../../Nodes/Node4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p2hpy")
 
 [connection signal="changeNodeColor" from="Nodes/Node" to="Nodes/Node/Control" method="changeNodeColor"]
 [connection signal="changeNodeColor" from="Nodes/Node2" to="Nodes/Node2/Control" method="changeNodeColor"]

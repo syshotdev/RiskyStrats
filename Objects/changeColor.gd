@@ -1,6 +1,7 @@
 extends Control
 
 @onready var colorRect = $ColorRect
+@onready var shadow = $Shadow
 @onready var labelBox = $ColorBox
 
 
@@ -14,6 +15,7 @@ func changeColor(color : GameColors.colors):
 
 func setColorRectColor(color : GameColors.colors):
 	colorRect.color = GameColors.getColorFromEnum(color)
+	#shadow.color = GameColors.getColorFromEnum(color) - Color(0.25,0.25,0.25)
 
 
 func updateUnitDisplay(units : Array[Unit]):

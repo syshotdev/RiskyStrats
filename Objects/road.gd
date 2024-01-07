@@ -11,7 +11,7 @@ class_name Road
 
 
 # For ALL RoadUnits
-const nodeSpeed = 1000
+const nodeSpeed = 100
 var roadLength # Calculated in ready
 
 # For each road unit, to move them all along the road and keep track of them

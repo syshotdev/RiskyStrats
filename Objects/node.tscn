@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjpcojig6iwdw"]
+[gd_scene load_steps=5 format=3 uid="uid://cjpcojig6iwdw"]
 
 [ext_resource type="Script" path="res://Objects/gameNode.gd" id="1_xo6op"]
 [ext_resource type="Script" path="res://Objects/changeColor.gd" id="2_385qc"]
-[ext_resource type="Script" path="res://Objects/SelectionArea2D.gd" id="3_kltge"]
+[ext_resource type="Script" path="res://Objects/Select.gd" id="3_pq1u5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
+size = Vector2(16, 16)
 
 [node name="GameNode" type="Node2D"]
 script = ExtResource("1_xo6op")
@@ -24,7 +27,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("2_385qc")
 
+[node name="Shadow" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_right = 45.0
+offset_bottom = 45.0
+color = Color(0, 0, 0, 1)
+
 [node name="ColorRect" type="ColorRect" parent="Control"]
+modulate = Color(1.5, 1.5, 1.5, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -43,7 +53,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SelectionArea2D" type="Area2D" parent="."]
-script = ExtResource("3_kltge")
+script = ExtResource("3_pq1u5")
+
+[node name="Area" type="CollisionShape2D" parent="SelectionArea2D"]
+shape = SubResource("RectangleShape2D_kh0e4")
+debug_color = Color(0, 0, 0, 0.368627)
 
 [connection signal="addColorToDisplay" from="." to="Control" method="updateColorDisplay"]
 [connection signal="changeNodeColor" from="." to="Control" method="changeColor"]
+[connection signal="selectionChanged" from="SelectionArea2D" to="." method="onSelected"]

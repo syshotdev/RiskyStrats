@@ -2,7 +2,6 @@ extends Node2D
 
 class_name GameNode
 
-signal unitRecieved(roadUnit : RoadUnit)
 signal addColorToDisplay(units : Array[Unit])
 signal changeNodeColor(color : GameColors.colors)
 
@@ -146,6 +145,11 @@ func ridOfEmptySlots(dictionary : Dictionary) -> Dictionary:
 		if(dictionary[key] <= 0):
 			dictionary.erase(key)
 	return dictionary
+
+# When selection updated, turn on white circle to show selection
+func onSelected(selected):
+	# While circle script here
+	pass
 
 
 func changeCurrentColorToBiggestColor(colorUnits):
