@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvb7j4gup8mxa"]
+[gd_scene load_steps=6 format=3 uid="uid://cvb7j4gup8mxa"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_0f1fw"]
 [ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/node.tscn" id="1_5ulmy"]
 [ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/road.tscn" id="2_8i177"]
+[ext_resource type="PackedScene" uid="uid://dqshkg4phk7r3" path="res://Objects/selection_area.tscn" id="4_3nvu1"]
 
 [sub_resource type="Environment" id="Environment_p2hpy"]
 background_mode = 3
@@ -14,8 +15,9 @@ glow_blend_mode = 0
 glow_hdr_threshold = 0.0
 fog_light_color = Color(0.317647, 0.345098, 0.392157, 1)
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("selectionArea")]
 script = ExtResource("1_0f1fw")
+selectionArea = NodePath("SelectionArea")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -60,6 +62,8 @@ node2 = NodePath("../../Nodes/Node4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_p2hpy")
+
+[node name="SelectionArea" parent="." instance=ExtResource("4_3nvu1")]
 
 [connection signal="changeNodeColor" from="Nodes/Node" to="Nodes/Node/Control" method="changeNodeColor"]
 [connection signal="changeNodeColor" from="Nodes/Node2" to="Nodes/Node2/Control" method="changeNodeColor"]

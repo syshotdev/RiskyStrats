@@ -47,8 +47,9 @@ func addUnitToRoad(roadUnit : RoadUnit):
 
 
 func moveAllRoadUnits(delta):
+	var copyUnits := currentUnits.duplicate(true)
 	for unitIndex in range(currentUnits.size()):
-		var roadUnit = currentUnits[unitIndex]
+		var roadUnit = copyUnits[unitIndex]
 		
 		# Percentage goes up speed * delta (Or down if direction is node1)
 		roadUnit.progress += calculateRoadUnitSpeed(roadUnit, delta)

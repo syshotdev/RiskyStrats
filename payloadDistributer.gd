@@ -40,7 +40,6 @@ func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
 		toCheck.remove_at(lowestCostIndex)
 		
 		for neighbor in currentNode.neigbors:
-			print(neighbor)
 			# If it's been checked or it's not our color, don't check it
 			if neighbor in checked or neighbor.currentColor != currentColor:
 				continue
