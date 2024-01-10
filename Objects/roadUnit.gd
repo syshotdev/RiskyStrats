@@ -15,7 +15,6 @@ func _init(color : GameColors.colors, initUnits : float):
 
 
 func _draw():
-	print(position)
 	position = Vector2.ZERO
 	draw_circle(position,calculateCircleSize(units),displayColor)
 
