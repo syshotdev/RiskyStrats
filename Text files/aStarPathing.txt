@@ -1,0 +1,61 @@
+This is now going to take a while.
+A* pathing is an algorithm that returns the path to the destination, [node1,node4,node3]
+It's always the shortest path.
+
+Requirements:
+	1.Returns array of nodes to go to to get to destination
+	2.Returns empty array if no path.
+	3.Always the shortest path
+	4.Doesn't use nodes that aren't it's own on the path. The previous point means, 
+	if there is an obstruction (A node that's not our color for example), it will avoid that node in the calculation.
+	5.Simple algorithm
+	6.Doesn't lag the game (Too much)
+
+
+Pseudo code:
+
+function pathfind(startNode,endNode):
+	# Open and searched
+	openList = only start node
+	searchedList = empty
+	
+	
+	startCost = 0 # From start to this node
+	endCost = startNode.distance_to(endNode)
+	totalCost = startCost + endCost
+	
+	
+	while openList is not empty:
+		currentNode = getNodeWithLowestTotalCost(openList)
+		
+		if currentNode is endNode:
+			return reconstructPath(currentNode)
+		
+		remove currentNode from openList
+		add currentNode to closedList
+		
+		for each neighbor of current
+			if neighbor is in closedList
+				continue to next neighbor
+
+			// Calculate g, h, and f for neighbor
+			tentative_g = g(current) + distance(current, neighbor)
+			if neighbor is not in openList or tentative_g < g(neighbor)
+				// This path to neighbor is better than any previous one
+				g(neighbor) = tentative_g
+				h(neighbor) = heuristic(neighbor, goal)
+				f(neighbor) = g(neighbor) + h(neighbor)
+
+				if neighbor is not in openList
+					add neighbor to openList
+
+	// Open list is empty but goal was never reached
+	return failure
+
+function heuristic(node, goal)
+	// Heuristic function (e.g., Manhattan distance, Euclidean distance)
+
+function reconstruct_path(current)
+	// Construct the path from start to goal by following parent pointers
+
+	

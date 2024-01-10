@@ -1,0 +1,49 @@
+It's a simple concept.
+
+There will be nodes and roads, and the nodes will know their neigbors, and the roads will connect the nodes.
+
+To implement:
+Nodes need to know their neighbors. The only way a node is a neigbor is if a road connects with another node, then they are neigbors.
+
+Currently, roads are the only thing that know which nodes connect. We can extract that data using a simple function like this:
+For every road,
+	Add node2 as node1's neigbor
+	Add node1 as node2's neigbor
+
+
+That's easy, but now we need to pathfind.
+
+Pathfinding takes a startNode, and an endNode and calculates the shortest unblocked route and returns the nodes to get there. Example: [node1, node3, node8, node5]
+If there is no way to get there, it will return null or the current node.
+
+Pathfinding is just a*. Too lazy now to figure it out
+
+
+Next function:
+Description basically pathfind, get the route, send a payload with that route in mind.
+func sendPayload(startNode,endNode, unitAmount):
+	var route = pathfind(startNode,endNode)
+	
+	startNode.sendUnits(route,unitAmount)
+
+
+
+In the nodes, there will be a function to send a unit object (unit amount in the previous example)
+to the next road based on the route.
+
+For example, it's at node1. node1 is connected to node3, node5, node2 and node8, meaning all of those are in the node's "neigbor" list.
+The unit object will be sent to the road corresponding to the node it needs to go to next. I don't know how to do that though because I'd need to keep
+track of the roads connecting to nodes and thats more complex but checking every single road to see if they match the node1 and node3 match would
+be cpu intensive. Whatever, let's just say I solved it.
+Given that conclusion, the unit object would have a "route" variable with the nodes it needs to travel to in order.
+Node1 to node3 to node6 to node15 would look like [node1,node3,node6,node15], and when you get to the next destination you get rid
+of the first element. If the list is empty, the work is done and you just transfer the unit var to the node.
+
+func sendUnits(route,unit);
+	unit.route = route
+	sendToRoad(?)???
+
+Some other things:
+	When given a unit via the processRoadUnit() function, the unit will either be added or sent off again.
+	This will be an automatic operation, meaning the only function other nodes connect with eachother is this
+	function. It basically handles all the game object IO.

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cjpcojig6iwdw"]
 
-[ext_resource type="Script" path="res://Objects/gameNode.gd" id="1_xo6op"]
-[ext_resource type="Script" path="res://Objects/changeColor.gd" id="2_385qc"]
-[ext_resource type="Script" path="res://Objects/Select.gd" id="3_pq1u5"]
+[ext_resource type="Script" path="res://Objects/GameNode/gameNode.gd" id="1_xo6op"]
+[ext_resource type="Script" path="res://Objects/GameNode/changeColor.gd" id="2_385qc"]
+[ext_resource type="Script" path="res://Objects/GameNode/Select.gd" id="3_pq1u5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
 size = Vector2(16, 16)
