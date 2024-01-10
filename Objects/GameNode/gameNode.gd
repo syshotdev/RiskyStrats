@@ -16,7 +16,7 @@ var currentColor : GameColors.colors
 var killRate : float = 0.1
 
 
-func _process(delta):
+func tick(delta):
 	unitAmounts = takeDamage(unitAmounts, delta)
 	updateColorDisplays(unitAmounts)
 

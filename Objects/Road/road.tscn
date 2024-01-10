@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx5e5su7u3ix0"]
+[gd_scene load_steps=2 format=3 uid="uid://cx5e5su7u3ix0"]
 
 [ext_resource type="Script" path="res://Objects/Road/road.gd" id="1_4x3lg"]
-[ext_resource type="PackedScene" uid="uid://bnwaw1kim2ou6" path="res://Objects/Units/road_unit.tscn" id="2_nvxf1"]
 
 [node name="Road" type="Node2D"]
 script = ExtResource("1_4x3lg")
-roadUnitScene = ExtResource("2_nvxf1")
-color = Color(0.0627451, 0.0627451, 0.0627451, 1)
-thickness = 10

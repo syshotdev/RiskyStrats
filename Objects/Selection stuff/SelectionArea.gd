@@ -23,6 +23,7 @@ var gameNodes : Dictionary
 func _ready():
 	changeSelectionType(selectionTypes.RECTANGLE)
 
+
 # I don't know why I need this (to create selection shapes?)
 func changeSelectionType(type : selectionTypes):
 	if type == selectionTypes.RECTANGLE:

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvb7j4gup8mxa"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_0f1fw"]
-[ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/node.tscn" id="1_5ulmy"]
-[ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/road.tscn" id="2_8i177"]
-[ext_resource type="PackedScene" uid="uid://dqshkg4phk7r3" path="res://Objects/selection_area.tscn" id="4_3nvu1"]
+[ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/GameNode/node.tscn" id="1_5ulmy"]
+[ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/Road/road.tscn" id="2_8i177"]
+[ext_resource type="PackedScene" uid="uid://dqshkg4phk7r3" path="res://Objects/Selection stuff/selection_area.tscn" id="4_3nvu1"]
 
 [sub_resource type="Environment" id="Environment_p2hpy"]
 background_mode = 3
@@ -40,9 +40,8 @@ position = Vector2(393, 247)
 
 [node name="Roads" type="Node2D" parent="."]
 
-[node name="Road" parent="Roads" node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
-node1 = NodePath("../../Nodes/Node")
-node2 = NodePath("../../Nodes/Node2")
+[node name="Road" parent="Roads" instance=ExtResource("2_8i177")]
+script = null
 
 [node name="Road2" parent="Roads" node_paths=PackedStringArray("node1", "node2") instance=ExtResource("2_8i177")]
 node1 = NodePath("../../Nodes/Node4")

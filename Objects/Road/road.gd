@@ -23,10 +23,6 @@ func _ready():
 	position = Vector2.ZERO # This is not needed technically but if not at 0,0 it breaks
 
 
-func _process(delta):
-	moveAllRoadUnits(delta)
-
-
 func _draw():
 	drawRoad(node1.global_position,node2.global_position)
 

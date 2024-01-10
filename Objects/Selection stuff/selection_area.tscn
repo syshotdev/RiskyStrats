@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqshkg4phk7r3"]
+[gd_scene load_steps=5 format=3 uid="uid://dqshkg4phk7r3"]
 
 [ext_resource type="Script" path="res://Objects/Selection stuff/SelectionArea.gd" id="1_b4wyq"]
 [ext_resource type="Script" path="res://Objects/Selection stuff/selectionVisual.gd" id="2_27tsf"]
+[ext_resource type="Script" path="res://Objects/Selection stuff/selectionProcesser.gd" id="2_hn7ma"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlpl3"]
 
-[node name="SelectionArea" type="Node2D" node_paths=PackedStringArray("selectionVisual", "selectionShape")]
+[node name="SelectionArea" type="Node2D"]
 script = ExtResource("1_b4wyq")
-selectionVisual = NodePath("SelectionVisual")
-selectionShape = NodePath("Area2D/CollisionShape2D")
+
+[node name="SelectionProcesser" type="Node2D" parent="."]
+script = ExtResource("2_hn7ma")
 
 [node name="SelectionVisual" type="Node2D" parent="."]
 script = ExtResource("2_27tsf")
