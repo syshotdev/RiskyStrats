@@ -15,7 +15,7 @@ var mousePositionStart : Vector2 = Vector2.ZERO
 var mousePositionEnd : Vector2 = Vector2.ZERO
 
 
-func tick():
+func tick(_delta):
 	var leftClickPressed = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	
 	# (if mouse button left click just pressed)

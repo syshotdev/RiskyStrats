@@ -17,8 +17,9 @@ func initPlayer(color : GameColors.colors):
 	currentColor = color
 
 # For initializing
-func updateMap(map : Map):
-	map = map.duplicate()
+func updateMap(newMap : Map):
+	map = newMap.duplicate()
+	map.loadMap(newMap)
 
 # When player wants to send payload, send it
 func onInputSendPayload(amount : int):

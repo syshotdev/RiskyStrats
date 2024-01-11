@@ -6,4 +6,3 @@
 [node name="Road" type="Node2D"]
 script = ExtResource("1_4x3lg")
 roadUnitScene = ExtResource("2_6wq3i")
-color = Color(0.988235, 0.482353, 0.705882, 1)

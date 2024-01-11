@@ -7,6 +7,10 @@ class_name Map
 var roads : Array
 var nodes : Array
 
+func _ready():
+	initMap()
+
+
 # Meant to make the entire game work on a clock rather than _process()
 func tick(delta : float):
 	for road in roads:

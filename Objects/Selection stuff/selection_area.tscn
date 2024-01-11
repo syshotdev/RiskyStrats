@@ -5,8 +5,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlpl3"]
 
-[node name="SelectionArea" type="Node2D"]
+[node name="SelectionArea" type="Node2D" node_paths=PackedStringArray("selectionVisual", "selectionShape")]
 script = ExtResource("1_b4wyq")
+selectionVisual = NodePath("SelectionVisual")
+selectionShape = NodePath("Area2D/CollisionShape2D")
 
 [node name="SelectionVisual" type="Node2D" parent="."]
 script = ExtResource("2_27tsf")

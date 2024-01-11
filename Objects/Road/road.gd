@@ -4,10 +4,10 @@ class_name Road
 
 @export var node1 : GameNode
 @export var node2 : GameNode
-@export var roadUnitScene : PackedScene
+@export var roadUnitScene : PackedScene = preload("res://Objects/Road/road.tscn")
 
 @export var color : Color
-@export var thickness : int
+@export var thickness : int = 10
 
 
 # For ALL RoadUnits
