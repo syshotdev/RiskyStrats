@@ -1,14 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://hd33djnhvcph"]
+[gd_scene load_steps=3 format=3 uid="uid://hd33djnhvcph"]
 
 [ext_resource type="Script" path="res://Objects/Map/Map.gd" id="1_6066k"]
 [ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/GameNode/node.tscn" id="2_4rc3m"]
-[ext_resource type="Script" path="res://Objects/Map/RoadBuildingTool.gd" id="2_hr6pn"]
 
 [node name="Man map" type="Node2D"]
 script = ExtResource("1_6066k")
-
-[node name="RoadBuildingTool" type="Node2D" parent="."]
-script = ExtResource("2_hr6pn")
 
 [node name="Nodes" type="Node2D" parent="."]
 

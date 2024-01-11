@@ -9,7 +9,7 @@ var selectedNodes : Array[GameNode]
 
 # Main ticking functioin
 func _process(delta):
-	inputStuff.tick+(delta)
+	inputStuff.tick(delta)
 	map.tick(delta)
 
 # Initializes this class when the game starts
