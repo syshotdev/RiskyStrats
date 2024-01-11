@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://elf2km00t30"]
+
+[ext_resource type="Script" path="res://Objects/Player (Client)/Player.gd" id="1_jhoao"]
+[ext_resource type="Script" path="res://Objects/Selection stuff/selectionProcesser.gd" id="2_rqjsn"]
+[ext_resource type="PackedScene" uid="uid://dqshkg4phk7r3" path="res://Objects/Selection stuff/selection_area.tscn" id="3_q4ge3"]
+[ext_resource type="Script" path="res://Objects/Map/Map.gd" id="4_idlu1"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("selectionArea", "inputStuff", "map")]
+script = ExtResource("1_jhoao")
+selectionArea = NodePath("SelectionArea")
+inputStuff = NodePath("inputProcesser")
+map = NodePath("Map")
+
+[node name="inputProcesser" type="Node2D" parent="."]
+script = ExtResource("2_rqjsn")
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("4_idlu1")
+
+[node name="Nodes" type="Node2D" parent="Map"]
+
+[node name="Roads" type="Node2D" parent="Map"]
+
+[node name="SelectionArea" parent="." instance=ExtResource("3_q4ge3")]
+
+[connection signal="sendPayload" from="inputProcesser" to="." method="onInputSendPayload"]
+[connection signal="updateSelectionArea" from="inputProcesser" to="." method="updateSelectionArea"]

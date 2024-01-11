@@ -23,6 +23,18 @@ var gameNodes : Dictionary
 func _ready():
 	changeSelectionType(selectionTypes.RECTANGLE)
 
+# Gets the current amount of nodes in an area
+func getNodesInArea(position1 : Vector2, position2 : Vector2):
+	setSelectionArea(position1, position2)
+	return getCurrentNodes()
+
+
+func getCurrentNodes() -> Array[GameNode]:
+	var outputNodes : Array[GameNode] = []
+	for gameNode in gameNodes.keys():
+		outputNodes.append(gameNode.get_parent())
+	
+	return outputNodes
 
 # I don't know why I need this (to create selection shapes?)
 func changeSelectionType(type : selectionTypes):
@@ -52,7 +64,6 @@ func circleSelectionArea(position1 : Vector2, position2 : Vector2):
 	# Shape is circle, set the radius
 	shape.radius = radius
 
-
 # Does all the things to create a selection the size of a rectangle
 func rectSelectionArea(position1 : Vector2, position2 : Vector2):
 	var topLeft := findTopLeftMostCorner(position1, position2)
@@ -75,20 +86,6 @@ func findBottomRightMostCorner(position1 : Vector2, position2 : Vector2) -> Vect
 	var x = max(position1.x, position2.x)
 	var y = max(position1.y, position2.y)
 	return Vector2(x,y)
-
-
-# Gets the current amount of nodes in an area
-func getNodesInArea(position1 : Vector2, position2 : Vector2):
-	setSelectionArea(position1, position2)
-	return getCurrentNodes()
-
-
-func getCurrentNodes() -> Array[GameNode]:
-	var outputNodes : Array[GameNode] = []
-	for gameNode in gameNodes.keys():
-		outputNodes.append(gameNode.get_parent())
-	
-	return outputNodes
 
 
 func selectionEntered(area):

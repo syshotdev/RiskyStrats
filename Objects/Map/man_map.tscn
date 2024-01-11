@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://hd33djnhvcph"]
+
+[ext_resource type="Script" path="res://Objects/Map/Map.gd" id="1_6066k"]
+[ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/GameNode/node.tscn" id="2_4rc3m"]
+[ext_resource type="Script" path="res://Objects/Map/RoadBuildingTool.gd" id="2_hr6pn"]
+
+[node name="Man map" type="Node2D"]
+script = ExtResource("1_6066k")
+
+[node name="RoadBuildingTool" type="Node2D" parent="."]
+script = ExtResource("2_hr6pn")
+
+[node name="Nodes" type="Node2D" parent="."]
+
+[node name="GameNode" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(0, 30)
+
+[node name="GameNode6" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-1, -64)
+
+[node name="GameNode7" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-2, -155)
+
+[node name="GameNode18" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-123, -96)
+
+[node name="GameNode19" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-227, -113)
+
+[node name="GameNode20" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-336, -126)
+
+[node name="GameNode15" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(97, -82)
+
+[node name="GameNode16" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(186, -108)
+
+[node name="GameNode17" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(283, -128)
+
+[node name="GameNode8" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(72, -200)
+
+[node name="GameNode9" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(118, -282)
+
+[node name="GameNode10" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(79, -362)
+
+[node name="GameNode11" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-2, -394)
+
+[node name="GameNode12" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-94, -364)
+
+[node name="GameNode13" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-128, -277)
+
+[node name="GameNode14" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-88, -196)
+
+[node name="GameNode2" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(62, 120)
+
+[node name="GameNode3" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(112, 203)
+
+[node name="GameNode4" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-63, 120)
+
+[node name="GameNode5" parent="Nodes" instance=ExtResource("2_4rc3m")]
+position = Vector2(-112, 217)
+
+[node name="Roads" type="Node2D" parent="."]
