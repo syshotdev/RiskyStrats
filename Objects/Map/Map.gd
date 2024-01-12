@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Map
 
+@export var defaultNodeColor : GameColors.colors
+
 @onready var distributer : PayloadDistributer = PayloadDistributer.new()
 
 var roads : Array
@@ -26,6 +28,9 @@ func initMap():
 	
 	for road in roads:
 		setRoadNodeNeighbors(road)
+	
+	for node in nodes:
+		node.addUnit(Unit.new(defaultNodeColor, 25))
 
 
 # Gets the road's node1 and node2 and sets themselves as neighbors
