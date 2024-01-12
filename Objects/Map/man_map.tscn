@@ -100,3 +100,5 @@ node2 = NodePath("../../Nodes/GameNode16")
 script = ExtResource("3_58plg")
 node1 = NodePath("../../Nodes/GameNode16")
 node2 = NodePath("../../Nodes/GameNode17")
+
+[editable path="Nodes/GameNode"]
