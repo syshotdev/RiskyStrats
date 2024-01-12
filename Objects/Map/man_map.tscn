@@ -75,3 +75,28 @@ position = Vector2(-112, 217)
 script = ExtResource("3_58plg")
 node1 = NodePath("../../Nodes/GameNode")
 node2 = NodePath("../../Nodes/GameNode6")
+
+[node name="Road2" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+script = ExtResource("3_58plg")
+node1 = NodePath("../../Nodes/GameNode6")
+node2 = NodePath("../../Nodes/GameNode7")
+
+[node name="Road3" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+script = ExtResource("3_58plg")
+node1 = NodePath("../../Nodes/GameNode6")
+node2 = NodePath("../../Nodes/GameNode7")
+
+[node name="Road4" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+script = ExtResource("3_58plg")
+node1 = NodePath("../../Nodes/GameNode6")
+node2 = NodePath("../../Nodes/GameNode15")
+
+[node name="Road5" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+script = ExtResource("3_58plg")
+node1 = NodePath("../../Nodes/GameNode15")
+node2 = NodePath("../../Nodes/GameNode16")
+
+[node name="Road6" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+script = ExtResource("3_58plg")
+node1 = NodePath("../../Nodes/GameNode16")
+node2 = NodePath("../../Nodes/GameNode17")
