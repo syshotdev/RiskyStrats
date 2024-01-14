@@ -4,7 +4,7 @@ extends Node2D
 @export var inputStuff : Node2D
 @export var map : Map
 
-var currentColor : GameColors.colors = GameColors.colors.BLUE
+var currentColor : GameColors.colors = GameColors.colors.PURPLE
 var selectedNodes : Array[GameNode]
 
 # Main ticking functioin

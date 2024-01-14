@@ -14,7 +14,7 @@ defaultNodeColor = 2
 position = Vector2(0, 30)
 
 [node name="GameNode6" parent="Nodes" instance=ExtResource("2_4rc3m")]
-position = Vector2(-1, -64)
+position = Vector2(0, -101)
 
 [node name="GameNode7" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -155)

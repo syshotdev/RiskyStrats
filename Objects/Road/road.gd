@@ -35,21 +35,22 @@ func drawRoad(position1 : Vector2, position2 : Vector2):
 # Also the function that the "node1" or "node2" calls to send a unit payload
 func addUnitToRoad(roadUnit : RoadUnit):
 	# So it doesnt jank
-	roadUnit.position = Vector2.ZERO
 	roadUnit.progress = 0
 	
 	currentUnits.append(roadUnit)
-	add_child(roadUnit)
+	# To fix annoying bug where not removed from other parents
+	if(roadUnit.get_parent() == null):
+		add_child(roadUnit)
 
 
 func moveAllRoadUnits(delta):
 	var copyUnits := currentUnits.duplicate(true)
 	for unitIndex in range(currentUnits.size()):
-		var roadUnit = copyUnits[unitIndex]
+		var roadUnit : RoadUnit = copyUnits[unitIndex]
 		
-		# Percentage goes up speed * delta (Or down if direction is node1)
+			# Percentage goes up speed * delta (Or down if direction is node1)
 		roadUnit.progress += calculateRoadUnitSpeed(roadUnit, delta)
-		roadUnit.position = calculateRoadUnitPosition(roadUnit)
+		roadUnit.global_position = calculateRoadUnitPosition(roadUnit)
 		
 		# Tries to merge with node1 or node2, and if it does, it gives success = true
 		var success = tryMergeWithNearestNode(roadUnit)
@@ -57,7 +58,7 @@ func moveAllRoadUnits(delta):
 		# If success, remove it from things
 		if(success):
 			currentUnits.remove_at(unitIndex)
-			roadUnit.queue_free()
+
 
 # Calculates road unit position based on it's progress on the road
 func calculateRoadUnitPosition(roadUnit : RoadUnit):

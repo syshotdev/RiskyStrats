@@ -47,13 +47,12 @@ func sendRoadUnit(roadUnit : RoadUnit):
 	roadUnit.toSecondNode = road.node1 == self
 	
 	# Exact replica so it doesn't confuse the engine
-	var newRoadUnit = RoadUnit.new(roadUnit.currentColor,roadUnit.units)
+	var newRoadUnit := RoadUnit.new(roadUnit.currentColor,roadUnit.units)
 	newRoadUnit.route = roadUnit.route
 	newRoadUnit.toSecondNode = roadUnit.toSecondNode
-	road.addUnitToRoad(newRoadUnit)
+	road.addUnitToRoad(roadUnit)
 	
 	# Free the last used thing as it won't be used again
-	roadUnit.queue_free()
 
 # From this node to the node specified, which road is it?
 func getRoadToNode(node : GameNode) -> Road:
@@ -63,6 +62,7 @@ func getRoadToNode(node : GameNode) -> Road:
 func addRoadUnit(roadUnit : RoadUnit):
 	var unit := Unit.new(roadUnit.currentColor, roadUnit.units)
 	addUnit(unit)
+	roadUnit.queue_free()
 
 # Adds it to the dictionary which is just "color, amount"
 func addUnit(unit : Unit):

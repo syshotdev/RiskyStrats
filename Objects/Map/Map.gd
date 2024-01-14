@@ -47,9 +47,22 @@ func loadMap(map : Map):
 	roads = map.roads.duplicate()
 
 
-# Sends a payload
+# Sends payloads to destination with some ifs
 func sendPayload(selectedNodes, nodeDestination, unit : Unit):
-	for node in selectedNodes:
-		# Add some checking to see if the nodes have enough "unit" to send
+	for node : GameNode in selectedNodes:
+		var color := unit.currentColor
+		var maxUnitsCanSend : float = min(node.unitAmounts[color], unit.units) - 1
 		
-		distributer.sendPayload(node, nodeDestination, unit)
+		# If this isn't our node, don't send our unit
+		if(color != node.currentColor):
+			continue
+		
+		# If can't send units, don't
+		if(maxUnitsCanSend <= 0):
+			continue
+		
+		var newUnit : Unit = Unit.new(color, maxUnitsCanSend)
+		newUnit.units = maxUnitsCanSend
+		node.unitAmounts[color] -= maxUnitsCanSend
+		
+		distributer.sendPayload(node, nodeDestination, newUnit)
