@@ -23,6 +23,7 @@ var gameNodes : Dictionary
 func _ready():
 	changeSelectionType(selectionTypes.RECTANGLE)
 
+
 # Gets the current amount of nodes in an area
 func getNodesInArea(position1 : Vector2, position2 : Vector2):
 	setSelectionArea(position1, position2)
@@ -89,8 +90,10 @@ func findBottomRightMostCorner(position1 : Vector2, position2 : Vector2) -> Vect
 
 
 func selectionEntered(area):
-	gameNodes[area] = 0.0
+	if(area.get_parent() is GameNode):
+		gameNodes[area] = 0.0
 
 
 func selectionExited(area):
-	gameNodes.erase(area)
+	if(area.get_parent() is GameNode):
+		gameNodes.erase(area)

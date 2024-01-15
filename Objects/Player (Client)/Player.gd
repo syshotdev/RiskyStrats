@@ -1,11 +1,13 @@
 extends Node2D
 
 @export var selectionArea : SelectionArea
+@export var nodeChecker : HoveredNode
 @export var inputStuff : Node2D
 @export var map : Map
 
 var currentColor : GameColors.colors = GameColors.colors.PURPLE
 var selectedNodes : Array[GameNode]
+var hoveredNode : GameNode
 
 # Main ticking functioin
 func _process(delta):
@@ -23,8 +25,17 @@ func updateMap(newMap : Map):
 
 # When player wants to send payload, send it
 func onInputSendPayload(amount : int):
-	map.sendPayload(selectedNodes, map.nodes[0], Unit.new(currentColor, amount))
+	# If the node that we try to path to is null, don't path
+	if(hoveredNode == null):
+		return
+	
+	# From nodes, to node, unit to send
+	map.sendPayload(selectedNodes, hoveredNode, Unit.new(currentColor, amount))
 
 # For when player uses mouse to do area
 func updateSelectionArea(pos1, pos2):
 	selectedNodes = selectionArea.getNodesInArea(pos1, pos2)
+
+# Check the current hovered node (If there is one)
+func checkHoveredNode(pos):
+	hoveredNode = nodeChecker.getHoveredNode(pos)

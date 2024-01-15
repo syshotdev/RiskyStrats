@@ -13,7 +13,7 @@ var unitAmounts : Dictionary = {} # Key color, value amount
 @export var currentColor : GameColors.colors
 
 # The rate at which one soldier can kill another per unit of time
-var killRate : float = 0.1
+var killRate : float = 0.02
 
 
 func tick(delta):

@@ -1,6 +1,7 @@
 extends Node2D
 
 signal updateSelectionArea(pos1, pos2)
+signal updateHoveredNode(pos)
 signal sendPayload(amount : int)
 
 # Values to send
@@ -36,6 +37,7 @@ func _input(event):
 	
 	# If mouse moved, send area 
 	if event is InputEventMouseMotion:
+		sendCheckHoveredNode()
 		sendSelectionArea()
 	
 	
@@ -51,3 +53,6 @@ func _input(event):
 
 func sendSelectionArea():
 	updateSelectionArea.emit(mousePositionStart, mousePositionEnd)
+
+func sendCheckHoveredNode():
+	updateHoveredNode.emit(get_global_mouse_position())
