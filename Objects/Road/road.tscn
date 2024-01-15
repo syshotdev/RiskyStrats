@@ -4,5 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bnwaw1kim2ou6" path="res://Objects/Units/road_unit.tscn" id="2_6wq3i"]
 
 [node name="Road" type="Node2D"]
+z_index = -1
 script = ExtResource("1_4x3lg")
 roadUnitScene = ExtResource("2_6wq3i")

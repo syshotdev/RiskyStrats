@@ -3,7 +3,7 @@ extends Node
 class_name PayloadDistributer
 
 
-# Simple. Pathfinds a way to endNode, asks startNode to send a unit with the route and units, colors later.
+# Simple. Pathfinds a way to endNode, asks startNode to send a unit with the route and units
 func sendPayload(startNode : GameNode, endNode : GameNode, unit : Unit):
 	var route = pathfind(startNode, endNode)
 	
@@ -39,9 +39,14 @@ func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
 		checked.append(currentNode)
 		toCheck.remove_at(lowestCostIndex)
 		
+		# To fix not able to send to different color.
+		# If current node is not our node, don't include in path search.
+		if(currentNode.currentColor != startNode.currentColor):
+			continue
+		
 		for neighbor in currentNode.neigbors:
 			# If it's been checked or it's not our color, don't check it
-			if neighbor in checked or neighbor.currentColor != currentColor:
+			if neighbor in checked:
 				continue
 			
 			toCheck.append(neighbor)

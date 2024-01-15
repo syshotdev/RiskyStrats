@@ -31,6 +31,10 @@ func initMap():
 	
 	for node in nodes:
 		node.addUnit(Unit.new(defaultNodeColor, 25))
+	
+	# TEST FOR PAYLOAD SCRIPT, REMOVE LATER
+	if nodes.size() > 0:
+		nodes[0].addUnit(Unit.new(GameColors.colors.YELLOW, 300))
 
 
 # Gets the road's node1 and node2 and sets themselves as neighbors
@@ -51,11 +55,12 @@ func loadMap(map : Map):
 func sendPayload(selectedNodes, nodeDestination, unit : Unit):
 	for node : GameNode in selectedNodes:
 		var color := unit.currentColor
-		var maxUnitsCanSend : float = min(node.unitAmounts[color], unit.units) - 1
 		
 		# If this isn't our node, don't send our unit
 		if(color != node.currentColor):
 			continue
+		# Moved here because bug
+		var maxUnitsCanSend : float = min(node.unitAmounts[color], unit.units) - 1
 		
 		# If can't send units, don't
 		if(maxUnitsCanSend <= 0):

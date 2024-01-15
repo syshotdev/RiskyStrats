@@ -34,7 +34,7 @@ func eraseLabelBoxChildren():
 # Returns a label with a color and text
 func createTextWithColor(text : String, color : GameColors.colors):
 	# This exists to decipher number amounts when same color as color rect
-	var colorOffset : Color = Color(0.1,0.1,0.1,0.0)
+	var colorOffset : Color = Color(0.2,0.2,0.2,0.0)
 	var labelColor : Color = GameColors.getColorFromEnum(color) - colorOffset
 	labelColor = clampColor(labelColor)
 	

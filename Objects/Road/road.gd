@@ -19,6 +19,7 @@ var currentUnits : Array[RoadUnit]
 
 
 func _ready():
+	z_index = -1 # Fix road on node problem
 	roadLength = node1.position.distance_to(node2.position) # Find road length
 	position = Vector2.ZERO # This is not needed technically but if not at 0,0 it breaks
 
@@ -36,6 +37,9 @@ func drawRoad(position1 : Vector2, position2 : Vector2):
 func addUnitToRoad(roadUnit : RoadUnit):
 	# So it doesnt jank
 	roadUnit.progress = 0
+	
+	# On top of node and road
+	roadUnit.z_index = 1
 	
 	currentUnits.append(roadUnit)
 	# To fix annoying bug where not removed from other parents
@@ -58,7 +62,6 @@ func moveAllRoadUnits(delta):
 		# If success, remove it from things
 		if(success):
 			currentUnits.remove_at(unitIndex)
-
 
 # Calculates road unit position based on it's progress on the road
 func calculateRoadUnitPosition(roadUnit : RoadUnit):
