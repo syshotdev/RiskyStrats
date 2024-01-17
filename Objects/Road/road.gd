@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 
 class_name Road
@@ -6,8 +7,8 @@ class_name Road
 @export var node2 : GameNode
 @export var roadUnitScene : PackedScene = preload("res://Objects/Road/road.tscn")
 
-@export var color : Color
 @export var thickness : int = 10
+@export var color : Color
 
 
 # For ALL RoadUnits
@@ -25,12 +26,11 @@ func _ready():
 
 
 func _draw():
-	drawRoad(node1.global_position,node2.global_position)
+	drawLine(node1.global_position, node2.global_position)
 
 
-func drawRoad(position1 : Vector2, position2 : Vector2):
-	draw_line(position1, position2, color, thickness)
-
+func drawLine(pos1 : Vector2, pos2 : Vector2):
+	draw_line(pos1, pos2, color, thickness)
 
 # Adds the road to all the nessesary variables to keep track of.
 # Also the function that the "node1" or "node2" calls to send a unit payload

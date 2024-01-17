@@ -4,3 +4,6 @@
 
 [node name="ShapeVisualizer" type="Node2D"]
 script = ExtResource("1_fbk8s")
+thickness = 10.0
+radius = null
+to = null
