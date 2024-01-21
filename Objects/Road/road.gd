@@ -16,7 +16,8 @@ const nodeSpeed = 100
 var roadLength # Calculated in ready
 
 # For each road unit, to move them all along the road and keep track of them
-var currentUnits : Array[RoadUnit]
+# (Key roadunit : Value 0)
+var currentUnits : Dictionary
 
 
 func _ready():
@@ -41,18 +42,20 @@ func addUnitToRoad(roadUnit : RoadUnit):
 	# On top of node and road
 	roadUnit.z_index = 1
 	
-	currentUnits.append(roadUnit)
+	roadUnit.remove.connect(removeRoadUnit)
+	
+	currentUnits[roadUnit] = 0
 	# To fix annoying bug where not removed from other parents
 	if(roadUnit.get_parent() == null):
 		add_child(roadUnit)
 
 
 func moveAllRoadUnits(delta):
-	var copyUnits := currentUnits.duplicate(true)
-	for unitIndex in range(currentUnits.size()):
-		var roadUnit : RoadUnit = copyUnits[unitIndex]
-		
-			# Percentage goes up speed * delta (Or down if direction is node1)
+	# Array for all of the units that are marked for removal
+	var toRemove : Array[RoadUnit] = []
+	
+	for roadUnit in currentUnits.keys():
+		# Percentage goes up speed * delta (Or down if direction is node1)
 		roadUnit.progress += calculateRoadUnitSpeed(roadUnit, delta)
 		roadUnit.global_position = calculateRoadUnitPosition(roadUnit)
 		
@@ -61,7 +64,10 @@ func moveAllRoadUnits(delta):
 		
 		# If success, remove it from things
 		if(success):
-			currentUnits.remove_at(unitIndex)
+			toRemove.append(roadUnit)
+	
+	for roadUnit in toRemove:
+		removeRoadUnit(roadUnit)
 
 # Calculates road unit position based on it's progress on the road
 func calculateRoadUnitPosition(roadUnit : RoadUnit):
@@ -95,6 +101,11 @@ func tryMergeWithNearestNode(roadUnit : RoadUnit):
 	
 	return true
 
+# General function for removing road units from existence
+func removeRoadUnit(roadUnit : RoadUnit):
+	currentUnits.erase(roadUnit)
+	roadUnit.queue_free()
+
 # How much the roadUnit should move per second
 func calculateRoadUnitSpeed(roadUnit : RoadUnit, delta : float):
 	var speed = 0
@@ -102,6 +113,3 @@ func calculateRoadUnitSpeed(roadUnit : RoadUnit, delta : float):
 	# As the units increase, the slower it will go. It will only get about 3x slower at 100 units, 4x slower at 1000, and so on.
 	speed = nodeSpeed / (log(roadUnit.units) + 1)
 	return speed * delta
-
-func mergeRoadUnit():
-	pass

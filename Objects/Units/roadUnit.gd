@@ -21,6 +21,7 @@ var progress : float = 0.0
 func _init(color : GameColors.colors, initUnits : float):
 	super(color, initUnits)
 	displayColor = GameColors.getColorFromEnum(currentColor)
+	
 	initMergeArea()
 
 
@@ -54,7 +55,7 @@ func merge(roadUnit : RoadUnit):
 	units = roadUnit.units + units
 	roadUnit.units = 0
 	# Get rid of it!
-	roadUnit.remove.emit()
+	roadUnit.remove.emit(roadUnit)
 	
 	# Update size
 	queue_redraw()

@@ -5,9 +5,9 @@ signal updateHoveredNode(pos)
 signal sendPayload(amount : int)
 
 # Values to send
-var tier1 := 80
-var tier2 := 160
-var tier3 := 1024
+var tier1 := 5
+var tier2 := 80
+var tier3 := 400
 var tier4 := 4096
 
 # Selection area stuff
