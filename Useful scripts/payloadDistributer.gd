@@ -57,7 +57,7 @@ func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
 	return []
 
 
-func calculatePathBack(startNode : GameNode, endNode : GameNode, nodeParent : Dictionary) -> Array[GameNode]:
+func calculatePathBack(endNode : GameNode, nodeParent : Dictionary) -> Array[GameNode]:
 	var currentNode := endNode
 	var route : Array[GameNode] = []
 	

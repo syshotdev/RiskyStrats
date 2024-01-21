@@ -6,7 +6,7 @@ class_name RoadUnit
 signal remove()
 
 # Creates a merge area to avoid sooo many problems
-@onready var mergeArea = preload("res://Objects/Units/merge_area.tscn").instantiate()
+@onready var mergeArea : MergeArea
 
 # Visual stuff
 var displayColor : Color
@@ -21,21 +21,23 @@ var progress : float = 0.0
 func _init(color : GameColors.colors, initUnits : float):
 	super(color, initUnits)
 	displayColor = GameColors.getColorFromEnum(currentColor)
-	add_child(mergeArea)
+	initMergeArea()
 
 
 # all of the merging stuff
 func initMergeArea():
-	var shape := CollisionShape2D.new()
-	shape.shape = CircleShape2D.new()
 	mergeArea = MergeArea.new()
 	add_child(mergeArea)
-	mergeArea.add_child(shape)
 	mergeArea.setRadius(radius)
+	mergeArea.roadUnitEntered.connect(merge)
+
 
 func _draw():
+	#Things 
 	position = Vector2.ZERO
 	radius = calculateCircleSize(units)
+	
+	# Stuff to keep track of size
 	draw_circle(position, radius, displayColor)
 	mergeArea.setRadius(radius)
 
@@ -48,9 +50,14 @@ func merge(roadUnit : RoadUnit):
 	if(roadUnit.units > self.units):
 		return
 	
+	# Set my units
 	units = roadUnit.units + units
 	roadUnit.units = 0
-	roadUnit.emit_signal("remove")
+	# Get rid of it!
+	roadUnit.remove.emit()
+	
+	# Update size
+	queue_redraw()
 
 # Chatgpt made this basically lol: f(x)=log(100000)49log(b)​⋅log(x)+1,
 func calculateCircleSize(number : float):
@@ -60,8 +67,3 @@ func calculateCircleSize(number : float):
 
 func setColor():
 	displayColor = GameColors.getColorFromEnum(currentColor)
-
-
-func areaEntered(area):
-	if(area is RoadUnit):
-		merge(area)

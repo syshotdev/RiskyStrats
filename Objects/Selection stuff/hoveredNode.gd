@@ -6,8 +6,8 @@ class_name HoveredNode
 
 var nodesInArea : Dictionary
 
-func getHoveredNode(position : Vector2) -> GameNode:
-	checkingArea.position = position
+func getHoveredNode(positionToCheck : Vector2) -> GameNode:
+	checkingArea.position = positionToCheck
 	
 	if(nodesInArea.size() > 0):
 		# Get first node in array
