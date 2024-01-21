@@ -33,7 +33,7 @@ func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
 		
 		# If we've found the goal, end search
 		if(currentNode == endNode):
-			return calculatePathBack(startNode,endNode,nodeParent) # Return the array
+			return calculatePathBack(endNode,nodeParent) # Return the array
 		
 		# Remove current node from the search
 		checked.append(currentNode)
