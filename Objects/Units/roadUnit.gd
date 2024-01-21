@@ -2,9 +2,18 @@ extends Unit
 
 class_name RoadUnit
 
-var route : Array[GameNode] = []
+# Remove this road unit (sent to the road housing this road unit)
+signal remove()
 
+# Creates a merge area to avoid sooo many problems
+@onready var mergeArea = preload("res://Objects/Units/merge_area.tscn").instantiate()
+
+# Visual stuff
 var displayColor : Color
+var radius : float = calculateCircleSize(units)
+
+# Routing stuff
+var route : Array[GameNode] = []
 var toSecondNode : bool = true
 var progress : float = 0.0
 
@@ -12,17 +21,47 @@ var progress : float = 0.0
 func _init(color : GameColors.colors, initUnits : float):
 	super(color, initUnits)
 	displayColor = GameColors.getColorFromEnum(currentColor)
+	add_child(mergeArea)
 
+
+# all of the merging stuff
+func initMergeArea():
+	var shape := CollisionShape2D.new()
+	shape.shape = CircleShape2D.new()
+	mergeArea = MergeArea.new()
+	add_child(mergeArea)
+	mergeArea.add_child(shape)
+	mergeArea.setRadius(radius)
 
 func _draw():
 	position = Vector2.ZERO
-	draw_circle(position,calculateCircleSize(units),displayColor)
+	radius = calculateCircleSize(units)
+	draw_circle(position, radius, displayColor)
+	mergeArea.setRadius(radius)
 
 
-func setColor():
-	displayColor = GameColors.getColorFromEnum(currentColor)
+func merge(roadUnit : RoadUnit):
+	if(roadUnit.currentColor != currentColor):
+		return
+	
+	# If they have more units than I, return
+	if(roadUnit.units > self.units):
+		return
+	
+	units = roadUnit.units + units
+	roadUnit.units = 0
+	roadUnit.emit_signal("remove")
 
 # Chatgpt made this basically lol: f(x)=log(100000)49log(b)​⋅log(x)+1,
 func calculateCircleSize(number : float):
 	var output = 49.0 / 5.0 * log(number) / log(10) + 1  # Using log10(x) formula
 	return output
+
+
+func setColor():
+	displayColor = GameColors.getColorFromEnum(currentColor)
+
+
+func areaEntered(area):
+	if(area is RoadUnit):
+		merge(area)

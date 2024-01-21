@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnwaw1kim2ou6"]
+[gd_scene load_steps=3 format=3 uid="uid://bnwaw1kim2ou6"]
 
 [ext_resource type="Script" path="res://Objects/Units/roadUnit.gd" id="1_ck66g"]
+[ext_resource type="PackedScene" uid="uid://cbcox4ccp4yjv" path="res://Objects/Units/merge_area.tscn" id="2_7inng"]
 
 [node name="RoadUnit" type="Node2D"]
 script = ExtResource("1_ck66g")
+
+[node name="MergeArea" parent="." instance=ExtResource("2_7inng")]

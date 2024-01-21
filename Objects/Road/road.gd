@@ -5,7 +5,7 @@ class_name Road
 
 @export var node1 : GameNode
 @export var node2 : GameNode
-@export var roadUnitScene : PackedScene = preload("res://Objects/Road/road.tscn")
+@export var roadUnitScene : PackedScene = preload("res://Objects/Units/road_unit.tscn")
 
 @export var thickness : int = 10
 @export var color : Color
@@ -102,3 +102,6 @@ func calculateRoadUnitSpeed(roadUnit : RoadUnit, delta : float):
 	# As the units increase, the slower it will go. It will only get about 3x slower at 100 units, 4x slower at 1000, and so on.
 	speed = nodeSpeed / (log(roadUnit.units) + 1)
 	return speed * delta
+
+func mergeRoadUnit():
+	pass
