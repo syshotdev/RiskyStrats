@@ -51,9 +51,6 @@ func addUnitToRoad(roadUnit : RoadUnit):
 
 
 func moveAllRoadUnits(delta):
-	# Array for all of the units that are marked for removal
-	var toRemove : Array[RoadUnit] = []
-	
 	for roadUnit in currentUnits.keys():
 		# Percentage goes up speed * delta (Or down if direction is node1)
 		roadUnit.progress += calculateRoadUnitSpeed(roadUnit, delta)
@@ -64,10 +61,7 @@ func moveAllRoadUnits(delta):
 		
 		# If success, remove it from things
 		if(success):
-			toRemove.append(roadUnit)
-	
-	for roadUnit in toRemove:
-		removeRoadUnit(roadUnit)
+			currentUnits.erase(roadUnit)
 
 # Calculates road unit position based on it's progress on the road
 func calculateRoadUnitPosition(roadUnit : RoadUnit):

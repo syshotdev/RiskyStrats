@@ -46,13 +46,9 @@ func sendRoadUnit(roadUnit : RoadUnit):
 	# If road.node1 == self, that means we are node1. We should then send to node2.
 	roadUnit.toSecondNode = road.node1 == self
 	
-	# Exact replica so it doesn't confuse the engine
-	var newRoadUnit := RoadUnit.new(roadUnit.currentColor,roadUnit.units)
-	newRoadUnit.route = roadUnit.route
-	newRoadUnit.toSecondNode = roadUnit.toSecondNode
+	# Forward unit, don't queue_free() it
 	road.addUnitToRoad(roadUnit)
-	
-	# Free the last used thing as it won't be used again
+
 
 # From this node to the node specified, which road is it?
 func getRoadToNode(node : GameNode) -> Road:
