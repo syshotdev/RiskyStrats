@@ -36,11 +36,11 @@ func drawLine(pos1, pos2):
 	draw_line(pos1, pos2, color, thickness)
 
 
-func drawCircle(radius : int, color : Color):
-	draw_circle(position, radius, color)
+func drawCircle(newRadius : int, newColor : Color):
+	draw_circle(position, newRadius, newColor)
 
 
-func drawHollowCircle(radius : int, thickness : int, color : Color):
-	drawCircle(radius, color)
+func drawHollowCircle(newRadius : int, _thickness : int, newColor : Color):
+	drawCircle(newRadius, newColor)
 	# Draw circle to mask out the first circle to make hollow
 	#drawCircle(radius - thickness, Color(color, 0))

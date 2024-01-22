@@ -8,9 +8,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
 size = Vector2(40, 40)
 
-[node name="GameNode" type="Node2D" node_paths=PackedStringArray("whiteCircle")]
+[node name="GameNode" type="Node2D"]
 script = ExtResource("1_xo6op")
-whiteCircle = NodePath("ShapeVisualizer")
 
 [node name="ShapeVisualizer" type="Node2D" parent="."]
 script = ExtResource("2_vqord")
@@ -20,6 +19,14 @@ color = Color(0.776471, 0.776471, 0.776471, 1)
 canvasLayer = 1
 thickness = 3.0
 radius = 33.0
+
+[node name="SelectionArea2D" type="Area2D" parent="." node_paths=PackedStringArray("whiteCircle")]
+script = ExtResource("3_pq1u5")
+whiteCircle = NodePath("../ShapeVisualizer")
+
+[node name="Area" type="CollisionShape2D" parent="SelectionArea2D"]
+shape = SubResource("RectangleShape2D_kh0e4")
+debug_color = Color(0, 0, 0, 0.368627)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -63,15 +70,8 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SelectionArea2D" type="Area2D" parent="."]
-script = ExtResource("3_pq1u5")
-
-[node name="Area" type="CollisionShape2D" parent="SelectionArea2D"]
-shape = SubResource("RectangleShape2D_kh0e4")
-debug_color = Color(0, 0, 0, 0.368627)
-
 [connection signal="addColorToDisplay" from="." to="Control" method="updateColorDisplay"]
 [connection signal="changeNodeColor" from="." to="Control" method="changeColor"]
 [connection signal="area_entered" from="SelectionArea2D" to="SelectionArea2D" method="areaEntered"]
 [connection signal="area_exited" from="SelectionArea2D" to="SelectionArea2D" method="areaExited"]
-[connection signal="selected" from="SelectionArea2D" to="." method="onSelected"]
+[connection signal="selected" from="SelectionArea2D" to="SelectionArea2D" method="onSelected"]

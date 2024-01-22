@@ -5,9 +5,17 @@ class_name GameNode
 signal addColorToDisplay(units : Array[Unit])
 signal changeNodeColor(color : GameColors.colors)
 
+enum typeOfBuildings{
+	NONE,
+	FACTORY,
+	FORT,
+	REACTOR,
+	ARTILLERY,
+}
+
 
 @export var currentColor : GameColors.colors
-@export var whiteCircle : ShapeVisualizer
+@export var currentBuildingType : typeOfBuildings
 
 var neigbors : Array[GameNode] = []
 var neigborRoads : Dictionary = {} # Key node, value road
@@ -15,11 +23,22 @@ var unitAmounts : Dictionary = {} # Key color, value amount
 
 # The rate at which one soldier can kill another per unit of time
 var killRate : float = 0.02
+# Rate this node generates units per second
+var genRate : float = 10.0
 
 
 func tick(delta):
 	unitAmounts = takeDamage(unitAmounts, delta)
 	updateColorDisplays(unitAmounts)
+	doStuffBasedOnBuildingType(delta)
+
+
+func doStuffBasedOnBuildingType(delta : float):
+	if(unitAmounts.size() <= 0):
+		return
+	
+	if(currentBuildingType == typeOfBuildings.FACTORY):
+		unitAmounts[currentColor] += genRate * delta
 
 
 # Adds a neighbor and associates that neighbor with the road.
@@ -49,7 +68,6 @@ func sendRoadUnit(roadUnit : RoadUnit):
 	
 	# Forward unit, don't queue_free() it
 	road.addUnitToRoad(roadUnit)
-
 
 # From this node to the node specified, which road is it?
 func getRoadToNode(node : GameNode) -> Road:
@@ -91,7 +109,6 @@ func takeDamage(colorUnits : Dictionary, delta : float) -> Dictionary:
 		changeCurrentColorToBiggestColor(colorUnits)
 	
 	var enemyUnits := getEnemyUnits(colorUnits)
-	
 	# Current amount of our own color in this node
 	var currentUnits : float = colorUnits[currentColor]
 	
@@ -136,7 +153,7 @@ func getEnemyUnits(colorUnits : Dictionary) -> Array[Unit]:
 	
 	return units
 
-
+# Does what it says
 func ridOfEmptySlots(dictionary : Dictionary) -> Dictionary:
 	for key in dictionary.keys():
 		if(dictionary[key] <= 0):
@@ -171,11 +188,3 @@ func updateColorDisplays(colorUnits : Dictionary):
 	
 	# Sends a signal to update color rect
 	changeNodeColor.emit(currentColor)
-
-# These functions are for white selection circle thing
-func onSelected(boolean):
-	whiteCircleToggle(boolean)
-
-func whiteCircleToggle(isVisible : bool):
-	if(whiteCircle != null):
-		whiteCircle.visible = isVisible

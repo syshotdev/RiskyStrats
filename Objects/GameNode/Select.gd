@@ -2,6 +2,8 @@ extends Area2D
 
 signal selected(boolean : bool)
 
+@export var whiteCircle : ShapeVisualizer
+
 # Keeps track of the amount of things that have selected this
 var howManySelected : int = 0
 
@@ -28,7 +30,6 @@ func areaExited(area : Area2D):
 	
 	selected.emit(false)
 
-
 # Checks if selection area or hovered node selection
 func isSelectable(area):
 	if(area.get_parent() is SelectionArea):
@@ -36,3 +37,13 @@ func isSelectable(area):
 	elif(area is HoveredNode):
 		return true
 	return false
+
+
+func onSelected(boolean):
+	whiteCircleToggle(boolean)
+
+
+func whiteCircleToggle(isVisible : bool):
+	# Too lazy to implement other things to automatically check nullness
+	if(whiteCircle != null):
+		whiteCircle.visible = isVisible

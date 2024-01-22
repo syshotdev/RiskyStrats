@@ -28,6 +28,7 @@ position = Vector2(-227, -113)
 
 [node name="GameNode20" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-336, -126)
+currentBuildingType = 1
 
 [node name="GameNode15" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(97, -82)
