@@ -90,10 +90,14 @@ func findBottomRightMostCorner(position1 : Vector2, position2 : Vector2) -> Vect
 
 
 func selectionEntered(area):
-	if(area.get_parent() is GameNode):
-		gameNodes[area] = 0.0
+	if(isGameNode(area)):
+		gameNodes[area] = 0
 
 
 func selectionExited(area):
-	if(area.get_parent() is GameNode):
+	if(isGameNode(area)):
 		gameNodes.erase(area)
+
+
+func isGameNode(area) -> bool:
+	return area.get_parent() is GameNode

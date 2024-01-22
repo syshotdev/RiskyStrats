@@ -27,7 +27,8 @@ func _ready():
 
 
 func _draw():
-	drawLine(node1.global_position, node2.global_position)
+	if(node1 != null and node2 != null):
+		drawLine(node1.global_position, node2.global_position)
 
 
 func drawLine(pos1 : Vector2, pos2 : Vector2):

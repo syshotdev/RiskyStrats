@@ -8,11 +8,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
 size = Vector2(40, 40)
 
-[node name="GameNode" type="Node2D"]
+[node name="GameNode" type="Node2D" node_paths=PackedStringArray("whiteCircle")]
 script = ExtResource("1_xo6op")
+whiteCircle = NodePath("ShapeVisualizer")
 
 [node name="ShapeVisualizer" type="Node2D" parent="."]
 script = ExtResource("2_vqord")
+defaultVisiblity = false
 shapeToDraw = 1
 color = Color(0.776471, 0.776471, 0.776471, 1)
 canvasLayer = 1
@@ -70,4 +72,6 @@ debug_color = Color(0, 0, 0, 0.368627)
 
 [connection signal="addColorToDisplay" from="." to="Control" method="updateColorDisplay"]
 [connection signal="changeNodeColor" from="." to="Control" method="changeColor"]
-[connection signal="selectionChanged" from="SelectionArea2D" to="." method="onSelected"]
+[connection signal="area_entered" from="SelectionArea2D" to="SelectionArea2D" method="areaEntered"]
+[connection signal="area_exited" from="SelectionArea2D" to="SelectionArea2D" method="areaExited"]
+[connection signal="selected" from="SelectionArea2D" to="." method="onSelected"]

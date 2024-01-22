@@ -143,11 +143,6 @@ func ridOfEmptySlots(dictionary : Dictionary) -> Dictionary:
 			dictionary.erase(key)
 	return dictionary
 
-# When selection updated, turn on white circle to show selection
-func onSelected(selected):
-	# While circle script here
-	whiteCircle.visible = selected
-
 
 func changeCurrentColorToBiggestColor(colorUnits):
 	var biggestAmount := 0
@@ -176,3 +171,11 @@ func updateColorDisplays(colorUnits : Dictionary):
 	
 	# Sends a signal to update color rect
 	changeNodeColor.emit(currentColor)
+
+# These functions are for white selection circle thing
+func onSelected(boolean):
+	whiteCircleToggle(boolean)
+
+func whiteCircleToggle(isVisible : bool):
+	if(whiteCircle != null):
+		whiteCircle.visible = isVisible

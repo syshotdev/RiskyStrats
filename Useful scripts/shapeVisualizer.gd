@@ -9,14 +9,18 @@ enum shapes{
 	LINE,
 }
 
+@export var defaultVisiblity : bool = true
 @export var shapeToDraw : shapes
 @export var color : Color
 @export var canvasLayer : int = 0
 
-@export var thickness : float
-@export var radius : float
+@export var thickness : int
+@export var radius : int
 # For road
 @export var to : Vector2
+
+func _ready():
+	visible = defaultVisiblity
 
 
 func _draw():
