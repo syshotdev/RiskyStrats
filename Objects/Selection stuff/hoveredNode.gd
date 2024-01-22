@@ -11,7 +11,8 @@ func getHoveredNode(positionToCheck : Vector2) -> GameNode:
 	
 	if(nodesInArea.size() > 0):
 		# Get first node in array
-		return nodesInArea.keys()[0]
+		var node = nodesInArea.keys()[0]
+		return node
 	
 	return null
 

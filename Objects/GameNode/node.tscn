@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjpcojig6iwdw"]
+[gd_scene load_steps=6 format=3 uid="uid://cjpcojig6iwdw"]
 
 [ext_resource type="Script" path="res://Objects/GameNode/gameNode.gd" id="1_xo6op"]
 [ext_resource type="Script" path="res://Objects/GameNode/changeColor.gd" id="2_385qc"]
+[ext_resource type="Script" path="res://Useful scripts/shapeVisualizer.gd" id="2_vqord"]
 [ext_resource type="Script" path="res://Objects/GameNode/Select.gd" id="3_pq1u5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
@@ -9,6 +10,14 @@ size = Vector2(40, 40)
 
 [node name="GameNode" type="Node2D"]
 script = ExtResource("1_xo6op")
+
+[node name="ShapeVisualizer" type="Node2D" parent="."]
+script = ExtResource("2_vqord")
+shapeToDraw = 1
+color = Color(0.776471, 0.776471, 0.776471, 1)
+canvasLayer = 1
+thickness = 3.0
+radius = 33.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -29,15 +38,15 @@ script = ExtResource("2_385qc")
 
 [node name="Shadow" type="ColorRect" parent="Control"]
 layout_mode = 0
-offset_right = 45.0
-offset_bottom = 45.0
+offset_right = 42.0
+offset_bottom = 42.0
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 modulate = Color(1.5, 1.5, 1.5, 1)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 37.0
+offset_bottom = 37.0
 color = Color(1, 0, 0.117647, 1)
 
 [node name="ColorBox" type="VBoxContainer" parent="Control"]

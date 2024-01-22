@@ -39,4 +39,4 @@ func drawCircle(radius : int, color : Color):
 func drawHollowCircle(radius : int, thickness : int, color : Color):
 	drawCircle(radius, color)
 	# Draw circle to mask out the first circle to make hollow
-	drawCircle(radius - thickness, Color(color, 0))
+	#drawCircle(radius - thickness, Color(color, 0))

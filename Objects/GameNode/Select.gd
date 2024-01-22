@@ -1,13 +1,14 @@
 extends Area2D
 
 signal selectionChanged(selected : bool)
-signal onHovered()
+signal onHovered(hovered : bool)
 
-var isSelected := false
-var hovered := false 
+var isSelected := false : set = setSelected
+var isHovered := false : set = setHovered
 
 func setHovered(hovered : bool):
-	hovered = false
+	isHovered = hovered
+	onHovered.emit(isHovered)
 
 
 func setSelected(selected : bool):

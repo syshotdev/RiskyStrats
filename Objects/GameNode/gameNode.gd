@@ -7,6 +7,7 @@ signal changeNodeColor(color : GameColors.colors)
 
 
 @export var currentColor : GameColors.colors
+@export var whiteCircle : ShapeVisualizer
 
 var neigbors : Array[GameNode] = []
 var neigborRoads : Dictionary = {} # Key node, value road
@@ -145,7 +146,7 @@ func ridOfEmptySlots(dictionary : Dictionary) -> Dictionary:
 # When selection updated, turn on white circle to show selection
 func onSelected(selected):
 	# While circle script here
-	pass
+	whiteCircle.visible = selected
 
 
 func changeCurrentColorToBiggestColor(colorUnits):
