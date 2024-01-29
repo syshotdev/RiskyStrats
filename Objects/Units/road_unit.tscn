@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnwaw1kim2ou6"]
 
-[ext_resource type="Script" path="res://Objects/Units/roadUnit.gd" id="1_ck66g"]
+[ext_resource type="Script" path="res://Objects/Units/RoadUnit.gd" id="1_ck66g"]
 [ext_resource type="PackedScene" uid="uid://cbcox4ccp4yjv" path="res://Objects/Units/merge_area.tscn" id="2_7inng"]
 
 [node name="RoadUnit" type="Node2D"]

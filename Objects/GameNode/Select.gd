@@ -30,7 +30,7 @@ func areaExited(area : Area2D):
 	
 	selected.emit(false)
 
-# Checks if selection area or hovered node selection
+# Checks if area is selection area or hovered node selection
 func isSelectable(area):
 	if(area.get_parent() is SelectionArea):
 		return true

@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://elf2km00t30"]
 
 [ext_resource type="Script" path="res://Objects/Player (Client)/Player.gd" id="1_jhoao"]
-[ext_resource type="Script" path="res://Objects/Selection stuff/selectionProcesser.gd" id="2_rqjsn"]
+[ext_resource type="Script" path="res://Objects/Selection stuff/SelectionProcesser.gd" id="2_a6bsm"]
 [ext_resource type="PackedScene" uid="uid://dqshkg4phk7r3" path="res://Objects/Selection stuff/selection_area.tscn" id="3_q4ge3"]
 [ext_resource type="Script" path="res://Objects/Map/Map.gd" id="4_idlu1"]
 [ext_resource type="PackedScene" uid="uid://hd33djnhvcph" path="res://Objects/Map/man_map.tscn" id="4_r6l76"]
-[ext_resource type="Script" path="res://Objects/Selection stuff/hoveredNode.gd" id="6_wfs6s"]
+[ext_resource type="Script" path="res://Objects/Selection stuff/HoveredNode.gd" id="6_1h5bi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pwooj"]
 
@@ -17,7 +17,7 @@ inputStuff = NodePath("inputProcesser")
 map = NodePath("Man map")
 
 [node name="inputProcesser" type="Node2D" parent="."]
-script = ExtResource("2_rqjsn")
+script = ExtResource("2_a6bsm")
 
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("4_idlu1")
@@ -31,7 +31,7 @@ script = ExtResource("4_idlu1")
 [node name="SelectionArea" parent="." instance=ExtResource("3_q4ge3")]
 
 [node name="HoveredNode" type="Area2D" parent="." node_paths=PackedStringArray("checkingArea")]
-script = ExtResource("6_wfs6s")
+script = ExtResource("6_1h5bi")
 checkingArea = NodePath("HoveredNodeArea")
 
 [node name="HoveredNodeArea" type="CollisionShape2D" parent="HoveredNode"]

@@ -1,17 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjpcojig6iwdw"]
+[gd_scene load_steps=9 format=3 uid="uid://cjpcojig6iwdw"]
 
-[ext_resource type="Script" path="res://Objects/GameNode/gameNode.gd" id="1_xo6op"]
-[ext_resource type="Script" path="res://Objects/GameNode/changeColor.gd" id="2_385qc"]
+[ext_resource type="Script" path="res://Objects/GameNode/GameNode.gd" id="1_j8hsk"]
+[ext_resource type="Script" path="res://Objects/GameNode/UnitCalculator.gd" id="2_0yb6h"]
+[ext_resource type="Script" path="res://Objects/GameNode/UnitSender.gd" id="2_fs66o"]
+[ext_resource type="Script" path="res://Objects/GameNode/UnitGenerator.gd" id="2_noxmq"]
 [ext_resource type="Script" path="res://Useful scripts/shapeVisualizer.gd" id="2_vqord"]
 [ext_resource type="Script" path="res://Objects/GameNode/Select.gd" id="3_pq1u5"]
+[ext_resource type="Script" path="res://Objects/GameNode/ChangeColor.gd" id="7_b3igk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
 size = Vector2(40, 40)
 
 [node name="GameNode" type="Node2D"]
-script = ExtResource("1_xo6op")
+script = ExtResource("1_j8hsk")
+currentColor = null
+currentBuildingType = 1
+unitCalculator = null
+unitSender = null
+unitGenerator = null
 
-[node name="ShapeVisualizer" type="Node2D" parent="."]
+[node name="UnitGenerator" type="Node" parent="."]
+script = ExtResource("2_noxmq")
+
+[node name="UnitCalculator" type="Node" parent="."]
+script = ExtResource("2_0yb6h")
+
+[node name="UnitSender" type="Node" parent="."]
+script = ExtResource("2_fs66o")
+
+[node name="WhiteCircle" type="Node2D" parent="."]
 visible = false
 script = ExtResource("2_vqord")
 defaultVisiblity = false
@@ -21,15 +38,15 @@ canvasLayer = 1
 thickness = 3
 radius = 33
 
-[node name="SelectionArea2D" type="Area2D" parent="." node_paths=PackedStringArray("whiteCircle")]
+[node name="SelectionBox" type="Area2D" parent="." node_paths=PackedStringArray("whiteCircle")]
 script = ExtResource("3_pq1u5")
-whiteCircle = NodePath("../ShapeVisualizer")
+whiteCircle = NodePath("../WhiteCircle")
 
-[node name="Area" type="CollisionShape2D" parent="SelectionArea2D"]
+[node name="Area" type="CollisionShape2D" parent="SelectionBox"]
 shape = SubResource("RectangleShape2D_kh0e4")
 debug_color = Color(0, 0, 0, 0.368627)
 
-[node name="Control" type="Control" parent="."]
+[node name="ColorManager" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,22 +61,22 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("2_385qc")
+script = ExtResource("7_b3igk")
 
-[node name="Shadow" type="ColorRect" parent="Control"]
+[node name="Shadow" type="ColorRect" parent="ColorManager"]
 layout_mode = 0
 offset_right = 42.0
 offset_bottom = 42.0
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="ColorManager"]
 modulate = Color(1.5, 1.5, 1.5, 1)
 layout_mode = 0
 offset_right = 37.0
 offset_bottom = 37.0
 color = Color(1, 0, 0.117647, 1)
 
-[node name="ColorBox" type="VBoxContainer" parent="Control"]
+[node name="ColorBox" type="VBoxContainer" parent="ColorManager"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,8 +88,11 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="addColorToDisplay" from="." to="Control" method="updateColorDisplay"]
-[connection signal="changeNodeColor" from="." to="Control" method="changeColor"]
-[connection signal="area_entered" from="SelectionArea2D" to="SelectionArea2D" method="areaEntered"]
-[connection signal="area_exited" from="SelectionArea2D" to="SelectionArea2D" method="areaExited"]
-[connection signal="selected" from="SelectionArea2D" to="SelectionArea2D" method="onSelected"]
+[connection signal="ready" from="UnitGenerator" to="." method="onUnitGeneratorReady"]
+[connection signal="updateBuildingType" from="UnitGenerator" to="." method="updateCurrentBuildingType"]
+[connection signal="addColorToDisplay" from="UnitCalculator" to="ColorManager" method="updateColorDisplay"]
+[connection signal="changeNodeColor" from="UnitCalculator" to="ColorManager" method="changeColor"]
+[connection signal="updateColor" from="UnitCalculator" to="." method="updateCurrentColor"]
+[connection signal="area_entered" from="SelectionBox" to="SelectionBox" method="areaEntered"]
+[connection signal="area_exited" from="SelectionBox" to="SelectionBox" method="areaExited"]
+[connection signal="selected" from="SelectionBox" to="SelectionBox" method="onSelected"]
