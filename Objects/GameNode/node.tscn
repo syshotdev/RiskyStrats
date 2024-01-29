@@ -12,13 +12,14 @@ size = Vector2(40, 40)
 script = ExtResource("1_xo6op")
 
 [node name="ShapeVisualizer" type="Node2D" parent="."]
+visible = false
 script = ExtResource("2_vqord")
 defaultVisiblity = false
 shapeToDraw = 1
 color = Color(0.776471, 0.776471, 0.776471, 1)
 canvasLayer = 1
-thickness = 3.0
-radius = 33.0
+thickness = 3
+radius = 33
 
 [node name="SelectionArea2D" type="Area2D" parent="." node_paths=PackedStringArray("whiteCircle")]
 script = ExtResource("3_pq1u5")

@@ -5,8 +5,9 @@ class_name GameNode
 signal addColorToDisplay(units : Array[Unit])
 signal changeNodeColor(color : GameColors.colors)
 
-enum typeOfBuildings{
+enum buildingType{
 	NONE,
+	CAPITOL,
 	FACTORY,
 	FORT,
 	REACTOR,
@@ -15,7 +16,7 @@ enum typeOfBuildings{
 
 
 @export var currentColor : GameColors.colors
-@export var currentBuildingType : typeOfBuildings
+@export var currentBuildingType : buildingType
 
 var neigbors : Array[GameNode] = []
 var neigborRoads : Dictionary = {} # Key node, value road
@@ -24,7 +25,7 @@ var unitAmounts : Dictionary = {} # Key color, value amount
 # The rate at which one soldier can kill another per unit of time
 var killRate : float = 0.02
 # Rate this node generates units per second
-var genRate : float = 10.0
+var genRate : float = 5.0
 
 
 func tick(delta):
@@ -34,11 +35,23 @@ func tick(delta):
 
 
 func doStuffBasedOnBuildingType(delta : float):
+	# If not enough units to care, return
 	if(unitAmounts.size() <= 0):
 		return
 	
-	if(currentBuildingType == typeOfBuildings.FACTORY):
+	if(currentBuildingType == buildingType.NONE):
+		return
+	elif(currentBuildingType == buildingType.CAPITOL):
+		# *2 because gens double the normal amount
+		unitAmounts[currentColor] += genRate * 2 * delta
+	elif(currentBuildingType == buildingType.FACTORY):
 		unitAmounts[currentColor] += genRate * delta
+
+
+func changeBuildingType(newType : buildingType):
+	currentBuildingType = newType
+	# Code for switching sprites based on type
+	# Maybe also updating neighbor nodes that they have powerplant next to them
 
 
 # Adds a neighbor and associates that neighbor with the road.
