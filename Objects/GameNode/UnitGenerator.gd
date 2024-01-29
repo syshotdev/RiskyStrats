@@ -21,10 +21,10 @@ var currentBuildingType : buildingType : set = changeBuildingType
 
 
 func calculateUnitAmountGenerated(delta : float) -> float:
-	var output : float
+	var output : float = 0
 	
 	if(currentBuildingType == buildingType.NONE):
-		output
+		output = 0
 	elif(currentBuildingType == buildingType.CAPITOL):
 		# *2 because gens double the normal amount
 		output += genRate * 2 * delta

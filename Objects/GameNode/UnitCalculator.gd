@@ -30,11 +30,14 @@ func addUnit(unit : Unit):
 		unitAmounts[unit.currentColor] = unit.units + unitAmounts[unit.currentColor]
 	else:
 		unitAmounts[unit.currentColor] = unit.units
+	unit.queue_free()
 
 
 # Every tick, it takes damage from other armies until one is dead
 # Lanchester's square law
 func takeDamage(delta : float) -> void:
+	updateColorDisplays(unitAmounts)
+	
 	unitAmounts = ridOfEmptySlots(unitAmounts)
 	
 	# If unitAmounts dict empty, return to not crash
@@ -80,15 +83,15 @@ func takeDamage(delta : float) -> void:
 		unitAmounts[unit.currentColor] = unit.units
 
 # Easy
-func getEnemyUnits(unitAmounts : Dictionary) -> Array[Unit]:
+func getEnemyUnits(colorUnits : Dictionary) -> Array[Unit]:
 	var units : Array[Unit] = []
 	
-	for color in unitAmounts.keys():
+	for color in colorUnits.keys():
 		if color == currentColor:
 			continue
 		
 		var unit = Unit.new(color)
-		unit.units = unitAmounts[color]
+		unit.units = colorUnits[color]
 		
 		units.append(unit)
 	
@@ -96,14 +99,15 @@ func getEnemyUnits(unitAmounts : Dictionary) -> Array[Unit]:
 
 # Sends a signal to update "currentColor" in parent node, when this "currentColor" is set.
 func updateGameNodeColor(color : GameColors.colors):
+	currentColor = color
 	updateColor.emit(color)
 
 # Changes current color variable to biggest color.
-func changeCurrentColorToBiggestColor(unitAmounts):
+func changeCurrentColorToBiggestColor(colorUnits):
 	var biggestAmount := 0
 	# For every color, check if it's bigger than the current color and set it to the current color if true
-	for color in unitAmounts:
-		var unitAmount = unitAmounts[color]
+	for color in colorUnits.keys():
+		var unitAmount = colorUnits[color]
 		
 		if(unitAmount > biggestAmount):
 			currentColor = color
@@ -117,13 +121,13 @@ func ridOfEmptySlots(dictionary : Dictionary) -> Dictionary:
 	return dictionary
 
 # Updates the color of the colorRect and the label displays
-func updateColorDisplays(unitAmounts : Dictionary):
+func updateColorDisplays(colorUnits : Dictionary):
 	var units : Array[Unit] = []
-	for color in unitAmounts:
+	for color in colorUnits:
 		var unit = Unit.new(color)
 		
 		# Get amount of units
-		unit.units = unitAmounts[color]
+		unit.units = colorUnits[color]
 		
 		# Add to units array
 		units.append(unit)

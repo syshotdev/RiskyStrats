@@ -41,8 +41,8 @@ func initMap():
 func setRoadNodeNeighbors(road : Road):
 	var node1 = road.node1
 	var node2 = road.node2
-	node1.addNeigbor(node2,road)
-	node2.addNeigbor(node1,road)
+	node1.addNeighbor(node2,road)
+	node2.addNeighbor(node1,road)
 
 
 # Copies a map that has been created
@@ -61,7 +61,7 @@ func sendPayload(selectedNodes, nodeDestination, unit : Unit):
 			continue
 		
 		# Moved here because bug
-		var maxUnitsCanSend : float = min(node.unitAmounts[color], unit.units) - 1
+		var maxUnitsCanSend : float = min(node.unitCalculator.unitAmounts[color], unit.units) - 1
 		
 		# If can't send units, don't
 		if(maxUnitsCanSend <= 0):
@@ -69,6 +69,6 @@ func sendPayload(selectedNodes, nodeDestination, unit : Unit):
 		
 		var newUnit : Unit = Unit.new(color, maxUnitsCanSend)
 		newUnit.units = maxUnitsCanSend
-		node.unitAmounts[color] -= maxUnitsCanSend
+		node.unitCalculator.unitAmounts[color] -= maxUnitsCanSend
 		
 		distributer.sendPayload(node, nodeDestination, newUnit)

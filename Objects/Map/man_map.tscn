@@ -13,34 +13,33 @@ defaultNodeColor = 2
 
 [node name="GameNode" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(0, 30)
-currentBuildingType = null
 
 [node name="GameNode6" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -83)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode7" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -155)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode18" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-123, -96)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode19" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-227, -113)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode20" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-336, -126)
 
 [node name="GameNode15" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(97, -82)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode16" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(186, -108)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode17" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(283, -128)
@@ -48,47 +47,47 @@ currentBuildingType = 2
 
 [node name="GameNode8" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(72, -200)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode9" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(118, -282)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode10" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(79, -362)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode11" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -394)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode12" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-94, -364)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode13" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-128, -277)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode14" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-88, -196)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode2" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(62, 120)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode3" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(112, 203)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode4" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-63, 120)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="GameNode5" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-112, 217)
-currentBuildingType = null
+currentBuildingType = 0
 
 [node name="Roads" type="Node2D" parent="."]
 

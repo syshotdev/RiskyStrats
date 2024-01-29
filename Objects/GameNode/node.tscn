@@ -11,13 +11,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
 size = Vector2(40, 40)
 
-[node name="GameNode" type="Node2D"]
+[node name="GameNode" type="Node2D" node_paths=PackedStringArray("unitCalculator", "unitSender", "unitGenerator")]
 script = ExtResource("1_j8hsk")
-currentColor = null
 currentBuildingType = 1
-unitCalculator = null
-unitSender = null
-unitGenerator = null
+unitCalculator = NodePath("UnitCalculator")
+unitSender = NodePath("UnitSender")
+unitGenerator = NodePath("UnitGenerator")
 
 [node name="UnitGenerator" type="Node" parent="."]
 script = ExtResource("2_noxmq")
@@ -92,6 +91,7 @@ grow_vertical = 2
 [connection signal="updateBuildingType" from="UnitGenerator" to="." method="updateCurrentBuildingType"]
 [connection signal="addColorToDisplay" from="UnitCalculator" to="ColorManager" method="updateColorDisplay"]
 [connection signal="changeNodeColor" from="UnitCalculator" to="ColorManager" method="changeColor"]
+[connection signal="ready" from="UnitCalculator" to="." method="onUnitCalculatorReady"]
 [connection signal="updateColor" from="UnitCalculator" to="." method="updateCurrentColor"]
 [connection signal="area_entered" from="SelectionBox" to="SelectionBox" method="areaEntered"]
 [connection signal="area_exited" from="SelectionBox" to="SelectionBox" method="areaExited"]

@@ -10,16 +10,15 @@ class_name GameNode
 @export var unitSender : UnitSender
 @export var unitGenerator : UnitGenerator
 
-# Neighboring nodes:
-var neigbors : Array[GameNode] = []
+var neigbors : Array[GameNode] = [] # Neighboring nodes
 
 
 func tick(delta):
 	# Just had dejavu lol (6PM Jan 28th 2024)
 	# To explain this, a unit is being created with currentColor, and the output of 
 	# unitGenerator's calculation of units that should generate.
-	var unit : Unit = Unit.new(currentColor, unitGenerator.calculateUnitAmountGenerated(delta))
 	unitCalculator.takeDamage(delta)
+	unitCalculator.unitAmounts[currentColor] += unitGenerator.calculateUnitAmountGenerated(delta)
 
 # Forward to UnitSender
 func addNeighbor(gameNode : GameNode, road : Road):
@@ -35,6 +34,10 @@ func processRoadUnit(roadUnit : RoadUnit):
 		unitCalculator.addRoadUnit(roadUnit)
 	else:
 		unitSender.sendRoadUnit(roadUnit)
+
+# To fix stuff
+func addUnit(unit : Unit):
+	unitCalculator.addUnit(unit)
 
 
 func updateCurrentColor(color : GameColors.colors):
