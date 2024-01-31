@@ -1,0 +1,56 @@
+This text file is to show my thinking while coding the Power Plant feature.
+The basic gist of what the power plant does is this:
+	When a node is a power plant, all neighboring nodes that are same color have 1.5x production speed.
+
+Now this is continuous, meaning if the neighboring nodes are captured by another color, 
+it automatically stops giving the node captured the 1.5x production speed boost.
+
+It would be practical to just check if there's a power plant next to a node every tick, but that's
+wasteful to preformance. That's like (nodes * memory access time + nodes * if statement time) every tick.
+Now that I think about it, that's not too bad. But whatever, let's do the more efficient approach.
+
+
+Instead of checking every frame to see if the nodes around it are power plants, why not just update every time
+a power plant is created.
+
+A power plant is created, all neighboring nodes same color *= 1.5 effectiveness for generating units.
+Now, when the power plant is captured, how do we remove this effectiveness? (Just effectiveness / 1.5)
+
+Let's start writing the code:
+
+func sendPowerPlantEffectiveness():
+	for node in neighbors:
+		node.effectiveness *= 1.5
+
+func powerPlantCaptured():
+	for node in neighbors:
+		node.effectiveness /= 1.5
+
+
+What if one of the nodes is captured?
+We send signal to all nodes around it that it's been captured.
+
+func nodeCaptured(node : GameNode):
+	if self is PowerPlant:
+		node /= 1.5
+
+Now we have a problem. A node is captured, oh no. But then the power plant dies. 
+The node had 1.5 effectiveness, and then now has like 0.75, which is supposed to be one.
+
+New idea:
+	When node is captured, send nodeCaptured() signal
+	When node becomes power plant, send buildingCreated() signal
+
+(In node script idea)
+func nodeCaptured(node): # Comes from neighbor when node is captured
+	powerPlants = findPowerPlants() # Not most efficient way of doing things
+
+func nodeBuildingChanged(node):
+	powerPlants = findPowerPlants()
+
+(In powerplant script idea)
+func nodeCaptured(node):
+	if self is powerplant:
+		if node.color == self.color:
+			node.tryAddPowerPlant(self)
+		node.tryRemovePowerplant(self)

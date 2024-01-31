@@ -13,13 +13,13 @@ size = Vector2(40, 40)
 
 [node name="GameNode" type="Node2D" node_paths=PackedStringArray("unitCalculator", "unitSender", "unitGenerator")]
 script = ExtResource("1_j8hsk")
-currentBuildingType = 1
 unitCalculator = NodePath("UnitCalculator")
 unitSender = NodePath("UnitSender")
 unitGenerator = NodePath("UnitGenerator")
 
-[node name="UnitGenerator" type="Node" parent="."]
+[node name="UnitGenerator" type="Node" parent="." node_paths=PackedStringArray("parent")]
 script = ExtResource("2_noxmq")
+parent = NodePath("..")
 
 [node name="UnitCalculator" type="Node" parent="."]
 script = ExtResource("2_0yb6h")
@@ -87,8 +87,8 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[connection signal="changedToPowerPlant" from="UnitGenerator" to="." method="changedToPowerPlant"]
 [connection signal="ready" from="UnitGenerator" to="." method="onUnitGeneratorReady"]
-[connection signal="updateBuildingType" from="UnitGenerator" to="." method="updateCurrentBuildingType"]
 [connection signal="addColorToDisplay" from="UnitCalculator" to="ColorManager" method="updateColorDisplay"]
 [connection signal="changeNodeColor" from="UnitCalculator" to="ColorManager" method="changeColor"]
 [connection signal="ready" from="UnitCalculator" to="." method="onUnitCalculatorReady"]

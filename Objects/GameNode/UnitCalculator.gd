@@ -3,6 +3,8 @@ class_name UnitCalculator
 # This exists to take less of the load off of the GameNode parent.
 # Calculates unit amounts, and keeps track of units
 
+
+# Sent when captured or "changed colors"
 signal updateColor(color : GameColors.colors)
 
 # For updating display stuff

@@ -11,6 +11,7 @@ class_name GameNode
 @export var unitGenerator : UnitGenerator
 
 var neigbors : Array[GameNode] = [] # Neighboring nodes
+var powerPlants : Dictionary # Neighboring power plants, Key: GameNode, Value: 0
 
 
 func tick(delta):
@@ -40,8 +41,34 @@ func addUnit(unit : Unit):
 	unitCalculator.addUnit(unit)
 
 
+func addPowerPlant(node : GameNode):
+	powerPlants[node] = 0
+	unitGenerator.calculateEffectiveness()
+
+
+func removePowerPlant(node : GameNode):
+	powerPlants.erase(node)
+	unitGenerator.calculateEffectiveness()
+
+# When neighbor captured,
+func neighborCaptured(node : GameNode):
+	unitGenerator.checkIfCanAddBuffs(node)
+	self.removePowerPlant(node)
+
+
+func selfCaptured():
+	for node in neigbors:
+		node.neighborCaptured(self)
+
+
+func changedToPowerPlant():
+	for node in neigbors:
+		node.addPowerPlant(self)
+
+
 func updateCurrentColor(color : GameColors.colors):
 	currentColor = color
+	selfCaptured()
 
 
 func onUnitGeneratorReady():
