@@ -14,33 +14,35 @@ defaultNodeColor = 2
 [node name="GameNode" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(0, 30)
 currentColor = 7
-currentBuildingType = 4
 
 [node name="GameNode6" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -83)
-currentBuildingType = 1
+currentBuildingType = 2
 
 [node name="GameNode7" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -155)
 
 [node name="GameNode18" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-123, -96)
+currentBuildingType = 4
 
 [node name="GameNode19" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-227, -113)
+currentBuildingType = 2
 
 [node name="GameNode20" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(-336, -126)
 
 [node name="GameNode15" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(97, -82)
+currentBuildingType = 4
 
 [node name="GameNode16" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(186, -108)
+currentBuildingType = 2
 
 [node name="GameNode17" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(283, -128)
-currentBuildingType = 2
 
 [node name="GameNode8" parent="Nodes" instance=ExtResource("2_4rc3m")]
 position = Vector2(72, -200)

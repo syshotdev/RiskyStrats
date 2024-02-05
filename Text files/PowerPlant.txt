@@ -54,3 +54,14 @@ func nodeCaptured(node):
 		if node.color == self.color:
 			node.tryAddPowerPlant(self)
 		node.tryRemovePowerplant(self)
+
+
+(Today's date)
+I've thought about it, and just recalculating a node's power plant influence is just easier than dynamically updating it. 
+It doesn't even matter.
+
+Proposed solution:
+	When powerplant built, send signal to all neighboring nodes to recalculate power plant influences.
+	Node updates it's multiplier by looking at all of the influencing powerplants around it. (Node gets neighbors, node calculates multiplier)
+	When node captured, it sends all neighbors recalculate multiplier signal
+

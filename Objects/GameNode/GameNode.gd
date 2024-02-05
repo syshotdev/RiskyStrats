@@ -10,7 +10,7 @@ class_name GameNode
 @export var unitSender : UnitSender
 @export var unitGenerator : UnitGenerator
 
-var neigbors : Array[GameNode] = [] # Neighboring nodes
+var neighbors : Array[GameNode] = [] # Neighboring nodes
 var powerPlants : Dictionary # Neighboring power plants, Key: GameNode, Value: 0
 
 
@@ -23,7 +23,7 @@ func tick(delta):
 
 # Forward to UnitSender
 func addNeighbor(gameNode : GameNode, road : Road):
-	neigbors.append(gameNode)
+	neighbors.append(gameNode)
 	unitSender.associateRoadWithNode(gameNode, road)
 
 # Will be function to recieve roadUnit color or forward roadUnit to other nodes
@@ -40,32 +40,37 @@ func processRoadUnit(roadUnit : RoadUnit):
 func addUnit(unit : Unit):
 	unitCalculator.addUnit(unit)
 
+# Takes all node neighbors and finds if they're powerplant
+func recalculateInfluences():
+	var numPowerPlants : int = 0
+	var numArtillery : int = 0
+	
+	for neighbor in neighbors:
+		var neighborBuildingType = neighbor.unitGenerator.currentBuildingType
+		
+		# If neighbor == reactor and our color, add 0.5x to our generation speed
+		if(neighborBuildingType == unitGenerator.buildingType.REACTOR):
+			if(neighbor.currentColor == currentColor):
+				numPowerPlants += 1
+		
+		# If neighbor == artillery and different color (Enemy color), add one to artillery
+		elif(neighborBuildingType == unitGenerator.buildingType.ARTILLERY):
+			if(neighbor.currentColor != currentColor):
+				numArtillery += 1
+	
+	unitGenerator.setEffectiveness(numPowerPlants)
 
-func addPowerPlant(node : GameNode):
-	powerPlants[node] = 0
-	unitGenerator.calculateEffectiveness()
-
-
-func removePowerPlant(node : GameNode):
-	powerPlants.erase(node)
-	unitGenerator.calculateEffectiveness()
-
-# When neighbor captured,
-func neighborCaptured(node : GameNode):
-	unitGenerator.checkIfCanAddBuffs(node)
-	self.removePowerPlant(node)
-
-
-func selfCaptured():
-	for node in neigbors:
-		node.neighborCaptured(self)
-
-
+# When changed to powerplant
 func changedToPowerPlant():
-	for node in neigbors:
-		node.addPowerPlant(self)
+	for node in neighbors:
+		node.recalculateInfluences()
 
+# When captured
+func selfCaptured():
+	for node in neighbors:
+		node.recalculateInfluences()
 
+# Basically when color changed (captured by another color)
 func updateCurrentColor(color : GameColors.colors):
 	currentColor = color
 	selfCaptured()

@@ -44,13 +44,13 @@ func pathfind(startNode : GameNode, endNode : GameNode) -> Array[GameNode]:
 		if(currentNode.currentColor != startNode.currentColor):
 			continue
 		
-		for neighbor in currentNode.neigbors:
+		for neighbor in currentNode.neighbors:
 			# If it's been checked or it's not our color, don't check it
 			if neighbor in checked:
 				continue
 			
 			toCheck.append(neighbor)
-			# Parent = currentNode, because current node neigbors is this
+			# Parent = currentNode, because current node neighbors is this
 			nodeParent[neighbor] = currentNode
 	
 	# Return nothing because there was no path

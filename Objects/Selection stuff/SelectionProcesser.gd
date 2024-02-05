@@ -2,6 +2,7 @@ extends Node2D
 
 signal updateSelectionArea(pos1, pos2)
 signal updateHoveredNode(pos)
+signal buyMenuOn(pos) # Where to put the buy menu
 signal sendPayload(amount : int)
 
 # Values to send
@@ -35,12 +36,19 @@ func _input(event):
 	if event is InputEventMouseButton && not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		mouseClicked = false
 	
+	if event is InputEventMouseButton && Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		sendBuyMenuOn()
+	
+	
 	# If mouse moved, send area 
 	if event is InputEventMouseMotion:
 		sendCheckHoveredNode()
 		sendSelectionArea()
 	
-	
+	checkPayloadAction()
+
+
+func checkPayloadAction():
 	if(Input.is_action_just_pressed("Tier1")):
 		sendPayload.emit(tier1)
 	elif(Input.is_action_just_pressed("Tier2")):
@@ -56,3 +64,6 @@ func sendSelectionArea():
 
 func sendCheckHoveredNode():
 	updateHoveredNode.emit(get_global_mouse_position())
+
+func sendBuyMenuOn():
+	buyMenuOn.emit(get_global_mouse_position())
