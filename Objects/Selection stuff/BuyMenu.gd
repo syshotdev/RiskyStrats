@@ -7,10 +7,10 @@ class_name BuyMenu
 
 # All of the building costs (for purposes)
 var buildingCosts : Dictionary = {
-	UnitGenerator.buildingType.FACTORY : 500,
-	UnitGenerator.buildingType.REACTOR : 2500,
-	UnitGenerator.buildingType.FORT : 500,
-	UnitGenerator.buildingType.ARTILLERY : 5000,
+	GameTypes.buildingType.FACTORY : 500,
+	GameTypes.buildingType.REACTOR : 2500,
+	GameTypes.buildingType.FORT : 500,
+	GameTypes.buildingType.ARTILLERY : 5000,
 }
 
 var buttonTypes : Dictionary = {} # Key: button, Value: buildingType
@@ -36,11 +36,11 @@ func generateButtons():
 		verticalOptions.add_child(button)
 
 # Makes a button with text of "buttonText" and inits some other stuff
-func generateButton(type : UnitGenerator.buildingType, buttonCost : int) -> Button:
+func generateButton(type : GameTypes.buildingType, buttonCost : int) -> Button:
 	var button : Button = Button.new()
 	
 	# Horrible one liner, but simple in that turns "type" into string (1 or 4 to FORT), lowercase, then capitalize first letter
-	var buttonName = str(UnitGenerator.buildingType.keys()[type]).to_lower().capitalize()
+	var buttonName = str(GameTypes.buildingType.keys()[type]).to_lower().capitalize()
 	button.text = buttonName + " cost: " + str(buttonCost)
 	
 	return button
@@ -50,7 +50,7 @@ func buttonPressed(button : Button):
 	tryToBuyType(buttonTypes[button])
 
 # Try to buy the type
-func tryToBuyType(type : UnitGenerator.buildingType):
+func tryToBuyType(type : GameTypes.buildingType):
 	var cost : int = buildingCosts[type]
 	
 	if(currentNode == null):

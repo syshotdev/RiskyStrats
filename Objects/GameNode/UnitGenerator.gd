@@ -2,7 +2,7 @@ extends Node
 
 class_name UnitGenerator
 
-signal changedToPowerPlant()
+signal buildingTypeChanged(type : GameTypes.buildingType)
 
 @export var parent : GameNode
 
@@ -33,10 +33,5 @@ func setEffectiveness(numPowerPlants : int):
 
 
 func changeBuildingType(newType : GameTypes.buildingType):
-	# Code for switching sprites based on type
-	# Maybe also updating neighbor nodes that they have powerplant next to them
 	currentBuildingType = newType
-	
-	# If we're a powerplant, send out a signal to update other nodes
-	if(currentBuildingType == GameTypes.reactor):
-		changedToPowerPlant.emit()
+	buildingTypeChanged.emit(newType)

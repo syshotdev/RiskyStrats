@@ -1,21 +1,31 @@
 extends Control
 
-@onready var colorRect = $ColorRect
 @onready var sprite = $Sprite2D
-@onready var shadow = $Shadow
 @onready var labelBox = $ColorBox
 
 
 func updateColorDisplay(units : Array[Unit]):
 	updateUnitDisplay(units)
 
-# Change sprite to type
-func changeSprite(type : UnitGenerator.buildingType):
-	pass
-
 # Change color of sprite
 func changeColor(color : GameColors.colors):
 	sprite.modulate = GameColors.getColorFromEnum(color)
+
+
+func buildingTypeChanged(type : GameTypes.buildingType):
+	changeSprite(type)
+
+
+# Change sprite to type
+func changeSprite(type : GameTypes.buildingType):
+	# VERY INNEFICIENT WAY TO LOAD TEXTURES!!
+	# The best way would be to load all of the textures at the start, "load(texture)" and put it into var.
+	# Loading it like this makes it load and recompile everything again every time texture changed,
+	# meaning massive performance hit. But who cares am I right?
+	var newTexture := load(str(GameTypes.getSpriteFromEnum(type)))
+	
+	if(sprite != null):
+		sprite.texture = newTexture
 
 
 func updateUnitDisplay(units : Array[Unit]):

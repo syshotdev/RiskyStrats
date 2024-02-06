@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Objects/GameNode/Select.gd" id="3_pq1u5"]
 [ext_resource type="Script" path="res://Useful scripts/ShapeVisualizer.gd" id="5_wid6i"]
 [ext_resource type="Script" path="res://Objects/GameNode/ChangeColor.gd" id="7_b3igk"]
-[ext_resource type="Texture2D" uid="uid://buijt6m441wxa" path="res://Sprites/Artillery.png" id="8_u6wgj"]
+[ext_resource type="Texture2D" uid="uid://oc8t8fo7664r" path="res://Sprites/Node.png" id="8_cwwdh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
 size = Vector2(40, 40)
@@ -67,7 +67,7 @@ script = ExtResource("7_b3igk")
 texture_filter = 1
 position = Vector2(21, 21)
 scale = Vector2(1.3125, 1.3125)
-texture = ExtResource("8_u6wgj")
+texture = ExtResource("8_cwwdh")
 
 [node name="ColorBox" type="VBoxContainer" parent="ColorManager"]
 layout_mode = 1
@@ -81,7 +81,8 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="changedToPowerPlant" from="UnitGenerator" to="." method="changedToPowerPlant"]
+[connection signal="buildingTypeChanged" from="UnitGenerator" to="." method="buildingTypeChanged"]
+[connection signal="buildingTypeChanged" from="UnitGenerator" to="ColorManager" method="buildingTypeChanged"]
 [connection signal="ready" from="UnitGenerator" to="." method="onUnitGeneratorReady"]
 [connection signal="addColorToDisplay" from="UnitCalculator" to="ColorManager" method="updateColorDisplay"]
 [connection signal="changeNodeColor" from="UnitCalculator" to="ColorManager" method="changeColor"]

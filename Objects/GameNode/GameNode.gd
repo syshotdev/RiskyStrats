@@ -4,7 +4,7 @@ class_name GameNode
 
 
 @export var currentColor : GameColors.colors
-@export var currentBuildingType : UnitGenerator.buildingType
+@export var currentBuildingType : GameTypes.buildingType
 
 @export var unitCalculator : UnitCalculator
 @export var unitSender : UnitSender
@@ -49,19 +49,26 @@ func recalculateInfluences():
 		var neighborBuildingType = neighbor.unitGenerator.currentBuildingType
 		
 		# If neighbor == reactor and our color, add 0.5x to our generation speed
-		if(neighborBuildingType == unitGenerator.buildingType.REACTOR):
+		if(neighborBuildingType == GameTypes.reactor):
 			if(neighbor.currentColor == currentColor):
 				numPowerPlants += 1
 		
 		# If neighbor == artillery and different color (Enemy color), add one to artillery
-		elif(neighborBuildingType == unitGenerator.buildingType.ARTILLERY):
+		elif(neighborBuildingType == GameTypes.artillery):
 			if(neighbor.currentColor != currentColor):
 				numArtillery += 1
 	
 	unitGenerator.setEffectiveness(numPowerPlants)
 
+# For all neighbors, recalculate the influences
+func neighborsRecalculateInfluences():
+	for neighbor in neighbors:
+		neighbor.recalculateInfluences()
+
+
+
 # Changes the building type to specified, and subtracts cost, and returns if success or not
-func buyBuildingType(type : UnitGenerator.buildingType, cost : int) -> bool:
+func buyBuildingType(type : GameTypes.buildingType, cost : int) -> bool:
 	# If not enough units, return
 	if(unitCalculator.unitAmounts[currentColor] <= cost):
 		return false
@@ -72,10 +79,11 @@ func buyBuildingType(type : UnitGenerator.buildingType, cost : int) -> bool:
 	
 	return true
 
-# When changed to powerplant
-func changedToPowerPlant():
-	for node in neighbors:
-		node.recalculateInfluences()
+# Signal sent when the function above changes UnitGenerator's building type
+func buildingTypeChanged(type : GameTypes.buildingType):
+	# If we're a powerplant, send out a signal to update other nodes
+	if(type == GameTypes.reactor):
+		neighborsRecalculateInfluences()
 
 # When captured
 func selfCaptured():
