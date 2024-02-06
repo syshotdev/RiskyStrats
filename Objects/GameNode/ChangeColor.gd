@@ -1,7 +1,15 @@
 extends Control
 
-@onready var sprite = $Sprite2D
-@onready var labelBox = $ColorBox
+var sprite
+var labelBox
+
+var spriteType : GameTypes.buildingType
+
+
+func _ready():
+	sprite = $Sprite2D
+	labelBox = $ColorBox
+	changeSprite(spriteType)
 
 
 func updateColorDisplay(units : Array[Unit]):
@@ -11,9 +19,10 @@ func updateColorDisplay(units : Array[Unit]):
 func changeColor(color : GameColors.colors):
 	sprite.modulate = GameColors.getColorFromEnum(color)
 
-
+# Changes the sprite based on building type
 func buildingTypeChanged(type : GameTypes.buildingType):
 	changeSprite(type)
+	spriteType = type
 
 
 # Change sprite to type

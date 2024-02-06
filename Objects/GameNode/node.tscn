@@ -91,3 +91,4 @@ grow_vertical = 2
 [connection signal="area_entered" from="SelectionBox" to="SelectionBox" method="areaEntered"]
 [connection signal="area_exited" from="SelectionBox" to="SelectionBox" method="areaExited"]
 [connection signal="selected" from="SelectionBox" to="SelectionBox" method="onSelected"]
+[connection signal="ready" from="ColorManager/Sprite2D" to="ColorManager" method="spriteReady"]
