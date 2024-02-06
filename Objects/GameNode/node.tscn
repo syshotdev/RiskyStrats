@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjpcojig6iwdw"]
+[gd_scene load_steps=10 format=3 uid="uid://cjpcojig6iwdw"]
 
 [ext_resource type="Script" path="res://Objects/GameNode/GameNode.gd" id="1_j8hsk"]
 [ext_resource type="Script" path="res://Objects/GameNode/UnitCalculator.gd" id="2_0yb6h"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Useful scripts/shapeVisualizer.gd" id="2_vqord"]
 [ext_resource type="Script" path="res://Objects/GameNode/Select.gd" id="3_pq1u5"]
 [ext_resource type="Script" path="res://Objects/GameNode/ChangeColor.gd" id="7_b3igk"]
+[ext_resource type="Texture2D" uid="uid://buijt6m441wxa" path="res://Sprites/Artillary.png" id="8_88trv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
 size = Vector2(40, 40)
@@ -74,6 +75,12 @@ layout_mode = 0
 offset_right = 37.0
 offset_bottom = 37.0
 color = Color(1, 0, 0.117647, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorManager"]
+texture_filter = 1
+position = Vector2(21, 21)
+scale = Vector2(1.3125, 1.3125)
+texture = ExtResource("8_88trv")
 
 [node name="ColorBox" type="VBoxContainer" parent="ColorManager"]
 layout_mode = 1

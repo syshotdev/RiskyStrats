@@ -1,9 +1,10 @@
 extends Node2D
 
-signal updateSelectionArea(pos1, pos2)
-signal updateHoveredNode(pos)
+signal updateSelectionArea(pos1, pos2) # Updates nodesInArea in player with all nodes in selection area
+signal updateHoveredNode(pos) # Updates the hovered node in (player) class
 signal buyMenuOn(pos) # Where to put the buy menu
-signal sendPayload(amount : int)
+signal buyMenuOff() # Turns of the buy menu
+signal sendPayload(amount : int) # Sends the payload with correct amount of units
 
 # Values to send
 var tier1 := 5
@@ -32,20 +33,25 @@ func tick(_delta):
 
 
 func _input(event):
-	# If the mouse was pressed or released and it wasn't a left click on, say the mouse isn't clicked
-	if event is InputEventMouseButton && not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		mouseClicked = false
-	
-	if event is InputEventMouseButton && Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		sendBuyMenuOn()
-	
-	
 	# If mouse moved, send area 
 	if event is InputEventMouseMotion:
 		sendCheckHoveredNode()
 		sendSelectionArea()
 	
 	checkPayloadAction()
+	
+	# Guard clause for mouse inputs
+	if not event is InputEventMouseButton:
+		return
+	
+	sendBuyMenuOff()
+	
+	# If the mouse was pressed or released and it wasn't a left click on, say the mouse isn't clicked
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		mouseClicked = false
+	
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		sendBuyMenuOn()
 
 
 func checkPayloadAction():
@@ -67,3 +73,6 @@ func sendCheckHoveredNode():
 
 func sendBuyMenuOn():
 	buyMenuOn.emit(get_global_mouse_position())
+
+func sendBuyMenuOff():
+	buyMenuOff.emit()

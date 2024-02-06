@@ -51,9 +51,17 @@ func buttonPressed(button : Button):
 
 # Try to buy the type
 func tryToBuyType(type : UnitGenerator.buildingType):
-	var cost := buildingCosts[type]
+	var cost : int = buildingCosts[type]
 	
 	if(currentNode == null):
 		return
 	
-	if(currentNode.)
+	var success : bool = currentNode.buyBuildingType(type, cost)
+	
+	# If the current node is not null, then close this tab when purchase successful
+	if(success):
+		turnOff()
+
+# Basically gets rid of the window
+func turnOff():
+	self.visible = false

@@ -60,6 +60,18 @@ func recalculateInfluences():
 	
 	unitGenerator.setEffectiveness(numPowerPlants)
 
+# Changes the building type to specified, and subtracts cost, and returns if success or not
+func buyBuildingType(type : UnitGenerator.buildingType, cost : int) -> bool:
+	# If not enough units, return
+	if(unitCalculator.unitAmounts[currentColor] <= cost):
+		return false
+	
+	unitGenerator.currentBuildingType = type
+	# Subtract cost
+	unitCalculator.unitAmounts[currentColor] -= cost
+	
+	return true
+
 # When changed to powerplant
 func changedToPowerPlant():
 	for node in neighbors:

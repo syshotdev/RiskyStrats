@@ -52,3 +52,8 @@ func buyMenuOn(pos : Vector2):
 	
 	buyMenu.position = pos
 	buyMenu.visible = true
+	buyMenu.currentNode = hoveredNode
+
+# Turns of buy menu
+func buyMenuOff():
+	buyMenu.turnOff()
