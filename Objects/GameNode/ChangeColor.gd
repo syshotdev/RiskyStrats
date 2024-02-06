@@ -1,14 +1,13 @@
 extends Control
 
-var sprite
-var labelBox
+@onready var sprite = $Sprite2D
+@onready var labelBox = $ColorBox
 
 var spriteType : GameTypes.buildingType
 
 
 func _ready():
-	sprite = $Sprite2D
-	labelBox = $ColorBox
+	# Sprite loads when game starts
 	changeSprite(spriteType)
 
 
