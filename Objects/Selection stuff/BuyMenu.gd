@@ -1,5 +1,7 @@
 extends Control
 
+class_name BuyMenu
+
 # Don't make the @export menu bloated :)
 @onready var verticalOptions := $VerticalOptions
 
@@ -13,10 +15,11 @@ var buildingCosts : Dictionary = {
 
 var buttonTypes : Dictionary = {} # Key: button, Value: buildingType
 
+var currentNode : GameNode # The node that this was spawned on, and will affect
+
 
 func _ready():
 	generateButtons()
-
 
 # Generates all the buttons and adds them as children and gets signals
 func generateButtons():
@@ -36,7 +39,7 @@ func generateButtons():
 func generateButton(type : UnitGenerator.buildingType, buttonCost : int) -> Button:
 	var button : Button = Button.new()
 	
-	# Horrible one liner, but simple in that turns "type" into string (not 1 or 4), lowercase, then capitalize first letter
+	# Horrible one liner, but simple in that turns "type" into string (1 or 4 to FORT), lowercase, then capitalize first letter
 	var buttonName = str(UnitGenerator.buildingType.keys()[type]).to_lower().capitalize()
 	button.text = buttonName + " cost: " + str(buttonCost)
 	
@@ -44,5 +47,13 @@ func generateButton(type : UnitGenerator.buildingType, buttonCost : int) -> Butt
 
 # Something
 func buttonPressed(button : Button):
-	# Get the cost of the button being pressed
-	print(buttonTypes[button])
+	tryToBuyType(buttonTypes[button])
+
+# Try to buy the type
+func tryToBuyType(type : UnitGenerator.buildingType):
+	var cost := buildingCosts[type]
+	
+	if(currentNode == null):
+		return
+	
+	if(currentNode.)

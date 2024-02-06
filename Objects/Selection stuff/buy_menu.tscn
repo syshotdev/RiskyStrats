@@ -1,28 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://cq2pwm06fk423"]
+[gd_scene load_steps=3 format=3 uid="uid://cq2pwm06fk423"]
 
 [ext_resource type="Script" path="res://Objects/Selection stuff/BuyMenu.gd" id="1_ewjno"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pse8s"]
+bg_color = Color(0.129412, 0.129412, 0.129412, 1)
+
 [node name="BuyMenu" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -798.0
-offset_bottom = -424.0
+anchor_right = 0.197917
+anchor_bottom = 0.466049
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 script = ExtResource("1_ewjno")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.164706, 0.164706, 0.164706, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_pse8s")
 
 [node name="VerticalOptions" type="VBoxContainer" parent="."]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

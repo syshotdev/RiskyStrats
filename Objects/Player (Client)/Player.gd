@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var buyMenu : BuyMenu
 @export var selectionArea : SelectionArea
 @export var nodeChecker : HoveredNode
 @export var inputStuff : Node2D
@@ -39,3 +40,15 @@ func updateSelectionArea(pos1, pos2):
 # Check the current hovered node (If there is one)
 func checkHoveredNode(pos):
 	hoveredNode = nodeChecker.getHoveredNode(pos)
+
+# Checks the current hovered node, and turns buy menu visiblitiy on if circumstances right.
+# THIS WILL CHANGE LATER: I don't know how to turn buy menu off
+func buyMenuOn(pos : Vector2):
+	# Guard clauses
+	if(hoveredNode == null):
+		return
+	if(hoveredNode.currentColor != currentColor):
+		return
+	
+	buyMenu.position = pos
+	buyMenu.visible = true

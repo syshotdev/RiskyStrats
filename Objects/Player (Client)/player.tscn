@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://elf2km00t30"]
+[gd_scene load_steps=9 format=3 uid="uid://elf2km00t30"]
 
 [ext_resource type="Script" path="res://Objects/Player (Client)/Player.gd" id="1_jhoao"]
 [ext_resource type="Script" path="res://Objects/Selection stuff/SelectionProcesser.gd" id="2_a6bsm"]
@@ -6,11 +6,13 @@
 [ext_resource type="Script" path="res://Objects/Map/Map.gd" id="4_idlu1"]
 [ext_resource type="PackedScene" uid="uid://hd33djnhvcph" path="res://Objects/Map/man_map.tscn" id="4_r6l76"]
 [ext_resource type="Script" path="res://Objects/Selection stuff/HoveredNode.gd" id="6_1h5bi"]
+[ext_resource type="PackedScene" uid="uid://cq2pwm06fk423" path="res://Objects/Selection stuff/buy_menu.tscn" id="7_ea7wc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pwooj"]
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("selectionArea", "nodeChecker", "inputStuff", "map")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("buyMenu", "selectionArea", "nodeChecker", "inputStuff", "map")]
 script = ExtResource("1_jhoao")
+buyMenu = NodePath("BuyMenu")
 selectionArea = NodePath("SelectionArea")
 nodeChecker = NodePath("HoveredNode")
 inputStuff = NodePath("inputProcesser")
@@ -38,6 +40,10 @@ checkingArea = NodePath("HoveredNodeArea")
 shape = SubResource("CircleShape2D_pwooj")
 debug_color = Color(0.827451, 0.0705882, 0.270588, 0.419608)
 
+[node name="BuyMenu" parent="." instance=ExtResource("7_ea7wc")]
+visible = false
+
+[connection signal="buyMenuOn" from="inputProcesser" to="." method="buyMenuOn"]
 [connection signal="sendPayload" from="inputProcesser" to="." method="onInputSendPayload"]
 [connection signal="updateHoveredNode" from="inputProcesser" to="." method="checkHoveredNode"]
 [connection signal="updateSelectionArea" from="inputProcesser" to="." method="updateSelectionArea"]
