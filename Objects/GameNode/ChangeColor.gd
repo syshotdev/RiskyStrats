@@ -1,6 +1,7 @@
 extends Control
 
 @onready var colorRect = $ColorRect
+@onready var sprite = $Sprite2D
 @onready var shadow = $Shadow
 @onready var labelBox = $ColorBox
 
@@ -8,14 +9,13 @@ extends Control
 func updateColorDisplay(units : Array[Unit]):
 	updateUnitDisplay(units)
 
+# Change sprite to type
+func changeSprite(type : UnitGenerator.buildingType):
+	pass
 
+# Change color of sprite
 func changeColor(color : GameColors.colors):
-	setColorRectColor(color)
-
-
-func setColorRectColor(color : GameColors.colors):
-	colorRect.color = GameColors.getColorFromEnum(color)
-	#shadow.color = GameColors.getColorFromEnum(color) - Color(0.25,0.25,0.25)
+	sprite.modulate = GameColors.getColorFromEnum(color)
 
 
 func updateUnitDisplay(units : Array[Unit]):

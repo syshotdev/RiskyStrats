@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://buijt6m441wxa"
-path="res://.godot/imported/Artillary.png-7a1e95f0cb29683b75e3859d11e4cb5b.ctex"
+path="res://.godot/imported/Artillery.png-6ae688d6e5dcd8f2c6077b94bd5c7c1a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Artillary.png"
-dest_files=["res://.godot/imported/Artillary.png-7a1e95f0cb29683b75e3859d11e4cb5b.ctex"]
+source_file="res://Sprites/Artillery.png"
+dest_files=["res://.godot/imported/Artillery.png-6ae688d6e5dcd8f2c6077b94bd5c7c1a.ctex"]
 
 [params]
 
