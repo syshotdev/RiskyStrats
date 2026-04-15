@@ -1,0 +1,4 @@
+Different shapes for different types of buildings
+Each unit cluster is an object with a collision shape
+Friendly & non-friendly clusters collide, bigger one sends it back
+Tool function to visualize roads
