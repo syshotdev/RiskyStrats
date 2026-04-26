@@ -1,11 +1,12 @@
-[gd_scene format=3 uid="uid://cvb7j4gup8mxa"]
+[gd_scene format=3 uid="uid://bi3lyw4c3emtg"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_0f1fw"]
+[ext_resource type="Script" uid="uid://dyc824qacnuja" path="res://main.gd" id="1_0f1fw"]
 [ext_resource type="PackedScene" uid="uid://elf2km00t30" path="res://Objects/Player (Client)/player.tscn" id="2_cn2q5"]
 
 [sub_resource type="Environment" id="Environment_p2hpy"]
 background_mode = 3
 background_color = Color(0.74902, 0.690196, 0.803922, 1)
+ambient_light_color = Color(5.198121e-06, 0.6607625, 0.9546502, 1)
 glow_enabled = true
 glow_intensity = 2.29
 glow_strength = 0.64
@@ -13,12 +14,12 @@ glow_blend_mode = 0
 glow_hdr_threshold = 0.0
 fog_light_color = Color(0.317647, 0.345098, 0.392157, 1)
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1668038954]
 script = ExtResource("1_0f1fw")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1696718489]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1391770658]
 environment = SubResource("Environment_p2hpy")
 
-[node name="Player" parent="." instance=ExtResource("2_cn2q5")]
+[node name="Player" parent="." unique_id=2027691380 instance=ExtResource("2_cn2q5")]

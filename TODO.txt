@@ -1,4 +1,28 @@
+
+
+Visualize game control flow
+1. Player should NOT be the main node
+2. Each one should be encapsulated, not TALKING TO EACH OTHER. It's hard to
+wrap my head around which ones are where and why they're all binded to each other
+
+Make roads look cooler (and 3d)
+Pan camera
+Debug tools (team switching, infinite mode, slowdown / speedup)
+Theme buttons
+Bug: Black background color
+Bug: Selecting (shop and selection area) does not close previous areas
+Bug: Selecting many nodes and commanding them concentrates all of them in the leftmost node
+Refactor game structure (it's a mess just thinking about it. An organized mess, though)
+Remove print debug statements
+New, bigger map
+Add objects to liven up landscape
+Fog of war (maybe?)
+Show the color of the node in the editor (Not necessary)
+
+
 Different shapes for different types of buildings
-Each unit cluster is an object with a collision shape
-Friendly & non-friendly clusters collide, bigger one sends it back
-Tool function to visualize roads
+
+Main menu
+Settings menu
+SFX
+Multiplayer

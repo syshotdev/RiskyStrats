@@ -90,4 +90,3 @@ func calculateCostOfNode(node : GameNode, startNode : GameNode, endNode : GameNo
 	var fromStartCost = node.position.distance_to(startNode.position)
 	var fromEndCost = node.position.distance_to(endNode.position)
 	return fromStartCost + fromEndCost
-

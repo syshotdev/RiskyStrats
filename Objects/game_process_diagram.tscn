@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://gp8e0kqsdfw6"]
+
+[node name="GameProcessDiagram" type="Node2D" unique_id=1877521755]
+
+[node name="GraphEdit" type="GraphEdit" parent="." unique_id=1450115424]
+offset_left = -2.0
+offset_top = -3.0
+offset_right = 650.0
+offset_bottom = 384.0
+scroll_offset = Vector2(-323, -239)
+
+[node name="GraphNode" type="GraphNode" parent="GraphEdit" unique_id=413278760]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 201.0
+offset_right = 219.0
+offset_bottom = 256.0
+mouse_filter = 1
+position_offset = Vector2(-113, -38)

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqaoja8m7lava"]
-
-[ext_resource type="Script" path="res://Components/UnitCluster.gd" id="1_inu3x"]
-
-[node name="UnitCluster" type="Node2D"]
-script = ExtResource("1_inu3x")

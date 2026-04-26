@@ -14,7 +14,6 @@ var buildingCosts : Dictionary = {
 }
 
 var buttonTypes : Dictionary = {} # Key: button, Value: buildingType
-
 var currentNode : GameNode # The node that this was spawned on, and will affect
 
 
@@ -60,8 +59,4 @@ func tryToBuyType(type : GameTypes.buildingType):
 	
 	# If the current node is not null, then close this tab when purchase successful
 	if(success):
-		turnOff()
-
-# Basically gets rid of the window
-func turnOff():
-	self.visible = false
+		hide()

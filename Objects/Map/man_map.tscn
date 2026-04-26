@@ -1,266 +1,232 @@
-[gd_scene load_steps=5 format=3 uid="uid://hd33djnhvcph"]
+[gd_scene format=3 uid="uid://hd33djnhvcph"]
 
-[ext_resource type="Script" path="res://Objects/Map/Map.gd" id="1_6066k"]
+[ext_resource type="Script" uid="uid://du51tpdrlbbus" path="res://Objects/Map/Map.gd" id="1_6066k"]
 [ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/GameNode/node.tscn" id="2_4rc3m"]
-[ext_resource type="Script" path="res://Objects/Road/Road.gd" id="3_wq7qk"]
+[ext_resource type="Script" uid="uid://b2e85xp6vk1w" path="res://Objects/Road/Road.gd" id="3_wq7qk"]
 [ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/Road/road.tscn" id="4_4ywfk"]
 
-[node name="Man map" type="Node2D"]
+[node name="Man map" type="Node2D" unique_id=1377973777]
 script = ExtResource("1_6066k")
 defaultNodeColor = 2
 
-[node name="Nodes" type="Node2D" parent="."]
+[node name="Nodes" type="Node2D" parent="." unique_id=486482192]
 
-[node name="GameNode" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode" parent="Nodes" unique_id=1999318541 instance=ExtResource("2_4rc3m")]
 position = Vector2(0, 30)
 currentColor = 7
-currentBuildingType = 0
 
-[node name="GameNode6" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode6" parent="Nodes" unique_id=1861090624 instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -83)
-currentColor = 0
 currentBuildingType = 2
 
-[node name="GameNode7" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode7" parent="Nodes" unique_id=1781400675 instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -155)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode18" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode18" parent="Nodes" unique_id=97396851 instance=ExtResource("2_4rc3m")]
 position = Vector2(-123, -96)
-currentColor = 0
 currentBuildingType = 4
 
-[node name="GameNode19" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode19" parent="Nodes" unique_id=168330226 instance=ExtResource("2_4rc3m")]
 position = Vector2(-227, -113)
-currentColor = 0
 currentBuildingType = 2
 
-[node name="GameNode20" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode20" parent="Nodes" unique_id=907428893 instance=ExtResource("2_4rc3m")]
 position = Vector2(-336, -126)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode15" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode15" parent="Nodes" unique_id=1679151298 instance=ExtResource("2_4rc3m")]
 position = Vector2(97, -82)
-currentColor = 0
 currentBuildingType = 4
 
-[node name="GameNode16" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode16" parent="Nodes" unique_id=1176519491 instance=ExtResource("2_4rc3m")]
 position = Vector2(186, -108)
-currentColor = 0
 currentBuildingType = 2
 
-[node name="GameNode17" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode17" parent="Nodes" unique_id=22548142 instance=ExtResource("2_4rc3m")]
 position = Vector2(283, -128)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode8" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode8" parent="Nodes" unique_id=530432598 instance=ExtResource("2_4rc3m")]
 position = Vector2(72, -200)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode9" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode9" parent="Nodes" unique_id=578853091 instance=ExtResource("2_4rc3m")]
 position = Vector2(118, -282)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode10" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode10" parent="Nodes" unique_id=515763140 instance=ExtResource("2_4rc3m")]
 position = Vector2(79, -362)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode11" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode11" parent="Nodes" unique_id=1961970754 instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -394)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode12" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode12" parent="Nodes" unique_id=339909136 instance=ExtResource("2_4rc3m")]
 position = Vector2(-94, -364)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode13" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode13" parent="Nodes" unique_id=780037811 instance=ExtResource("2_4rc3m")]
 position = Vector2(-128, -277)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode14" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode14" parent="Nodes" unique_id=1614777706 instance=ExtResource("2_4rc3m")]
 position = Vector2(-88, -196)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode2" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode2" parent="Nodes" unique_id=1187403491 instance=ExtResource("2_4rc3m")]
 position = Vector2(62, 120)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode3" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode3" parent="Nodes" unique_id=998685103 instance=ExtResource("2_4rc3m")]
 position = Vector2(112, 203)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode4" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode4" parent="Nodes" unique_id=1787829494 instance=ExtResource("2_4rc3m")]
 position = Vector2(-63, 120)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="GameNode5" parent="Nodes" instance=ExtResource("2_4rc3m")]
+[node name="GameNode5" parent="Nodes" unique_id=2133436955 instance=ExtResource("2_4rc3m")]
 position = Vector2(-112, 217)
-currentColor = 0
-currentBuildingType = 0
 
-[node name="Roads" type="Node2D" parent="."]
+[node name="Roads" type="Node2D" parent="." unique_id=938349484]
 
-[node name="Road" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road" type="Node2D" parent="Roads" unique_id=1842126143 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode")
 node2 = NodePath("../../Nodes/GameNode6")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road2" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road2" type="Node2D" parent="Roads" unique_id=1509669647 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode6")
 node2 = NodePath("../../Nodes/GameNode7")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road3" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road3" type="Node2D" parent="Roads" unique_id=1212866588 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode6")
 node2 = NodePath("../../Nodes/GameNode7")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road4" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road4" type="Node2D" parent="Roads" unique_id=1413561502 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode6")
 node2 = NodePath("../../Nodes/GameNode15")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road5" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road5" type="Node2D" parent="Roads" unique_id=1381291543 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode15")
 node2 = NodePath("../../Nodes/GameNode16")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road6" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road6" type="Node2D" parent="Roads" unique_id=231085485 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode16")
 node2 = NodePath("../../Nodes/GameNode17")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road7" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road7" type="Node2D" parent="Roads" unique_id=273002929 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode18")
 node2 = NodePath("../../Nodes/GameNode19")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road8" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road8" type="Node2D" parent="Roads" unique_id=44880870 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode19")
 node2 = NodePath("../../Nodes/GameNode20")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road9" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road9" type="Node2D" parent="Roads" unique_id=460302981 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode6")
 node2 = NodePath("../../Nodes/GameNode18")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road10" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road10" type="Node2D" parent="Roads" unique_id=1543591720 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode")
 node2 = NodePath("../../Nodes/GameNode4")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road11" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road11" type="Node2D" parent="Roads" unique_id=1508707287 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode4")
 node2 = NodePath("../../Nodes/GameNode5")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road12" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road12" type="Node2D" parent="Roads" unique_id=990082989 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode6")
 node2 = NodePath("../../Nodes/GameNode7")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road13" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road13" type="Node2D" parent="Roads" unique_id=2134678338 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode7")
 node2 = NodePath("../../Nodes/GameNode8")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road14" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road14" type="Node2D" parent="Roads" unique_id=1537080514 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode8")
 node2 = NodePath("../../Nodes/GameNode9")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road15" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road15" type="Node2D" parent="Roads" unique_id=1724317171 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode9")
 node2 = NodePath("../../Nodes/GameNode10")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road16" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road16" type="Node2D" parent="Roads" unique_id=293180843 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode10")
 node2 = NodePath("../../Nodes/GameNode11")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road17" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road17" type="Node2D" parent="Roads" unique_id=460003172 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode11")
 node2 = NodePath("../../Nodes/GameNode12")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road18" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road18" type="Node2D" parent="Roads" unique_id=1268309861 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode12")
 node2 = NodePath("../../Nodes/GameNode13")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road19" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road19" type="Node2D" parent="Roads" unique_id=2046095785 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode13")
 node2 = NodePath("../../Nodes/GameNode14")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road20" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road20" type="Node2D" parent="Roads" unique_id=930521917 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode14")
 node2 = NodePath("../../Nodes/GameNode7")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road21" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road21" type="Node2D" parent="Roads" unique_id=675319223 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode")
 node2 = NodePath("../../Nodes/GameNode2")
 roadUnitScene = ExtResource("4_4ywfk")
 
-[node name="Road22" type="Node2D" parent="Roads" node_paths=PackedStringArray("node1", "node2")]
+[node name="Road22" type="Node2D" parent="Roads" unique_id=1442101041 node_paths=PackedStringArray("node1", "node2")]
 z_index = -1
 script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode2")

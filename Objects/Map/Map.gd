@@ -61,7 +61,6 @@ func sendPayload(selectedNodes, nodeDestination, unit : Unit):
 		if(color != node.currentColor):
 			continue
 		
-		# Moved here because bug
 		var maxUnitsCanSend : float = min(node.unitCalculator.unitAmounts[color], unit.units) - 1
 		
 		# If can't send units, don't

@@ -3,7 +3,7 @@ extends Node2D
 signal updateSelectionArea(pos1, pos2) # Updates nodesInArea in player with all nodes in selection area
 signal updateHoveredNode(pos) # Updates the hovered node in (player) class
 signal buyMenuOn(pos) # Where to put the buy menu
-signal buyMenuOff() # Turns of the buy menu
+signal buyMenuOff() # Turns off the buy menu
 signal sendPayload(amount : int) # Sends the payload with correct amount of units
 
 # Values to send

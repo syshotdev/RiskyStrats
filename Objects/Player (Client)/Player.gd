@@ -41,7 +41,7 @@ func updateSelectionArea(pos1, pos2):
 func checkHoveredNode(pos):
 	hoveredNode = nodeChecker.getHoveredNode(pos)
 
-# Checks the current hovered node, and turns buy menu visiblitiy on if circumstances right.
+# Checks the current hovered node, and turns buy menu visibility on if circumstances right.
 # THIS WILL CHANGE LATER: I don't know how to turn buy menu off
 func buyMenuOn(pos : Vector2):
 	# Guard clauses
@@ -56,4 +56,4 @@ func buyMenuOn(pos : Vector2):
 
 # Turns of buy menu
 func buyMenuOff():
-	buyMenu.turnOff()
+	buyMenu.hide()

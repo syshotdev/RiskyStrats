@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwf4npc812g1k"]
+
+[ext_resource type="Script" uid="uid://bgnn6dowfoojj" path="res://addons/custom_graph_editor/UI/tool_bar.gd" id="1_mmqea"]
+
+[node name="CGEToolBar" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 39.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_mmqea")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MenuBar" type="MenuBar" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FilePopupMenu" type="PopupMenu" parent="MarginContainer/HBoxContainer/MenuBar"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "File"
+item_count = 3
+item_0/text = "Save"
+item_0/id = 0
+item_1/text = "Save As"
+item_1/id = 1
+item_2/text = "Load"
+item_2/id = 2
+
+[node name="EditPopupMenu" type="PopupMenu" parent="MarginContainer/HBoxContainer/MenuBar"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Edit"
+item_count = 7
+item_0/text = "Undo"
+item_0/id = 0
+item_1/text = "Redo"
+item_1/id = 1
+item_2/text = "Cut"
+item_2/id = 2
+item_3/text = "Copy"
+item_3/id = 3
+item_4/text = "Paste"
+item_4/id = 4
+item_5/text = "Duplicate"
+item_5/id = 5
+item_6/text = "Delete"
+item_6/id = 6
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="NewNodeButton" type="Button" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Node"
+
+[node name="FilenameLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "filename.gepraph*"
