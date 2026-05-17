@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var camera := $Camera2D
 @export var buyMenu : BuyMenu
 @export var selectionArea : SelectionArea
 @export var nodeChecker : HoveredNode
@@ -14,6 +15,10 @@ var hoveredNode : GameNode
 func _process(delta):
 	inputStuff.tick(delta)
 	map.tick(delta)
+
+func _input(event: InputEvent) -> void:
+	if !get_tree().root.get_viewport().is_input_handled():
+		camera.tool_event(event)
 
 # Initializes this class when the game starts
 func initPlayer(color : GameColors.colors):

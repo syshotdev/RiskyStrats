@@ -2,13 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dyc824qacnuja" path="res://main.gd" id="1_0f1fw"]
 [ext_resource type="PackedScene" uid="uid://elf2km00t30" path="res://Objects/Player (Client)/player.tscn" id="2_cn2q5"]
-[ext_resource type="Script" uid="uid://rcba1ccl24kb" path="res://Objects/Camera/CameraController.gd" id="2_h2yge"]
 
 [node name="Main" type="Node2D" unique_id=1668038954]
 script = ExtResource("1_0f1fw")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1696718489]
-limit_enabled = false
-script = ExtResource("2_h2yge")
 
 [node name="Player" parent="." unique_id=2027691380 instance=ExtResource("2_cn2q5")]
