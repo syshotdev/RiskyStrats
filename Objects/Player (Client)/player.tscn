@@ -15,10 +15,10 @@ script = ExtResource("1_jhoao")
 buyMenu = NodePath("BuyMenu")
 selectionArea = NodePath("SelectionArea")
 nodeChecker = NodePath("HoveredNode")
-inputStuff = NodePath("inputProcesser")
+inputStuff = NodePath("InputProcesser")
 map = NodePath("Man map")
 
-[node name="inputProcesser" type="Node2D" parent="." unique_id=35364118]
+[node name="InputProcesser" type="Node2D" parent="." unique_id=35364118]
 script = ExtResource("2_a6bsm")
 
 [node name="Map" type="Node2D" parent="." unique_id=1849911699]
@@ -43,9 +43,9 @@ debug_color = Color(0.827451, 0.0705882, 0.270588, 0.419608)
 [node name="BuyMenu" parent="." unique_id=174039052 instance=ExtResource("7_ea7wc")]
 visible = false
 
-[connection signal="buyMenuOn" from="inputProcesser" to="." method="buyMenuOn"]
-[connection signal="sendPayload" from="inputProcesser" to="." method="onInputSendPayload"]
-[connection signal="updateHoveredNode" from="inputProcesser" to="." method="checkHoveredNode"]
-[connection signal="updateSelectionArea" from="inputProcesser" to="." method="updateSelectionArea"]
+[connection signal="buyMenuOn" from="InputProcesser" to="." method="buyMenuOn"]
+[connection signal="sendPayload" from="InputProcesser" to="." method="onInputSendPayload"]
+[connection signal="updateHoveredNode" from="InputProcesser" to="." method="checkHoveredNode"]
+[connection signal="updateSelectionArea" from="InputProcesser" to="." method="updateSelectionArea"]
 [connection signal="area_entered" from="HoveredNode" to="HoveredNode" method="areaEntered"]
 [connection signal="area_exited" from="HoveredNode" to="HoveredNode" method="areaExited"]

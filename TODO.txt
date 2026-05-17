@@ -2,10 +2,10 @@
 
 Visualize game control flow
 1. Player should NOT be the main node
-2. Each one should be encapsulated, not TALKING TO EACH OTHER. It's hard to
-wrap my head around which ones are where and why they're all binded to each other
+2. Each system should be encapsulated, not INTERMINGLED. It's hard to
+wrap my head around which parts are where and why certain nodes are binded to each other
 
-Make roads look cooler (and 3d)
+
 Pan camera
 Debug tools (team switching, infinite mode, slowdown / speedup)
 Theme buttons
@@ -18,6 +18,8 @@ New, bigger map
 Add objects to liven up landscape
 Fog of war (maybe?)
 Show the color of the node in the editor (Not necessary)
+When instancing roads, put center point in between nodes
+Zoom into a specific point instead of straight center
 
 
 Different shapes for different types of buildings
@@ -26,3 +28,7 @@ Main menu
 Settings menu
 SFX
 Multiplayer
+
+
+Done:
+	Make roads look cooler (and 3d)
