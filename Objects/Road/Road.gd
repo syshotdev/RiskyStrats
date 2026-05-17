@@ -8,7 +8,8 @@ class_name Road
 @export var roadUnitScene : PackedScene = preload("res://Objects/Units/road_unit.tscn")
 
 @export var thickness : int = 10
-@export var color : Color
+const color : Color = Color("2b2b2b")
+const shadowColor : Color = Color("1a1a1a")
 
 
 # For ALL RoadUnits
@@ -27,11 +28,16 @@ func _ready():
 
 
 func _draw():
-	if(node1 != null and node2 != null):
-		drawLine(node1.global_position, node2.global_position)
+	if(node1 != null && node2 != null):
+		var shadowOffset : Vector2 = Vector2(0, -5)
+		drawLine(
+			node1.global_position - shadowOffset, 
+			node2.global_position - shadowOffset, 
+			shadowColor)
+		drawLine(node1.global_position, node2.global_position, color)
 
 
-func drawLine(pos1 : Vector2, pos2 : Vector2):
+func drawLine(pos1 : Vector2, pos2 : Vector2, color : Color):
 	draw_line(pos1, pos2, color, thickness)
 
 # Adds the road to all the nessesary variables to keep track of.
