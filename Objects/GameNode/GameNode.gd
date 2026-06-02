@@ -8,10 +8,15 @@ signal buildingTypeChanged(type : GameTypes.buildingType)
 @export var color : GameColors.colors
 @export var type : GameTypes.buildingType
 
+# Generation
+const genRate : float = 5.0 # Rate default node generates per second
+var effectiveness : float = 1.0 # Multiplier for genRate
+
+var killRate : float = 0.02 # The rate at which one soldier can kill another per unit of time
+
 
 # Battling
 var unitAmounts : Dictionary = {} # Key color, value amount
-
 
 # Nodes stuff
 var neighbors : Array[GameNode] = [] # Neighboring nodes

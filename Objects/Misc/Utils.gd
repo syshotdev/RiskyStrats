@@ -70,7 +70,7 @@ func translate_action(action_name: String) -> String:
 
 # ------------------------------------------------------------------------------------------------
 # See: https://github.com/mbrlabs/Lorien/pull/168#discussion_r908251372 for details
-# Does an _exact_ match for the given key stroke.
+# Does an _exact_ match for the given key node.
 func is_action_pressed(action_name: String, event: InputEvent) -> bool:
 	return InputMap.action_has_event(action_name, event) && event.is_pressed() && !event.is_echo()
 

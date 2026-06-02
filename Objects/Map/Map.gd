@@ -4,12 +4,6 @@ class_name Map
 
 @export var defaultNodeColor : GameColors.colors
 
-# Generation
-const genRate : float = 5.0 # Rate default node generates per second
-var effectiveness : float = 1.0 # Multiplier for genRate
-
-var killRate : float = 0.02 # The rate at which one soldier can kill another per unit of time
-
 var roads : Array
 var nodes : Array
 

@@ -2,7 +2,7 @@ extends SubViewportContainer
 class_name InfiniteCanvas
 
 # -------------------------------------------------------------------------------------------------
-const BRUSH_STROKE = preload("res://BrushStroke/BrushStroke.tscn")
+const BRUSH_node = preload("res://Brushnode/Brushnode.tscn")
 const PLAYER = preload("res://Misc/Player/Player.tscn")
 
 # -------------------------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ const PLAYER = preload("res://Misc/Player/Player.tscn")
 @onready var _selection_tool: SelectionTool = $SelectionTool
 @onready var _active_tool: CanvasTool = _brush_tool
 @onready var _active_tool_type: int = Types.Tool.BRUSH
-@onready var _strokes_parent: Node2D = $SubViewport/Strokes
+@onready var _nodes_parent: Node2D = $SubViewport/nodes
 @onready var _camera: Camera2D = $SubViewport/Camera2D
 @onready var _viewport: SubViewport = $SubViewport
 @onready var _grid: InfiniteCanvasGrid = $SubViewport/Grid
@@ -27,16 +27,16 @@ var _is_enabled := false
 var _background_color: Color
 var _brush_color := Config.DEFAULT_BRUSH_COLOR
 var _brush_size := Config.DEFAULT_BRUSH_SIZE: set = set_brush_size
-var _current_stroke: BrushStroke
+var _current_node: Brushnode
 var _current_project: Project
 var _use_optimizer := true
-var _optimizer: BrushStrokeOptimizer
+var _optimizer: BrushnodeOptimizer
 var _player: Player = null
 var _player_enabled := false
 
 # -------------------------------------------------------------------------------------------------
 func _ready() -> void:
-	_optimizer = BrushStrokeOptimizer.new()
+	_optimizer = BrushnodeOptimizer.new()
 	_brush_size = Settings.get_value(Settings.GENERAL_DEFAULT_BRUSH_SIZE, Config.DEFAULT_BRUSH_SIZE)
 	set_background_color(Settings.get_value(Settings.APPEARANCE_CANVAS_COLOR, Config.DEFAULT_CANVAS_COLOR))
 	_active_tool._on_brush_size_changed(_brush_size)
@@ -89,13 +89,13 @@ func _process_event(event: InputEvent) -> void:
 				# restore tool from type
 				use_tool(_active_tool_type)
 
-	if event.is_action("deselect_all_strokes"):
+	if event.is_action("deselect_all_nodes"):
 		if _active_tool == _selection_tool:
-			_selection_tool.deselect_all_strokes()
+			_selection_tool.deselect_all_nodes()
 
-	if event.is_action("delete_selected_strokes"):
+	if event.is_action("delete_selected_nodes"):
 		if _active_tool == _selection_tool:
-			_delete_selected_strokes()
+			_delete_selected_nodes()
 	
 	if !get_tree().root.get_viewport().is_input_handled():
 		_camera.tool_event(event)
@@ -152,8 +152,8 @@ func enable_player(e: bool) -> void:
 	_player_enabled = e
 	
 	# colliders
-	for stroke in _strokes_parent.get_children():
-		stroke.enable_collider(e)
+	for node in _nodes_parent.get_children():
+		node.enable_collider(e)
 	
 	# player
 	if e:
@@ -177,12 +177,12 @@ func get_camera_3d() -> Camera2D:
 	return _camera
 
 # -------------------------------------------------------------------------------------------------
-func get_strokes_in_camera_frustrum() -> Array:
-	return get_tree().get_nodes_in_group(BrushStroke.GROUP_ONSCREEN)
+func get_nodes_in_camera_frustrum() -> Array:
+	return get_tree().get_nodes_in_group(Brushnode.GROUP_ONSCREEN)
 
 # -------------------------------------------------------------------------------------------------
-func get_all_strokes() -> Array[BrushStroke]:
-	return _current_project.strokes
+func get_all_nodes() -> Array[Brushnode]:
+	return _current_project.nodes
 
 # -------------------------------------------------------------------------------------------------
 func enable() -> void:
@@ -204,100 +204,100 @@ func take_screenshot() -> Image:
 	return _viewport.get_texture().get_data()
 
 # -------------------------------------------------------------------------------------------------
-func add_stroke(stroke: BrushStroke) -> void:
+func add_node(node: Brushnode) -> void:
 	if _current_project != null:
-		_current_project.strokes.append(stroke)
-		_strokes_parent.add_child(stroke)
-		info.point_count += stroke.points.size()
-		info.stroke_count += 1
+		_current_project.nodes.append(node)
+		_nodes_parent.add_child(node)
+		info.point_count += node.points.size()
+		info.node_count += 1
 
 # -------------------------------------------------------------------------------------------------
-func add_stroke_point(point: Vector2, pressure: float = 1.0) -> void:
-	_current_stroke.add_point(point, pressure)
+func add_node_point(point: Vector2, pressure: float = 1.0) -> void:
+	_current_node.add_point(point, pressure)
 	if _use_optimizer:
-		_optimizer.optimize(_current_stroke)
-	_current_stroke.refresh()
+		_optimizer.optimize(_current_node)
+	_current_node.refresh()
 
 # -------------------------------------------------------------------------------------------------
-func remove_last_stroke_point() -> void:
-	_current_stroke.remove_last_point()
+func remove_last_node_point() -> void:
+	_current_node.remove_last_point()
 
 # -------------------------------------------------------------------------------------------------
-func remove_all_stroke_points() -> void:
-	_current_stroke.remove_all_points()
+func remove_all_node_points() -> void:
+	_current_node.remove_all_points()
 
 # -------------------------------------------------------------------------------------------------
 func is_drawing() -> bool:
-	return _current_stroke != null 
+	return _current_node != null 
 
 # -------------------------------------------------------------------------------------------------
-func start_stroke() -> void:
-	_current_stroke = BRUSH_STROKE.instantiate()
-	_current_stroke.size = _brush_size
-	_current_stroke.color = _brush_color
+func start_node() -> void:
+	_current_node = BRUSH_node.instantiate()
+	_current_node.size = _brush_size
+	_current_node.color = _brush_color
 	
-	_strokes_parent.add_child(_current_stroke)
+	_nodes_parent.add_child(_current_node)
 	_optimizer.reset()
 
 # -------------------------------------------------------------------------------------------------
-func end_stroke() -> void:
-	if _current_stroke != null:
-		var points: Array = _current_stroke.points
+func end_node() -> void:
+	if _current_node != null:
+		var points: Array = _current_node.points
 		if points.size() <= 1 || (points.size() == 2 && points.front().is_equal_approx(points.back())):
-			_strokes_parent.remove_child(_current_stroke)
-			_current_stroke.queue_free()
+			_nodes_parent.remove_child(_current_node)
+			_current_node.queue_free()
 		else:
 			if _use_optimizer:
-				print("Stroke points: %d (%d removed by optimizer)" % [
-					_current_stroke.points.size(), 
+				print("node points: %d (%d removed by optimizer)" % [
+					_current_node.points.size(), 
 					_optimizer.points_removed,
 				])
 			else:
-				print("Stroke points: %d" % _current_stroke.points.size())
+				print("node points: %d" % _current_node.points.size())
 			
 			# TODO: not sure if needed here
-			_current_stroke.refresh()
+			_current_node.refresh()
 			
 			# Colliders for the platformer easter-egg
 			if _player_enabled:
-				_current_stroke.enable_collider(true)
+				_current_node.enable_collider(true)
 			
 			# Remove the line temporally from the node tree, so the adding is registered in the undo-redo histrory below
-			_strokes_parent.remove_child(_current_stroke)
+			_nodes_parent.remove_child(_current_node)
 			
 			# TODO(gd4): verify that the undo-redo system with the callables work properly
-			_current_project.undo_redo.create_action("Stroke")
-			_current_project.undo_redo.add_undo_method(undo_last_stroke)
-			_current_project.undo_redo.add_undo_reference(_current_stroke)
-			_current_project.undo_redo.add_do_method(_strokes_parent.add_child.bind(_current_stroke))
-			_current_project.undo_redo.add_do_property(info, "stroke_count", info.stroke_count + 1)
-			_current_project.undo_redo.add_do_property(info, "point_count", info.point_count + _current_stroke.points.size())
-			_current_project.undo_redo.add_do_method(_current_project.add_stroke.bind(_current_stroke))
+			_current_project.undo_redo.create_action("node")
+			_current_project.undo_redo.add_undo_method(undo_last_node)
+			_current_project.undo_redo.add_undo_reference(_current_node)
+			_current_project.undo_redo.add_do_method(_nodes_parent.add_child.bind(_current_node))
+			_current_project.undo_redo.add_do_property(info, "node_count", info.node_count + 1)
+			_current_project.undo_redo.add_do_property(info, "point_count", info.point_count + _current_node.points.size())
+			_current_project.undo_redo.add_do_method(_current_project.add_node.bind(_current_node))
 			_current_project.undo_redo.commit_action()
 		
-		_current_stroke = null
+		_current_node = null
 
 # -------------------------------------------------------------------------------------------------
-func add_strokes(strokes: Array) -> void:
-	_current_project.undo_redo.create_action("Add Strokes")
+func add_nodes(nodes: Array) -> void:
+	_current_project.undo_redo.create_action("Add nodes")
 	var point_count := 0
-	for stroke: BrushStroke in strokes:
-		point_count += stroke.points.size()
-		_current_project.undo_redo.add_undo_method(undo_last_stroke)
-		_current_project.undo_redo.add_undo_reference(stroke)
-		_current_project.undo_redo.add_do_method(_strokes_parent.add_child.bind(stroke))
-		_current_project.undo_redo.add_do_method(_current_project.add_stroke.bind(stroke))
-	_current_project.undo_redo.add_do_property(info, "stroke_count", info.stroke_count + strokes.size())
+	for node: Brushnode in nodes:
+		point_count += node.points.size()
+		_current_project.undo_redo.add_undo_method(undo_last_node)
+		_current_project.undo_redo.add_undo_reference(node)
+		_current_project.undo_redo.add_do_method(_nodes_parent.add_child.bind(node))
+		_current_project.undo_redo.add_do_method(_current_project.add_node.bind(node))
+	_current_project.undo_redo.add_do_property(info, "node_count", info.node_count + nodes.size())
 	_current_project.undo_redo.add_do_property(info, "point_count", info.point_count + point_count)
 	_current_project.undo_redo.commit_action()
 
 # -------------------------------------------------------------------------------------------------
 func use_project(project: Project) -> void:
 	# Cleanup old data
-	for stroke in _strokes_parent.get_children():
-		_strokes_parent.remove_child(stroke)
+	for node in _nodes_parent.get_children():
+		_nodes_parent.remove_child(node)
 	info.point_count = 0
-	info.stroke_count = 0
+	info.node_count = 0
 	
 	# Apply metdadata
 	ProjectMetadata.apply_from_dict(project.meta_data, self)
@@ -305,21 +305,21 @@ func use_project(project: Project) -> void:
 	
 	# Add new data
 	_current_project = project
-	for stroke in _current_project.strokes:
-		_strokes_parent.add_child(stroke)
-		info.stroke_count += 1
-		info.point_count += stroke.points.size()
+	for node in _current_project.nodes:
+		_nodes_parent.add_child(node)
+		info.node_count += 1
+		info.point_count += node.points.size()
 	
 	_grid.queue_redraw()
 	
 # -------------------------------------------------------------------------------------------------
-func undo_last_stroke() -> void:
-	if _current_stroke == null && !_current_project.strokes.is_empty():
-		var stroke: BrushStroke = _strokes_parent.get_child(_strokes_parent.get_child_count() - 1)
-		_strokes_parent.remove_child(stroke)
-		_current_project.remove_last_stroke()
-		info.point_count -= stroke.points.size()
-		info.stroke_count -= 1
+func undo_last_node() -> void:
+	if _current_node == null && !_current_project.nodes.is_empty():
+		var node: Brushnode = _nodes_parent.get_child(_nodes_parent.get_child_count() - 1)
+		_nodes_parent.remove_child(node)
+		_current_project.remove_last_node()
+		info.point_count -= node.points.size()
+		info.node_count -= 1
 
 # -------------------------------------------------------------------------------------------------
 func set_brush_size(s: int) -> void:
@@ -360,31 +360,31 @@ func _on_camera_moved(pos: Vector2) -> void:
 	_current_project.dirty = true
 
 # -------------------------------------------------------------------------------------------------
-func _delete_selected_strokes() -> void:
-	var strokes := _selection_tool.get_selected_strokes()
-	if !strokes.is_empty():
+func _delete_selected_nodes() -> void:
+	var nodes := _selection_tool.get_selected_nodes()
+	if !nodes.is_empty():
 		_current_project.undo_redo.create_action("Delete Selection")
-		for stroke: BrushStroke in strokes:
-			_current_project.undo_redo.add_do_method(_do_delete_stroke.bind(stroke))
-			_current_project.undo_redo.add_undo_reference(stroke)
-			_current_project.undo_redo.add_undo_method(_undo_delete_stroke.bind(stroke))
-		_selection_tool.deselect_all_strokes()
+		for node: Brushnode in nodes:
+			_current_project.undo_redo.add_do_method(_do_delete_node.bind(node))
+			_current_project.undo_redo.add_undo_reference(node)
+			_current_project.undo_redo.add_undo_method(_undo_delete_node.bind(node))
+		_selection_tool.deselect_all_nodes()
 		_current_project.undo_redo.commit_action()
 		_current_project.dirty = true
 
 # -------------------------------------------------------------------------------------------------
-func _do_delete_stroke(stroke: BrushStroke) -> void:
-	var index := _current_project.strokes.find(stroke)
-	_current_project.strokes.remove_at(index)
-	_strokes_parent.remove_child(stroke)
-	info.point_count -= stroke.points.size()
-	info.stroke_count -= 1
+func _do_delete_node(node: Brushnode) -> void:
+	var index := _current_project.nodes.find(node)
+	_current_project.nodes.remove_at(index)
+	_nodes_parent.remove_child(node)
+	info.point_count -= node.points.size()
+	info.node_count -= 1
 
-# FIXME: this adds strokes at the back and does not preserve stroke order; not sure how to do that except saving before
-# and after versions of the stroke arrays which is a nogo.
+# FIXME: this adds nodes at the back and does not preserve node order; not sure how to do that except saving before
+# and after versions of the node arrays which is a nogo.
 # -------------------------------------------------------------------------------------------------
-func _undo_delete_stroke(stroke: BrushStroke) -> void:
-	_current_project.strokes.append(stroke)
-	_strokes_parent.add_child(stroke)
-	info.point_count += stroke.points.size()
-	info.stroke_count += 1
+func _undo_delete_node(node: Brushnode) -> void:
+	_current_project.nodes.append(node)
+	_nodes_parent.add_child(node)
+	info.point_count += node.points.size()
+	info.node_count += 1

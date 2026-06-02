@@ -6,7 +6,8 @@ signal orderSendPayload(
 	player : Player, 
 	nodes : Array[GameNode], 
 	target : GameNode, 
-	amount : int)
+	amount : int
+)
 signal orderBuyBuilding(
 	player : Player, 
 	target : GameNode, 
@@ -17,14 +18,14 @@ signal orderBuyBuilding(
 @export var buyMenu : BuyMenu
 @export var selectionArea : SelectionArea
 @export var nodeChecker : HoveredNode
-@export var inputStuff : Node2D
+@export var inputHandler : Node2D
 
 @onready var color : GameColors.colors = GameColors.colors.PURPLE
 var selectedNodes : Array[GameNode]
-var hoveredNode : GameNode
+var currentNode : GameNode
 
 func _process(delta: float) -> void:
-	inputStuff.tick(delta)
+	inputHandler.tick(delta)
 
 func _input(event: InputEvent) -> void:
 	if !get_tree().root.get_viewport().is_input_handled():
@@ -33,10 +34,10 @@ func _input(event: InputEvent) -> void:
 # When player wants to send payload, send it
 func onInputSendPayload(amount : int):
 	# If the node that we try to path to is null, don't path
-	if(hoveredNode == null):
+	if(currentNode == null):
 		return
 	
-	orderSendPayload.emit(self, selectedNodes, hoveredNode, amount)
+	orderSendPayload.emit(self, selectedNodes, currentNode, amount)
 
 # For when player uses mouse to do area
 func updateSelectionArea(pos1, pos2):
@@ -44,20 +45,20 @@ func updateSelectionArea(pos1, pos2):
 
 # Check the current hovered node (If there is one)
 func checkHoveredNode(pos):
-	hoveredNode = nodeChecker.getHoveredNode(pos)
+	currentNode = nodeChecker.getHoveredNode(pos)
 
 # Checks the current hovered node, and turns buy menu visibility on if circumstances right.
 # THIS WILL CHANGE LATER: I don't know how to turn buy menu off
 func buyMenuOn(pos : Vector2):
 	# Guard clauses
-	if(hoveredNode == null):
+	if(currentNode == null):
 		return
-	if(hoveredNode.color != self.color):
+	if(currentNode.color != self.color):
 		return
 	
 	buyMenu.position = pos
 	buyMenu.visible = true
-	buyMenu.currentNode = hoveredNode
+	buyMenu.currentNode = currentNode
 
 # Turns of buy menu
 func buyMenuOff():

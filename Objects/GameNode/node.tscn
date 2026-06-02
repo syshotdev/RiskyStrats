@@ -24,15 +24,9 @@ debug_color = Color(0, 0, 0, 0.368627)
 
 [node name="ColorManager" type="Control" parent="." unique_id=1259438191]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -40,8 +34,6 @@ size_flags_vertical = 4
 script = ExtResource("7_b3igk")
 
 [node name="WhiteCircle" type="Node2D" parent="ColorManager" unique_id=1236495788]
-visible = false
-position = Vector2(20, 20)
 script = ExtResource("5_wid6i")
 defaultVisiblity = false
 shapeToDraw = 1
@@ -52,21 +44,22 @@ radius = 33
 
 [node name="Sprite2D" type="Sprite2D" parent="ColorManager" unique_id=600967001]
 texture_filter = 1
-position = Vector2(21, 21)
 scale = Vector2(1.3125, 1.3125)
 texture = ExtResource("8_cwwdh")
 
 [node name="ColorBox" type="VBoxContainer" parent="ColorManager" unique_id=1997163097]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
+offset_left = -25.0
+offset_top = -40.0
+offset_right = 25.0
 offset_bottom = -20.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
 [connection signal="buildingTypeChanged" from="." to="ColorManager" method="updateBuildingDisplay"]
 [connection signal="updateColorDisplay" from="." to="ColorManager" method="updateColorDisplay"]
