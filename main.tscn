@@ -2,8 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dyc824qacnuja" path="res://main.gd" id="1_0f1fw"]
 [ext_resource type="PackedScene" uid="uid://elf2km00t30" path="res://Objects/Player (Client)/player.tscn" id="2_cn2q5"]
+[ext_resource type="PackedScene" uid="uid://hd33djnhvcph" path="res://Objects/Map/man_map.tscn" id="4_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=1668038954]
 script = ExtResource("1_0f1fw")
 
 [node name="Player" parent="." unique_id=2027691380 instance=ExtResource("2_cn2q5")]
+
+[node name="ManMap" parent="." unique_id=1377973777 instance=ExtResource("4_lquwl")]
+
+[connection signal="orderBuyBuilding" from="Player" to="." method="orderBuyBuilding"]
+[connection signal="orderSendPayload" from="Player" to="." method="orderSendPayload"]

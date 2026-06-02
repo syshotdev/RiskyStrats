@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://b2e85xp6vk1w" path="res://Objects/Road/Road.gd" id="3_wq7qk"]
 [ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/Road/road.tscn" id="4_4ywfk"]
 
-[node name="Man map" type="Node2D" unique_id=1377973777]
+[node name="ManMap" type="Node2D" unique_id=1377973777]
 script = ExtResource("1_6066k")
 defaultNodeColor = 2
 
@@ -13,33 +13,29 @@ defaultNodeColor = 2
 
 [node name="GameNode" parent="Nodes" unique_id=1999318541 instance=ExtResource("2_4rc3m")]
 position = Vector2(0, 30)
-currentColor = 7
 
 [node name="GameNode6" parent="Nodes" unique_id=1861090624 instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -83)
-currentBuildingType = 2
+type = 1
 
 [node name="GameNode7" parent="Nodes" unique_id=1781400675 instance=ExtResource("2_4rc3m")]
 position = Vector2(-2, -155)
 
 [node name="GameNode18" parent="Nodes" unique_id=97396851 instance=ExtResource("2_4rc3m")]
 position = Vector2(-123, -96)
-currentBuildingType = 4
+type = 2
 
 [node name="GameNode19" parent="Nodes" unique_id=168330226 instance=ExtResource("2_4rc3m")]
 position = Vector2(-227, -113)
-currentBuildingType = 2
 
 [node name="GameNode20" parent="Nodes" unique_id=907428893 instance=ExtResource("2_4rc3m")]
 position = Vector2(-336, -126)
 
 [node name="GameNode15" parent="Nodes" unique_id=1679151298 instance=ExtResource("2_4rc3m")]
 position = Vector2(97, -82)
-currentBuildingType = 4
 
 [node name="GameNode16" parent="Nodes" unique_id=1176519491 instance=ExtResource("2_4rc3m")]
 position = Vector2(186, -108)
-currentBuildingType = 2
 
 [node name="GameNode17" parent="Nodes" unique_id=22548142 instance=ExtResource("2_4rc3m")]
 position = Vector2(283, -128)
@@ -232,3 +228,44 @@ script = ExtResource("3_wq7qk")
 node1 = NodePath("../../Nodes/GameNode2")
 node2 = NodePath("../../Nodes/GameNode3")
 roadUnitScene = ExtResource("4_4ywfk")
+
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode" to="Nodes/GameNode/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode" to="Nodes/GameNode/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode6" to="Nodes/GameNode6/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode6" to="Nodes/GameNode6/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode7" to="Nodes/GameNode7/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode7" to="Nodes/GameNode7/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode18" to="Nodes/GameNode18/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode18" to="Nodes/GameNode18/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode19" to="Nodes/GameNode19/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode19" to="Nodes/GameNode19/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode20" to="Nodes/GameNode20/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode20" to="Nodes/GameNode20/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode15" to="Nodes/GameNode15/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode15" to="Nodes/GameNode15/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode16" to="Nodes/GameNode16/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode16" to="Nodes/GameNode16/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode17" to="Nodes/GameNode17/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode17" to="Nodes/GameNode17/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode8" to="Nodes/GameNode8/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode8" to="Nodes/GameNode8/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode9" to="Nodes/GameNode9/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode9" to="Nodes/GameNode9/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode10" to="Nodes/GameNode10/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode10" to="Nodes/GameNode10/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode11" to="Nodes/GameNode11/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode11" to="Nodes/GameNode11/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode12" to="Nodes/GameNode12/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode12" to="Nodes/GameNode12/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode13" to="Nodes/GameNode13/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode13" to="Nodes/GameNode13/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode14" to="Nodes/GameNode14/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode14" to="Nodes/GameNode14/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode2" to="Nodes/GameNode2/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode2" to="Nodes/GameNode2/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode3" to="Nodes/GameNode3/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode3" to="Nodes/GameNode3/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode4" to="Nodes/GameNode4/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode4" to="Nodes/GameNode4/ColorManager" method="updateColorDisplay"]
+[connection signal="updateBuildingDisplay" from="Nodes/GameNode5" to="Nodes/GameNode5/ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode5" to="Nodes/GameNode5/ColorManager" method="updateColorDisplay"]

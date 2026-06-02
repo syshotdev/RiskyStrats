@@ -17,7 +17,7 @@ enum selectionTypes{
 var shape : Shape2D
 
 # Dictionary because no duplicates and more efficient
-var gameNodes : Dictionary
+var nodes : Dictionary
 
 
 func _ready():
@@ -32,8 +32,8 @@ func getNodesInArea(position1 : Vector2, position2 : Vector2):
 
 func getCurrentNodes() -> Array[GameNode]:
 	var outputNodes : Array[GameNode] = []
-	for gameNode in gameNodes.keys():
-		outputNodes.append(gameNode.get_parent())
+	for node in nodes.keys():
+		outputNodes.append(node.get_parent())
 	
 	return outputNodes
 
@@ -90,14 +90,14 @@ func findBottomRightMostCorner(position1 : Vector2, position2 : Vector2) -> Vect
 
 
 func selectionEntered(area):
-	if(isGameNode(area)):
-		gameNodes[area] = 0
+	if(isNode(area)):
+		nodes[area] = 0
 
 
 func selectionExited(area):
-	if(isGameNode(area)):
-		gameNodes.erase(area)
+	if(isNode(area)):
+		nodes.erase(area)
 
 
-func isGameNode(area) -> bool:
+func isNode(area) -> bool:
 	return area.get_parent() is GameNode

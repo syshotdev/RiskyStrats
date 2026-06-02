@@ -5,24 +5,27 @@ extends Control
 
 var spriteType : GameTypes.buildingType
 
-
 func _ready():
 	# Sprite loads when game starts
 	changeSprite(spriteType)
 
 
 func updateColorDisplay(units : Array[Unit]):
-	updateUnitDisplay(units)
-
-# Change color of sprite
-func changeColor(color : GameColors.colors):
-	sprite.modulate = GameColors.getColorFromEnum(color)
+	updateLabelDisplay(units)
+	if units.size() <= 0:
+		return
+	
+	var biggestUnit : Unit = units.get(0)
+	for unit in units:
+		if unit.units > biggestUnit.units:
+			biggestUnit = unit
+	
+	sprite.modulate = GameColors.getColorFromEnum(biggestUnit.color)
 
 # Changes the sprite based on building type
-func buildingTypeChanged(type : GameTypes.buildingType):
+func updateBuildingDisplay(type : GameTypes.buildingType):
 	changeSprite(type)
 	spriteType = type
-
 
 # Change sprite to type
 func changeSprite(type : GameTypes.buildingType):
@@ -35,19 +38,16 @@ func changeSprite(type : GameTypes.buildingType):
 	if(sprite != null):
 		sprite.texture = newTexture
 
-
-func updateUnitDisplay(units : Array[Unit]):
+func updateLabelDisplay(units : Array[Unit]):
 	eraseLabelBoxChildren()
 	for unit in units:
 		var unitAmountInt : int = floor(unit.units)
-		var label = createTextWithColor(str(unitAmountInt), unit.currentColor)
+		var label = createTextWithColor(str(unitAmountInt), unit.color)
 		labelBox.add_child(label)
-
 
 func eraseLabelBoxChildren():
 	for child in labelBox.get_children():
 		labelBox.remove_child(child)
-
 
 # Returns a label with a color and text
 func createTextWithColor(text : String, color : GameColors.colors):

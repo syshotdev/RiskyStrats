@@ -6,7 +6,7 @@ Visualize game control flow
 wrap my head around which parts are where and why certain nodes are binded to each other
 
 
-Pan camera
+Selection tool (Rip from lorien)
 Debug tools (team switching, infinite mode, slowdown / speedup)
 Theme buttons
 Bug: Black background color
@@ -19,7 +19,7 @@ Add objects to liven up landscape
 Fog of war (maybe?)
 Show the color of the node in the editor (Not necessary)
 When instancing roads, put center point in between nodes
-Zoom into a specific point instead of straight center
+
 
 
 Different shapes for different types of buildings
@@ -31,4 +31,6 @@ Multiplayer
 
 
 Done:
+	Pan camera
+	Zoom into a specific point instead of straight center
 	Make roads look cooler (and 3d)

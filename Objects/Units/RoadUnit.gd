@@ -20,7 +20,7 @@ var progress : float = 0.0
 
 func _init(color : GameColors.colors, initUnits : float):
 	super(color, initUnits)
-	displayColor = GameColors.getColorFromEnum(currentColor)
+	displayColor = GameColors.getColorFromEnum(color)
 	
 	initMergeArea()
 
@@ -34,7 +34,6 @@ func initMergeArea():
 
 
 func _draw():
-	#Things 
 	position = Vector2.ZERO
 	radius = calculateCircleSize(units)
 	
@@ -44,7 +43,7 @@ func _draw():
 
 
 func merge(roadUnit : RoadUnit):
-	if(roadUnit.currentColor != currentColor):
+	if(roadUnit.color != color):
 		return
 	
 	# If they have more units than I, return
@@ -67,4 +66,4 @@ func calculateCircleSize(number : float):
 
 
 func setColor():
-	displayColor = GameColors.getColorFromEnum(currentColor)
+	displayColor = GameColors.getColorFromEnum(color)

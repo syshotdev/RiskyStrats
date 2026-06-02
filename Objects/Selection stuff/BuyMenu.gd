@@ -2,16 +2,10 @@ extends Control
 
 class_name BuyMenu
 
+signal buyButtonPressed(type : GameTypes.buildingType)
+
 # Don't make the @export menu bloated :)
 @onready var verticalOptions := $VerticalOptions
-
-# All of the building costs (for purposes)
-var buildingCosts : Dictionary = {
-	GameTypes.buildingType.FACTORY : 500,
-	GameTypes.buildingType.REACTOR : 2500,
-	GameTypes.buildingType.FORT : 500,
-	GameTypes.buildingType.ARTILLERY : 5000,
-}
 
 var buttonTypes : Dictionary = {} # Key: button, Value: buildingType
 var currentNode : GameNode # The node that this was spawned on, and will affect
@@ -22,8 +16,8 @@ func _ready():
 
 # Generates all the buttons and adds them as children and gets signals
 func generateButtons():
-	for type in buildingCosts.keys():
-		var button := generateButton(type, buildingCosts[type])
+	for type in GameTypes.buildingCosts.keys():
+		var button := generateButton(type, GameTypes.getCostFromType(type))
 		
 		# Relate the button with the type
 		buttonTypes[button] = type
@@ -46,17 +40,4 @@ func generateButton(type : GameTypes.buildingType, buttonCost : int) -> Button:
 
 # Something
 func buttonPressed(button : Button):
-	tryToBuyType(buttonTypes[button])
-
-# Try to buy the type
-func tryToBuyType(type : GameTypes.buildingType):
-	var cost : int = buildingCosts[type]
-	
-	if(currentNode == null):
-		return
-	
-	var success : bool = currentNode.buyBuildingType(type, cost)
-	
-	# If the current node is not null, then close this tab when purchase successful
-	if(success):
-		hide()
+	buyButtonPressed.emit(buttonTypes[button])

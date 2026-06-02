@@ -4,20 +4,17 @@
 [ext_resource type="Script" uid="uid://sam5xdvjuhbb" path="res://Objects/Selection stuff/SelectionProcesser.gd" id="2_a6bsm"]
 [ext_resource type="Script" uid="uid://rcba1ccl24kb" path="res://Objects/Camera/CameraController.gd" id="2_vwauj"]
 [ext_resource type="PackedScene" uid="uid://dqshkg4phk7r3" path="res://Objects/Selection stuff/selection_area.tscn" id="3_q4ge3"]
-[ext_resource type="Script" uid="uid://du51tpdrlbbus" path="res://Objects/Map/Map.gd" id="4_idlu1"]
-[ext_resource type="PackedScene" uid="uid://hd33djnhvcph" path="res://Objects/Map/man_map.tscn" id="4_r6l76"]
 [ext_resource type="Script" uid="uid://b4vid33ocr1gm" path="res://Objects/Selection stuff/HoveredNode.gd" id="6_1h5bi"]
 [ext_resource type="PackedScene" uid="uid://cq2pwm06fk423" path="res://Objects/Selection stuff/buy_menu.tscn" id="7_ea7wc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pwooj"]
 
-[node name="Player" type="Node2D" unique_id=95092736 node_paths=PackedStringArray("buyMenu", "selectionArea", "nodeChecker", "inputStuff", "map")]
+[node name="Player" type="Node2D" unique_id=95092736 node_paths=PackedStringArray("buyMenu", "selectionArea", "nodeChecker", "inputStuff")]
 script = ExtResource("1_jhoao")
 buyMenu = NodePath("BuyMenu")
 selectionArea = NodePath("SelectionArea")
 nodeChecker = NodePath("HoveredNode")
 inputStuff = NodePath("InputProcesser")
-map = NodePath("Man map")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1879358874]
 limit_enabled = false
@@ -25,15 +22,6 @@ script = ExtResource("2_vwauj")
 
 [node name="InputProcesser" type="Node2D" parent="." unique_id=35364118]
 script = ExtResource("2_a6bsm")
-
-[node name="Map" type="Node2D" parent="." unique_id=1849911699]
-script = ExtResource("4_idlu1")
-
-[node name="Nodes" type="Node2D" parent="Map" unique_id=2058141998]
-
-[node name="Roads" type="Node2D" parent="Map" unique_id=591696235]
-
-[node name="Man map" parent="." unique_id=8354251 instance=ExtResource("4_r6l76")]
 
 [node name="SelectionArea" parent="." unique_id=674378346 instance=ExtResource("3_q4ge3")]
 
@@ -46,11 +34,13 @@ shape = SubResource("CircleShape2D_pwooj")
 debug_color = Color(0.827451, 0.0705882, 0.270588, 0.419608)
 
 [node name="BuyMenu" parent="." unique_id=174039052 instance=ExtResource("7_ea7wc")]
-visible = false
+z_index = 2
 
+[connection signal="buyMenuOff" from="InputProcesser" to="." method="buyMenuOff"]
 [connection signal="buyMenuOn" from="InputProcesser" to="." method="buyMenuOn"]
 [connection signal="sendPayload" from="InputProcesser" to="." method="onInputSendPayload"]
 [connection signal="updateHoveredNode" from="InputProcesser" to="." method="checkHoveredNode"]
 [connection signal="updateSelectionArea" from="InputProcesser" to="." method="updateSelectionArea"]
 [connection signal="area_entered" from="HoveredNode" to="HoveredNode" method="areaEntered"]
 [connection signal="area_exited" from="HoveredNode" to="HoveredNode" method="areaExited"]
+[connection signal="buyButtonPressed" from="BuyMenu" to="." method="buyButtonPressed"]

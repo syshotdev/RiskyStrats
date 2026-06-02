@@ -1,33 +1,34 @@
 extends Node2D
 
+class_name Player
+
+signal orderSendPayload(
+	player : Player, 
+	nodes : Array[GameNode], 
+	target : GameNode, 
+	amount : int)
+signal orderBuyBuilding(
+	player : Player, 
+	target : GameNode, 
+	type : GameTypes.buildingType
+)
+
 @onready var camera := $Camera2D
 @export var buyMenu : BuyMenu
 @export var selectionArea : SelectionArea
 @export var nodeChecker : HoveredNode
 @export var inputStuff : Node2D
-@export var map : Map
 
-var currentColor : GameColors.colors = GameColors.colors.PURPLE
+@onready var color : GameColors.colors = GameColors.colors.PURPLE
 var selectedNodes : Array[GameNode]
 var hoveredNode : GameNode
 
-# Main ticking functioin
-func _process(delta):
+func _process(delta: float) -> void:
 	inputStuff.tick(delta)
-	map.tick(delta)
 
 func _input(event: InputEvent) -> void:
 	if !get_tree().root.get_viewport().is_input_handled():
 		camera.tool_event(event)
-
-# Initializes this class when the game starts
-func initPlayer(color : GameColors.colors):
-	currentColor = color
-
-# For initializing
-func updateMap(newMap : Map):
-	map = newMap.duplicate()
-	map.loadMap(newMap)
 
 # When player wants to send payload, send it
 func onInputSendPayload(amount : int):
@@ -35,8 +36,7 @@ func onInputSendPayload(amount : int):
 	if(hoveredNode == null):
 		return
 	
-	# From nodes, to node, unit to send
-	map.sendPayload(selectedNodes, hoveredNode, Unit.new(currentColor, amount))
+	orderSendPayload.emit(self, selectedNodes, hoveredNode, amount)
 
 # For when player uses mouse to do area
 func updateSelectionArea(pos1, pos2):
@@ -52,7 +52,7 @@ func buyMenuOn(pos : Vector2):
 	# Guard clauses
 	if(hoveredNode == null):
 		return
-	if(hoveredNode.currentColor != currentColor):
+	if(hoveredNode.color != self.color):
 		return
 	
 	buyMenu.position = pos
@@ -61,4 +61,8 @@ func buyMenuOn(pos : Vector2):
 
 # Turns of buy menu
 func buyMenuOff():
-	buyMenu.hide()
+	buyMenu.visible = false
+
+
+func buyButtonPressed(type : GameTypes.buildingType) -> void:
+	orderBuyBuilding.emit(self, buyMenu.currentNode, type)

@@ -1,52 +1,28 @@
-[gd_scene load_steps=10 format=3 uid="uid://cjpcojig6iwdw"]
+[gd_scene format=3 uid="uid://cjpcojig6iwdw"]
 
-[ext_resource type="Script" path="res://Objects/GameNode/GameNode.gd" id="1_j8hsk"]
-[ext_resource type="Script" path="res://Objects/GameNode/UnitCalculator.gd" id="2_0yb6h"]
-[ext_resource type="Script" path="res://Objects/GameNode/UnitSender.gd" id="2_fs66o"]
-[ext_resource type="Script" path="res://Objects/GameNode/UnitGenerator.gd" id="2_noxmq"]
-[ext_resource type="Script" path="res://Objects/GameNode/Select.gd" id="3_pq1u5"]
-[ext_resource type="Script" path="res://Useful scripts/ShapeVisualizer.gd" id="5_wid6i"]
-[ext_resource type="Script" path="res://Objects/GameNode/ChangeColor.gd" id="7_b3igk"]
+[ext_resource type="Script" uid="uid://kn08hcbgyxp7" path="res://Objects/GameNode/GameNode.gd" id="1_j8hsk"]
+[ext_resource type="Script" uid="uid://ck0v4x4psbuxf" path="res://Objects/GameNode/Select.gd" id="3_pq1u5"]
+[ext_resource type="Script" uid="uid://hg7jhvdchyrn" path="res://Useful scripts/ShapeVisualizer.gd" id="5_wid6i"]
+[ext_resource type="Script" uid="uid://cq50gv8alpln0" path="res://Objects/GameNode/ChangeColor.gd" id="7_b3igk"]
 [ext_resource type="Texture2D" uid="uid://oc8t8fo7664r" path="res://Sprites/Node.png" id="8_cwwdh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
 size = Vector2(40, 40)
 
-[node name="GameNode" type="Node2D" node_paths=PackedStringArray("unitCalculator", "unitSender", "unitGenerator")]
+[node name="GameNode" type="Node2D" unique_id=286820746]
 script = ExtResource("1_j8hsk")
-unitCalculator = NodePath("UnitCalculator")
-unitSender = NodePath("UnitSender")
-unitGenerator = NodePath("UnitGenerator")
+color = null
+type = null
 
-[node name="UnitGenerator" type="Node" parent="." node_paths=PackedStringArray("parent")]
-script = ExtResource("2_noxmq")
-parent = NodePath("..")
-
-[node name="UnitCalculator" type="Node" parent="."]
-script = ExtResource("2_0yb6h")
-
-[node name="UnitSender" type="Node" parent="."]
-script = ExtResource("2_fs66o")
-
-[node name="WhiteCircle" type="Node2D" parent="."]
-visible = false
-script = ExtResource("5_wid6i")
-defaultVisiblity = false
-shapeToDraw = 1
-color = Color(0.776471, 0.776471, 0.776471, 1)
-canvasLayer = 1
-thickness = 3
-radius = 33
-
-[node name="SelectionBox" type="Area2D" parent="." node_paths=PackedStringArray("whiteCircle")]
+[node name="SelectionBox" type="Area2D" parent="." unique_id=1875054301 node_paths=PackedStringArray("whiteCircle")]
 script = ExtResource("3_pq1u5")
-whiteCircle = NodePath("../WhiteCircle")
+whiteCircle = NodePath("../ColorManager/WhiteCircle")
 
-[node name="Area" type="CollisionShape2D" parent="SelectionBox"]
+[node name="Area" type="CollisionShape2D" parent="SelectionBox" unique_id=927463418]
 shape = SubResource("RectangleShape2D_kh0e4")
 debug_color = Color(0, 0, 0, 0.368627)
 
-[node name="ColorManager" type="Control" parent="."]
+[node name="ColorManager" type="Control" parent="." unique_id=1259438191]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -63,13 +39,24 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("7_b3igk")
 
-[node name="Sprite2D" type="Sprite2D" parent="ColorManager"]
+[node name="WhiteCircle" type="Node2D" parent="ColorManager" unique_id=1236495788]
+visible = false
+position = Vector2(20, 20)
+script = ExtResource("5_wid6i")
+defaultVisiblity = false
+shapeToDraw = 1
+color = Color(0.776471, 0.776471, 0.776471, 1)
+canvasLayer = 1
+thickness = 3
+radius = 33
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorManager" unique_id=600967001]
 texture_filter = 1
 position = Vector2(21, 21)
 scale = Vector2(1.3125, 1.3125)
 texture = ExtResource("8_cwwdh")
 
-[node name="ColorBox" type="VBoxContainer" parent="ColorManager"]
+[node name="ColorBox" type="VBoxContainer" parent="ColorManager" unique_id=1997163097]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,13 +68,8 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="buildingTypeChanged" from="UnitGenerator" to="." method="buildingTypeChanged"]
-[connection signal="buildingTypeChanged" from="UnitGenerator" to="ColorManager" method="buildingTypeChanged"]
-[connection signal="ready" from="UnitGenerator" to="." method="onUnitGeneratorReady"]
-[connection signal="addColorToDisplay" from="UnitCalculator" to="ColorManager" method="updateColorDisplay"]
-[connection signal="changeNodeColor" from="UnitCalculator" to="ColorManager" method="changeColor"]
-[connection signal="ready" from="UnitCalculator" to="." method="onUnitCalculatorReady"]
-[connection signal="updateColor" from="UnitCalculator" to="." method="updateCurrentColor"]
+[connection signal="buildingTypeChanged" from="." to="ColorManager" method="updateBuildingDisplay"]
+[connection signal="updateColorDisplay" from="." to="ColorManager" method="updateColorDisplay"]
 [connection signal="area_entered" from="SelectionBox" to="SelectionBox" method="areaEntered"]
 [connection signal="area_exited" from="SelectionBox" to="SelectionBox" method="areaExited"]
 [connection signal="selected" from="SelectionBox" to="SelectionBox" method="onSelected"]

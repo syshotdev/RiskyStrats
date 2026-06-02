@@ -10,11 +10,13 @@ class_name Road
 @export var thickness : int = 10
 const color : Color = Color("2b2b2b")
 const shadowColor : Color = Color("1a1a1a")
+const selectionColor : Color = Color("fa9c1cff")
 
 
 # For ALL RoadUnits
-const nodeSpeed = 100
+const nodeSpeed := 100.0
 var roadLength # Calculated in ready
+var isSelected := false
 
 # For each road unit, to move them all along the road and keep track of them
 # (Key roadunit : Value 0)
@@ -35,6 +37,8 @@ func _draw():
 			node2.global_position - shadowOffset, 
 			shadowColor)
 		drawLine(node1.global_position, node2.global_position, color)
+		if isSelected:
+			drawLine(node1.global_position, node2.global_position, selectionColor)
 
 
 func drawLine(pos1 : Vector2, pos2 : Vector2, color : Color):
@@ -48,7 +52,6 @@ func addUnitToRoad(roadUnit : RoadUnit):
 	
 	# On top of node and road
 	roadUnit.z_index = 1
-	
 	roadUnit.remove.connect(removeRoadUnit)
 	
 	currentUnits[roadUnit] = 0

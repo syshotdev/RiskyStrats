@@ -44,14 +44,13 @@ func _input(event):
 	if not event is InputEventMouseButton:
 		return
 	
-	sendBuyMenuOff()
-	
 	# If the mouse was pressed or released and it wasn't a left click on, say the mouse isn't clicked
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		mouseClicked = false
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		sendBuyMenuOn()
+
 
 
 func checkPayloadAction():
