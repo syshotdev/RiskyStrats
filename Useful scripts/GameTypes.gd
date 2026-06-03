@@ -57,3 +57,6 @@ static func getSpriteFromEnum(type : buildingType) -> NodePath:
 	
 	# Last resort if no image is found
 	return _nonePath
+
+# Groups
+const GROUP_ONSCREEN := "onscreen_nodes"

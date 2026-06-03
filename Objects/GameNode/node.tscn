@@ -11,8 +11,6 @@ size = Vector2(40, 40)
 
 [node name="GameNode" type="Node2D" unique_id=286820746]
 script = ExtResource("1_j8hsk")
-color = null
-type = null
 
 [node name="SelectionBox" type="Area2D" parent="." unique_id=1875054301 node_paths=PackedStringArray("whiteCircle")]
 script = ExtResource("3_pq1u5")
@@ -34,6 +32,7 @@ size_flags_vertical = 4
 script = ExtResource("7_b3igk")
 
 [node name="WhiteCircle" type="Node2D" parent="ColorManager" unique_id=1236495788]
+visible = false
 script = ExtResource("5_wid6i")
 defaultVisiblity = false
 shapeToDraw = 1
@@ -60,6 +59,10 @@ offset_right = 25.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1753144155]
+position = Vector2(-10, -10)
+rect = Rect2(-10, -10, 40, 40)
 
 [connection signal="buildingTypeChanged" from="." to="ColorManager" method="updateBuildingDisplay"]
 [connection signal="updateColorDisplay" from="." to="ColorManager" method="updateColorDisplay"]

@@ -7,7 +7,6 @@ const META_OFFSET := "offset"
 const GROUP_SELECTED_NODES := "selected_nodes" # selected nodes
 const GROUP_NODES_IN_SELECTION_RECTANGLE := "nodes_in_selection_rectangle" # nodes that are in selection rectangle but not commit (i.e. the user is still selecting)
 const GROUP_MARKED_FOR_DESELECTION := "nodes_marked_for_deselection" # nodes that need to be deslected once LMB is released
-const GROUP_COPIED_NODES := "nodes_copied"
 
 # -------------------------------------------------------------------------------------------------
 enum State {
@@ -76,19 +75,40 @@ func tool_event(event: InputEvent) -> void:
 # ------------------------------------------------------------------------------------------------
 func compute_selection(start_pos: Vector2, end_pos: Vector2) -> void:
 	var selection_rect : Rect2 = Utils.calculate_rect(start_pos, end_pos)
-	for node: GameNode in _canvas.get_nodes_in_camera_frustrum():
+	for node: GameNode in get_tree().get_nodes_in_group(GameTypes.GROUP_ONSCREEN):
 		var bounding_box: Rect2 = _bounding_box_cache[node]
 		if selection_rect.intersects(bounding_box):
-			for point: Vector2 in node.points:
-				var abs_point: Vector2 = node.position + point
-				if selection_rect.has_point(abs_point):
-					_set_node_selected(node)
-					break
+			if selection_rect.has_point(node.position):
+				_set_node_selected(node)
+				break
 
+# ------------------------------------------------------------------------------------------------
+func calculate_rect(start_pos: Vector2, end_pos: Vector2) -> Rect2:
+	var area := Rect2(start_pos, end_pos - start_pos)
+	if end_pos.x < start_pos.x && end_pos.y < start_pos.y:
+		area.position = end_pos
+		area.end = start_pos
+	elif end_pos.x < start_pos.x && end_pos.y > start_pos.y:
+		area.position = Vector2(end_pos.x, start_pos.y)
+		area.end = Vector2(start_pos.x, end_pos.y)
+	elif end_pos.x > start_pos.x && end_pos.y < start_pos.y:
+		area.position = Vector2(start_pos.x, end_pos.y)
+		area.end = Vector2(end_pos.x, start_pos.y)
+	return area
+# -------------------------------------------------------------------------------------------------
+func calculte_bounding_boxes(nodes: Array[Node], margin: float = 0.0) -> Dictionary:
+	var result := {}
+	for node: GameNode in nodes:
+		var bounding_box := node.getBoundingRect()
+		if margin > 0:
+			bounding_box = bounding_box.grow(margin)
+		result[node] = bounding_box
+	return result
 # ------------------------------------------------------------------------------------------------
 func _build_bounding_boxes() -> void:
 	_bounding_box_cache.clear()
-	_bounding_box_cache = Utils.calculte_bounding_boxes(_canvas.get_all_nodes())
+	# TODO: All nodes, not just on screen
+	_bounding_box_cache = calculte_bounding_boxes(get_tree().get_nodes_in_group(GameTypes.GROUP_ONSCREEN))
 	#$"../Viewport/DebugDraw".set_bounding_boxes(_bounding_box_cache.values())
 	
 # ------------------------------------------------------------------------------------------------
@@ -97,7 +117,8 @@ func _set_node_selected(node: GameNode) -> void:
 		node.modulate = Color.WHITE
 		node.add_to_group(GROUP_MARKED_FOR_DESELECTION)
 	else:
-		node.modulate = Config.DEFAULT_SELECTION_COLOR
+		const DEFAULT_SELECTION_COLOR := Color("#2a967c")
+		node.modulate = DEFAULT_SELECTION_COLOR
 		node.add_to_group(GROUP_NODES_IN_SELECTION_RECTANGLE)
 
 # ------------------------------------------------------------------------------------------------
@@ -110,7 +131,7 @@ func _commit_nodes_under_selection_rectangle() -> void:
 func _deselect_marked_nodes() -> void:
 	for node: GameNode in get_tree().get_nodes_in_group(GROUP_MARKED_FOR_DESELECTION):
 		node.remove_from_group(GROUP_MARKED_FOR_DESELECTION)
-		node.remove_from_group(GROUP_SELECTED_nodeS)
+		node.remove_from_group(GROUP_SELECTED_NODES)
 		node.modulate = Color.WHITE
 
 # ------------------------------------------------------------------------------------------------

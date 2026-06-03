@@ -9,12 +9,12 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pwooj"]
 
-[node name="Player" type="Node2D" unique_id=95092736 node_paths=PackedStringArray("buyMenu", "selectionArea", "nodeChecker", "inputStuff")]
+[node name="Player" type="Node2D" unique_id=95092736 node_paths=PackedStringArray("buyMenu", "selectionArea", "nodeChecker", "inputHandler")]
 script = ExtResource("1_jhoao")
 buyMenu = NodePath("BuyMenu")
 selectionArea = NodePath("SelectionArea")
 nodeChecker = NodePath("HoveredNode")
-inputStuff = NodePath("InputProcesser")
+inputHandler = NodePath("InputProcesser")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1879358874]
 limit_enabled = false

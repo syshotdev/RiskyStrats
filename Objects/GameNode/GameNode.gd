@@ -8,22 +8,22 @@ signal buildingTypeChanged(type : GameTypes.buildingType)
 @export var color : GameColors.colors
 @export var type : GameTypes.buildingType
 
-# Generation
-const genRate : float = 5.0 # Rate default node generates per second
-var effectiveness : float = 1.0 # Multiplier for genRate
+@onready var visibilityNotifier := $VisibleOnScreenNotifier2D
+@onready var visualRect := $ColorManager/Sprite2D
 
-var killRate : float = 0.02 # The rate at which one soldier can kill another per unit of time
-
-
-# Battling
-var unitAmounts : Dictionary = {} # Key color, value amount
-
-# Nodes stuff
 var neighbors : Array[GameNode] = [] # Neighboring nodes
 var roads : Dictionary = {} # Key node, value road. Which roads to get to a neighbor?
 
+const genRate : float = 5.0 # Rate default node generates per second
+var effectiveness : float = 1.0 # Multiplier for genRate
+var killRate : float = 0.02 # The rate at which one soldier can kill another per unit of time
+
+var unitAmounts : Dictionary = {} # Key color, value amount
 
 func _ready() -> void:
+	visibilityNotifier.screen_entered.connect(func() -> void: add_to_group(GameTypes.GROUP_ONSCREEN))
+	visibilityNotifier.screen_exited.connect(func() -> void: remove_from_group(GameTypes.GROUP_ONSCREEN))
+	
 	updateColorDisplays(unitAmounts)
 	changeBuildingType(type)
 
@@ -196,7 +196,7 @@ func sendRoadUnit(roadUnit : RoadUnit):
 	road.addUnitToRoad(roadUnit)
 
 
-# ---------- COLOR DISPLAY ----------
+# ---------- DISPLAY ----------
 
 # Updates the color of the colorRect and the label displays
 func updateColorDisplays(colorUnits : Dictionary):
@@ -222,6 +222,9 @@ func updateColor(color : GameColors.colors):
 func selfCaptured():
 	for node in neighbors:
 		node.recalculateInfluences()
+
+func getBoundingRect() -> Rect2:
+	return visualRect.get_rect()
 
 
 # ---------- UTILITIES ----------
