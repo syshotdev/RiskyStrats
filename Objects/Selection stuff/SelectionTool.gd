@@ -23,7 +23,6 @@ var _selecting_start_pos: Vector2 = Vector2.ZERO
 var _selecting_end_pos: Vector2 = Vector2.ZERO
 var _multi_selecting: bool
 var _mouse_moved_during_pressed := false
-var _node_positions_before_move := {} # GameNode -> Vector2
 var _bounding_box_cache := {} # GameNode -> Rect2
 
 # ------------------------------------------------------------------------------------------------
@@ -78,9 +77,8 @@ func compute_selection(start_pos: Vector2, end_pos: Vector2) -> void:
 	for node: GameNode in get_tree().get_nodes_in_group(GameTypes.GROUP_ONSCREEN):
 		var bounding_box: Rect2 = _bounding_box_cache[node]
 		if selection_rect.intersects(bounding_box):
-			if selection_rect.has_point(node.position):
-				_set_node_selected(node)
-				break
+			_set_node_selected(node)
+			break
 
 # ------------------------------------------------------------------------------------------------
 func calculate_rect(start_pos: Vector2, end_pos: Vector2) -> Rect2:
@@ -114,11 +112,10 @@ func _build_bounding_boxes() -> void:
 # ------------------------------------------------------------------------------------------------
 func _set_node_selected(node: GameNode) -> void:
 	if node.is_in_group(GROUP_SELECTED_NODES):
-		node.modulate = Color.WHITE
+		node.displaySelected(false)
 		node.add_to_group(GROUP_MARKED_FOR_DESELECTION)
 	else:
-		const DEFAULT_SELECTION_COLOR := Color("#2a967c")
-		node.modulate = DEFAULT_SELECTION_COLOR
+		node.displaySelected(true)
 		node.add_to_group(GROUP_NODES_IN_SELECTION_RECTANGLE)
 
 # ------------------------------------------------------------------------------------------------

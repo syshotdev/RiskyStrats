@@ -32,7 +32,7 @@ func tick(_delta):
 		mousePositionEnd = get_global_mouse_position()
 
 
-func _input(event):
+func input(event):
 	# If mouse moved, send area 
 	if event is InputEventMouseMotion:
 		sendCheckHoveredNode()

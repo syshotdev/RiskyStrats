@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dclc615kui1at"]
+
+[ext_resource type="PackedScene" uid="uid://daa7f3k87hkvh" path="res://Objects/Map/map.tscn" id="1_s02eq"]
+[ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/GameNode/node.tscn" id="2_t8dge"]
+[ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/Road/road.tscn" id="3_qgarv"]
+
+[node name="TestMap" unique_id=30901242 instance=ExtResource("1_s02eq")]
+
+[node name="Nodes" type="Node2D" parent="." index="0" unique_id=968828561]
+
+[node name="GameNode" parent="Nodes" index="0" unique_id=286820746 instance=ExtResource("2_t8dge")]
+color = 2
+type = 1
+
+[node name="GameNode2" parent="Nodes" index="1" unique_id=647693188 instance=ExtResource("2_t8dge")]
+position = Vector2(93, -47)
+color = 3
+
+[node name="Roads" type="Node2D" parent="." index="1" unique_id=122338408]
+
+[node name="Road" parent="Roads" index="0" unique_id=1922446174 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("3_qgarv")]
+node1 = NodePath("../../Nodes/GameNode")
+node2 = NodePath("../../Nodes/GameNode2")
+
+[connection signal="updateColorDisplay" from="Nodes/GameNode" to="Nodes/GameNode/ColorManager" method="updateColorDisplay"]
+[connection signal="updateColorDisplay" from="Nodes/GameNode2" to="Nodes/GameNode2/ColorManager" method="updateColorDisplay"]

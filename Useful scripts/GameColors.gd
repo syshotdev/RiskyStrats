@@ -24,6 +24,7 @@ static var yellow : Color = Color("f5ce03")
 static var orange : Color = Color("ff8c2a")
 static var brown : Color = Color("976108")
 static var selectionColor : Color = Color(1,1,1,0.1)
+static var backgroundColor : Color = Color("e2e2e2ff")
 
 static func getColorFromEnum(color : colors) -> Color:
 	if(color == colors.GAIA):

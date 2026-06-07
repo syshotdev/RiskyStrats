@@ -9,6 +9,7 @@ signal buildingTypeChanged(type : GameTypes.buildingType)
 @export var type : GameTypes.buildingType
 
 @onready var visibilityNotifier := $VisibleOnScreenNotifier2D
+@onready var visualSelection := $ColorManager/WhiteCircle
 @onready var visualRect := $ColorManager/Sprite2D
 
 var neighbors : Array[GameNode] = [] # Neighboring nodes
@@ -223,8 +224,16 @@ func selfCaptured():
 	for node in neighbors:
 		node.recalculateInfluences()
 
+func displaySelected(v : bool):
+	visualSelection.visible = v
+
 func getBoundingRect() -> Rect2:
-	return visualRect.get_rect()
+	var r : Rect2 = visualRect.get_rect()
+	var gp = global_position
+	$ColorManager/WhiteCircle.global_position = gp
+	$ColorManager/WhiteCircle.radius = r.size.x
+	$ColorManager/WhiteCircle.queue_redraw()
+	return Rect2(gp.x, gp.y, r.size.x, r.size.y)
 
 
 # ---------- UTILITIES ----------

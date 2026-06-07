@@ -4,7 +4,7 @@
 
 extends Node2D
 
-@onready var map : Map = $ManMap
+@onready var map : Map = $TestMap
 
 func _process(delta: float) -> void:
 	map.tick(delta)

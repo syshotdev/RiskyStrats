@@ -32,9 +32,7 @@ size_flags_vertical = 4
 script = ExtResource("7_b3igk")
 
 [node name="WhiteCircle" type="Node2D" parent="ColorManager" unique_id=1236495788]
-visible = false
 script = ExtResource("5_wid6i")
-defaultVisiblity = false
 shapeToDraw = 1
 color = Color(0.776471, 0.776471, 0.776471, 1)
 canvasLayer = 1

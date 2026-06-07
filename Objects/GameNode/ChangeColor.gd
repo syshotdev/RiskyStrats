@@ -3,7 +3,7 @@ extends Control
 @onready var sprite = $Sprite2D
 @onready var labelBox = $ColorBox
 
-var spriteType : GameTypes.buildingType
+@export var spriteType : GameTypes.buildingType
 
 func _ready():
 	# Sprite loads when game starts

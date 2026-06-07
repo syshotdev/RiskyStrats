@@ -14,22 +14,29 @@ signal orderBuyBuilding(
 	type : GameTypes.buildingType
 )
 
-@onready var camera := $Camera2D
-@export var buyMenu : BuyMenu
-@export var selectionArea : SelectionArea
-@export var nodeChecker : HoveredNode
 @export var inputHandler : Node2D
+@onready var camera := $Camera2D
+@onready var buyMenu := $BuyMenu
+@onready var selectionTool := $SelectionTool
 
 @onready var color : GameColors.colors = GameColors.colors.PURPLE
 var selectedNodes : Array[GameNode]
 var currentNode : GameNode
 
+func _ready() -> void:
+	selectionTool.enabled = true
+
 func _process(delta: float) -> void:
 	inputHandler.tick(delta)
 
 func _input(event: InputEvent) -> void:
+	if event.is_action("right_click"):
+		selectionTool.deselect_all_nodes()
+	
 	if !get_tree().root.get_viewport().is_input_handled():
 		camera.tool_event(event)
+	if !get_tree().root.get_viewport().is_input_handled():
+		selectionTool.tool_event(event)
 
 # When player wants to send payload, send it
 func onInputSendPayload(amount : int):
@@ -38,14 +45,6 @@ func onInputSendPayload(amount : int):
 		return
 	
 	orderSendPayload.emit(self, selectedNodes, currentNode, amount)
-
-# For when player uses mouse to do area
-func updateSelectionArea(pos1, pos2):
-	selectedNodes = selectionArea.getNodesInArea(pos1, pos2)
-
-# Check the current hovered node (If there is one)
-func checkHoveredNode(pos):
-	currentNode = nodeChecker.getHoveredNode(pos)
 
 # Checks the current hovered node, and turns buy menu visibility on if circumstances right.
 # THIS WILL CHANGE LATER: I don't know how to turn buy menu off

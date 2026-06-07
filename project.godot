@@ -32,6 +32,10 @@ Utils="*uid://d2md7q0krchi8"
 
 features=PackedStringArray("4.2", "Forward Plus")
 
+[debug]
+
+gdscript/warnings/shadowed_variable_base_class=0
+
 [display]
 
 window/size/viewport_width=1920
@@ -111,7 +115,7 @@ pan={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.92099476, 0.9209946, 0.9209946, 0)
+environment/defaults/default_clear_color=Color(0.9122889, 0.9122889, 0.9122887, 1)
 viewport/transparent_background=true
 
 [run]

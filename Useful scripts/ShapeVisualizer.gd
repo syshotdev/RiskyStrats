@@ -9,7 +9,7 @@ enum shapes{
 	LINE,
 }
 
-@export var defaultVisiblity : bool = true
+@export var defaultVisiblity : bool
 @export var shapeToDraw : shapes
 @export var color : Color
 @export var canvasLayer : int = 0
