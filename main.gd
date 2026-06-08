@@ -4,7 +4,7 @@
 
 extends Node2D
 
-@onready var map : Map = $TestMap
+@export var map : Map
 
 func _process(delta: float) -> void:
 	map.tick(delta)
@@ -22,6 +22,7 @@ func orderSendPayload(
 	# Pass along the request to the map
 	# Map deals with literal values to make implementation easier :)
 	if player == null or target == null: return
+	if nodes == null or nodes.size() == 0: return
 	map.orderSendPayload(nodes, target, Unit.new(player.color, amount))
 
 func orderBuyBuilding(

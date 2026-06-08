@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://elf2km00t30"]
 
 [ext_resource type="Script" uid="uid://c3mpp2d5jchwg" path="res://Objects/Player (Client)/Player.gd" id="1_jhoao"]
-[ext_resource type="Script" uid="uid://sam5xdvjuhbb" path="res://Objects/Selection stuff/SelectionProcesser.gd" id="2_a6bsm"]
 [ext_resource type="Script" uid="uid://rcba1ccl24kb" path="res://Objects/Camera/CameraController.gd" id="2_vwauj"]
 [ext_resource type="Script" uid="uid://cfu3mw7eif2in" path="res://Objects/Selection stuff/SelectionTool.gd" id="5_r43ka"]
 [ext_resource type="Shader" uid="uid://i5qye4wiemwr" path="res://Objects/Selection stuff/SelectionRectangle.gdshader" id="6_tu5fw"]
@@ -12,20 +11,12 @@
 shader = ExtResource("6_tu5fw")
 shader_parameter/background_color = Vector4(0, 0, 0, 0)
 
-[node name="Player" type="Node2D" unique_id=95092736 node_paths=PackedStringArray("inputHandler")]
+[node name="Player" type="Node2D" unique_id=95092736]
 script = ExtResource("1_jhoao")
-inputHandler = NodePath("InputProcesser")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1879358874]
 limit_enabled = false
 script = ExtResource("2_vwauj")
-
-[node name="InputProcesser" type="Node2D" parent="." unique_id=35364118]
-script = ExtResource("2_a6bsm")
-
-[node name="BuyMenu" parent="." unique_id=174039052 instance=ExtResource("7_ea7wc")]
-visible = false
-z_index = 2
 
 [node name="SelectionTool" type="Node2D" parent="." unique_id=1652632773]
 script = ExtResource("5_r43ka")
@@ -37,9 +28,16 @@ material = SubResource("ShaderMaterial_vwauj")
 script = ExtResource("6_v1q15")
 metadata/_custom_type_script = "uid://ctn1gexyyhlgh"
 
-[connection signal="buyMenuOff" from="InputProcesser" to="." method="buyMenuOff"]
-[connection signal="buyMenuOn" from="InputProcesser" to="." method="buyMenuOn"]
-[connection signal="sendPayload" from="InputProcesser" to="." method="onInputSendPayload"]
-[connection signal="updateHoveredNode" from="InputProcesser" to="." method="checkHoveredNode"]
-[connection signal="updateSelectionArea" from="InputProcesser" to="." method="updateSelectionArea"]
+[node name="BuyMenu" parent="." unique_id=1131484512 instance=ExtResource("7_ea7wc")]
+visible = false
+z_index = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 100.0
+grow_horizontal = 1
+grow_vertical = 0
+
 [connection signal="buyButtonPressed" from="BuyMenu" to="." method="buyButtonPressed"]

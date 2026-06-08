@@ -15,34 +15,62 @@ const selectionColor : Color = Color("fa9c1cff")
 
 # For ALL RoadUnits
 const nodeSpeed := 100.0
-var roadLength # Calculated in ready
+@onready var roadLength = node1.position.distance_to(node2.position)
 var isSelected := false
 
 # For each road unit, to move them all along the road and keep track of them
 # (Key roadunit : Value 0)
 var currentUnits : Dictionary
 
+var editor_selection: EditorSelection
+var highlight_material: StandardMaterial3D
 
-func _ready():
+func _ready() -> void:
 	z_index = -1 # Fix road on node problem
-	roadLength = node1.position.distance_to(node2.position) # Find road length
-	position = Vector2.ZERO # This is not needed technically but if not at 0,0 it breaks
+	
+	# Only execute this detection logic inside the Godot editor
+	if Engine.is_editor_hint():
+		editor_selection = EditorInterface.get_selection()
+		editor_selection.selection_changed.connect(_on_editor_selection_changed)
+
+func _on_editor_selection_changed() -> void:
+	var selected_nodes = editor_selection.get_selected_nodes()
+	
+	if self in selected_nodes:
+		isSelected = true
+	else:
+		isSelected = false
+	
+	queue_redraw()
+
+
+func _exit_tree() -> void:
+	# Safe disconnect when node is removed
+	if editor_selection and editor_selection.selection_changed.is_connected(_on_editor_selection_changed):
+		editor_selection.selection_changed.disconnect(_on_editor_selection_changed)
 
 
 func _draw():
 	if(node1 != null && node2 != null):
 		var shadowOffset : Vector2 = Vector2(0, -5)
-		drawLine(
-			node1.global_position - shadowOffset, 
-			node2.global_position - shadowOffset, 
-			shadowColor)
-		drawLine(node1.global_position, node2.global_position, color)
-		if isSelected:
-			drawLine(node1.global_position, node2.global_position, selectionColor)
-
-
-func drawLine(pos1 : Vector2, pos2 : Vector2, color : Color):
-	draw_line(pos1, pos2, color, thickness)
+		draw_line(
+			node1.global_position - shadowOffset - position, 
+			node2.global_position - shadowOffset - position, 
+			shadowColor,
+			thickness)
+		draw_line(
+			node1.global_position - position, 
+			node2.global_position - position, 
+			color,
+			thickness)
+		
+		if !isSelected:
+			return
+		draw_line(
+			node1.global_position - position, 
+			node2.global_position - position, 
+			selectionColor,
+			thickness + 3)
 
 # Adds the road to all the nessesary variables to keep track of.
 # Also the function that the "node1" or "node2" calls to send a unit payload
@@ -55,9 +83,11 @@ func addUnitToRoad(roadUnit : RoadUnit):
 	roadUnit.remove.connect(removeRoadUnit)
 	
 	currentUnits[roadUnit] = 0
-	# To fix annoying bug where not removed from other parents
-	if(roadUnit.get_parent() == null):
-		add_child(roadUnit)
+	
+	if(roadUnit.get_parent() != null):
+		roadUnit.get_parent().remove_child(roadUnit)
+	
+	self.add_child(roadUnit)
 
 
 func moveAllRoadUnits(delta):

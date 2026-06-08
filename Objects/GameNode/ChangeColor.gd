@@ -1,3 +1,4 @@
+@tool
 extends Control
 
 @onready var sprite = $Sprite2D
@@ -45,6 +46,7 @@ func changeSprite(type : GameTypes.buildingType):
 	# The best way would be to load all of the textures at the start, "load(texture)" and put it into var.
 	# Loading it like this makes it load and recompile everything again every time texture changed,
 	# meaning massive performance hit. But who cares am I right?
+	
 	var newTexture := load(str(GameTypes.getSpriteFromEnum(type)))
 	
 	if(sprite != null):
@@ -65,7 +67,7 @@ func deleteLabels():
 func createLabelWithColor(text : String, color : GameColors.colors):
 	# So we can read the label when it's the same color as the node
 	var colorOffset : Color = Color(0.2,0.2,0.2,0.0)
-	var labelColor : Color = GameColors.getColorFromEnum(color) - colorOffset
+	var labelColor : Color = GameColors.getColorFromEnum(color) + colorOffset
 	labelColor = clampColor(labelColor)
 	
 	var label = Label.new()

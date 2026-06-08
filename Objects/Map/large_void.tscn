@@ -1,0 +1,222 @@
+[gd_scene format=3 uid="uid://dpn5qyk02hsp3"]
+
+[ext_resource type="Script" uid="uid://du51tpdrlbbus" path="res://Objects/Map/Map.gd" id="1_m2w84"]
+[ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/GameNode/node.tscn" id="2_ddpbi"]
+[ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/Road/road.tscn" id="4_yh6j3"]
+
+[node name="LargeVoidMap" type="Node2D" unique_id=2065704354]
+script = ExtResource("1_m2w84")
+
+[node name="Nodes" type="Node2D" parent="." unique_id=761833810]
+
+[node name="GameNode" parent="Nodes" unique_id=286820746 instance=ExtResource("2_ddpbi")]
+position = Vector2(31, 136)
+
+[node name="GameNode2" parent="Nodes" unique_id=854120587 instance=ExtResource("2_ddpbi")]
+position = Vector2(-4, -175)
+
+[node name="@Node2D@109582" parent="Nodes" unique_id=1510629374 instance=ExtResource("2_ddpbi")]
+position = Vector2(172, 46)
+
+[node name="@Node2D@109584" parent="Nodes" unique_id=1971251746 instance=ExtResource("2_ddpbi")]
+position = Vector2(454, 85)
+
+[node name="@Node2D@109586" parent="Nodes" unique_id=980887244 instance=ExtResource("2_ddpbi")]
+position = Vector2(388, -424)
+
+[node name="@Node2D@109588" parent="Nodes" unique_id=870790625 instance=ExtResource("2_ddpbi")]
+position = Vector2(744, -374)
+
+[node name="@Node2D@109590" parent="Nodes" unique_id=902763511 instance=ExtResource("2_ddpbi")]
+position = Vector2(791, -230)
+
+[node name="@Node2D@109592" parent="Nodes" unique_id=276105947 instance=ExtResource("2_ddpbi")]
+position = Vector2(413, -204)
+
+[node name="@Node2D@109594" parent="Nodes" unique_id=998302505 instance=ExtResource("2_ddpbi")]
+position = Vector2(510, -400)
+
+[node name="_Node2D_112254" parent="Nodes" unique_id=637816411 instance=ExtResource("2_ddpbi")]
+position = Vector2(-176, -85)
+
+[node name="@Node2D@109596" parent="Nodes" unique_id=1550355445 instance=ExtResource("2_ddpbi")]
+position = Vector2(777, -315)
+color = 5
+type = 1
+
+[node name="@Node2D@112256" parent="Nodes" unique_id=734961790 instance=ExtResource("2_ddpbi")]
+position = Vector2(-3, -393)
+
+[node name="@Node2D@112258" parent="Nodes" unique_id=1293720697 instance=ExtResource("2_ddpbi")]
+position = Vector2(-259, 274)
+
+[node name="@Node2D@112260" parent="Nodes" unique_id=1180354642 instance=ExtResource("2_ddpbi")]
+position = Vector2(-94, 31)
+
+[node name="@Node2D@112262" parent="Nodes" unique_id=1315489124 instance=ExtResource("2_ddpbi")]
+position = Vector2(-601, -224)
+
+[node name="@Node2D@112264" parent="Nodes" unique_id=234427636 instance=ExtResource("2_ddpbi")]
+position = Vector2(102, -111)
+
+[node name="@Node2D@128423" parent="Nodes" unique_id=1497192973 instance=ExtResource("2_ddpbi")]
+position = Vector2(-583, 81)
+
+[node name="@Node2D@128425" parent="Nodes" unique_id=2091154473 instance=ExtResource("2_ddpbi")]
+position = Vector2(-769, 294)
+color = 3
+type = 1
+
+[node name="@Node2D@128427" parent="Nodes" unique_id=1675718288 instance=ExtResource("2_ddpbi")]
+position = Vector2(-794, 206)
+
+[node name="@Node2D@128429" parent="Nodes" unique_id=1518550510 instance=ExtResource("2_ddpbi")]
+position = Vector2(-652, 337)
+
+[node name="@Node2D@128431" parent="Nodes" unique_id=341213903 instance=ExtResource("2_ddpbi")]
+position = Vector2(-772, -103)
+
+[node name="@Node2D@128433" parent="Nodes" unique_id=408345241 instance=ExtResource("2_ddpbi")]
+position = Vector2(-800, 3)
+
+[node name="Roads" type="Node2D" parent="." unique_id=558487703]
+
+[node name="Road" parent="Roads" unique_id=1922446174 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-710.5, 315.5)
+node1 = NodePath("../../Nodes/@Node2D@128429")
+node2 = NodePath("../../Nodes/@Node2D@128425")
+
+[node name="@Node2D@133112" parent="Roads" unique_id=1519989227 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-781.5, 250)
+node1 = NodePath("../../Nodes/@Node2D@128427")
+node2 = NodePath("../../Nodes/@Node2D@128425")
+
+[node name="@Node2D@133775" parent="Roads" unique_id=754679182 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-797, 104.5)
+node1 = NodePath("../../Nodes/@Node2D@128433")
+node2 = NodePath("../../Nodes/@Node2D@128427")
+
+[node name="@Node2D@134106" parent="Roads" unique_id=668211653 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-786, -50)
+node1 = NodePath("../../Nodes/@Node2D@128433")
+node2 = NodePath("../../Nodes/@Node2D@128431")
+
+[node name="@Node2D@134437" parent="Roads" unique_id=1856483961 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-686.5, -163.5)
+node1 = NodePath("../../Nodes/@Node2D@128431")
+node2 = NodePath("../../Nodes/@Node2D@112262")
+
+[node name="@Node2D@134768" parent="Roads" unique_id=1638356398 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-388.5, -154.5)
+node1 = NodePath("../../Nodes/@Node2D@112262")
+node2 = NodePath("../../Nodes/_Node2D_112254")
+
+[node name="@Node2D@135099" parent="Roads" unique_id=1770010796 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-3.5, -284)
+node1 = NodePath("../../Nodes/@Node2D@112256")
+node2 = NodePath("../../Nodes/GameNode2")
+
+[node name="@Node2D@135762" parent="Roads" unique_id=1241093509 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-90, -130)
+node1 = NodePath("../../Nodes/_Node2D_112254")
+node2 = NodePath("../../Nodes/GameNode2")
+
+[node name="@Node2D@136093" parent="Roads" unique_id=1757475356 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-135, -27)
+node1 = NodePath("../../Nodes/@Node2D@112260")
+node2 = NodePath("../../Nodes/_Node2D_112254")
+
+[node name="@Node2D@136393" parent="Roads" unique_id=1287997406 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-31.5, 83.5)
+node1 = NodePath("../../Nodes/@Node2D@112260")
+node2 = NodePath("../../Nodes/GameNode")
+
+[node name="@Node2D@137387" parent="Roads" unique_id=1063727467 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(137, -32.5)
+node1 = NodePath("../../Nodes/@Node2D@112264")
+node2 = NodePath("../../Nodes/@Node2D@109582")
+
+[node name="@Node2D@137718" parent="Roads" unique_id=1638952606 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(49, -143)
+node1 = NodePath("../../Nodes/@Node2D@112264")
+node2 = NodePath("../../Nodes/GameNode2")
+
+[node name="@Node2D@138381" parent="Roads" unique_id=1958199486 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(313, 65.5)
+node1 = NodePath("../../Nodes/@Node2D@109582")
+node2 = NodePath("../../Nodes/@Node2D@109584")
+
+[node name="@Node2D@139721" parent="Roads" unique_id=182397036 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(673, -235)
+node1 = NodePath("../../Nodes/@Node2D@109592")
+node2 = NodePath("../../Nodes/@Node2D@109590")
+
+[node name="@Node2D@140384" parent="Roads" unique_id=1298872308 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(805.5, -275.5)
+node1 = NodePath("../../Nodes/@Node2D@109596")
+node2 = NodePath("../../Nodes/@Node2D@109590")
+
+[node name="@Node2D@140715" parent="Roads" unique_id=1662413297 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(782, -347.5)
+node1 = NodePath("../../Nodes/@Node2D@109596")
+node2 = NodePath("../../Nodes/@Node2D@109588")
+
+[node name="@Node2D@141046" parent="Roads" unique_id=12133271 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(627, -387)
+node1 = NodePath("../../Nodes/@Node2D@109594")
+node2 = NodePath("../../Nodes/@Node2D@109588")
+
+[node name="@Node2D@141377" parent="Roads" unique_id=957914143 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(449, -412)
+node1 = NodePath("../../Nodes/@Node2D@109594")
+node2 = NodePath("../../Nodes/@Node2D@109586")
+
+[node name="@Node2D@141708" parent="Roads" unique_id=645663893 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(192.5, -408.5)
+node1 = NodePath("../../Nodes/@Node2D@112256")
+node2 = NodePath("../../Nodes/@Node2D@109586")
+
+[node name="@Node2D@142008" parent="Roads" unique_id=1113906597 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-688.5, 143.5)
+node1 = NodePath("../../Nodes/@Node2D@128427")
+node2 = NodePath("../../Nodes/@Node2D@128423")
+
+[node name="@Node2D@142339" parent="Roads" unique_id=1150523654 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-617.5, 209)
+node1 = NodePath("../../Nodes/@Node2D@128429")
+node2 = NodePath("../../Nodes/@Node2D@128423")
+
+[node name="@Node2D@143002" parent="Roads" unique_id=498252507 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-676, 187.5)
+node1 = NodePath("../../Nodes/@Node2D@128425")
+node2 = NodePath("../../Nodes/@Node2D@128423")
+
+[node name="@Node2D@143302" parent="Roads" unique_id=580168115 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-455.5, 305.5)
+node1 = NodePath("../../Nodes/@Node2D@128429")
+node2 = NodePath("../../Nodes/@Node2D@112258")
+
+[node name="@Node2D@143602" parent="Roads" unique_id=1501739865 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(-114, 205)
+node1 = NodePath("../../Nodes/@Node2D@112258")
+node2 = NodePath("../../Nodes/GameNode")
+
+[node name="@Node2D@143933" parent="Roads" unique_id=936460729 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(101.5, 91)
+node1 = NodePath("../../Nodes/@Node2D@109582")
+node2 = NodePath("../../Nodes/GameNode")
+
+[node name="@Node2D@144596" parent="Roads" unique_id=879562437 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(622.5, -72.5)
+node1 = NodePath("../../Nodes/@Node2D@109590")
+node2 = NodePath("../../Nodes/@Node2D@109584")
+
+[node name="@Node2D@145606" parent="Roads" unique_id=825088684 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(649.5, -307)
+node1 = NodePath("../../Nodes/@Node2D@109588")
+node2 = NodePath("../../Nodes/@Node2D@109592")
+
+[node name="@Node2D@146269" parent="Roads" unique_id=1920763568 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("4_yh6j3")]
+position = Vector2(687.5, -280.5)
+node1 = NodePath("../../Nodes/@Node2D@109596")
+node2 = NodePath("../../Nodes/@Node2D@109592")

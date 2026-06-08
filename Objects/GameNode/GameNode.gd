@@ -1,8 +1,10 @@
+@tool
 extends Node2D
 class_name GameNode
 
 # Mapping variables
 @export var color : GameColors.colors
+@export var units : int
 @export var type : GameTypes.buildingType
 
 @onready var visibilityNotifier := $VisibleOnScreenNotifier2D
@@ -13,15 +15,19 @@ class_name GameNode
 var neighbors : Array[GameNode] = [] # Neighboring nodes
 var roads : Dictionary = {} # Key node, value road. Which roads to get to a neighbor?
 
-const genRate : float = 5.0 # Rate default node generates per second
-var effectiveness : float = 1.0 # Multiplier for genRate
-var killRate : float = 0.02 # The rate at which one soldier can kill another per unit of time
+const killRate : float = 0.02 # The rate at which one soldier can kill another per unit of time
+const generateRate : float = 5.0 # Rate default node generates per second
+var generateEffectiveness : float = 1.0 # Multiplier for genRate
+var defenseEffectiveness : float = 1.0 # Forts -> up; Artilleries -> down.
+
 
 var unitAmounts : Dictionary = {} # Key color, value amount
 
 func _ready() -> void:
 	visibilityNotifier.screen_entered.connect(func() -> void: add_to_group(GameTypes.GROUP_ONSCREEN))
 	visibilityNotifier.screen_exited.connect(func() -> void: remove_from_group(GameTypes.GROUP_ONSCREEN))
+	
+	addUnit(Unit.new(color, 25))
 	
 	updateColorDisplay(unitAmounts)
 	updateBuildingType(type)
@@ -90,13 +96,10 @@ func takeDamage(delta : float) -> void:
 func calculateUnitAmountGenerated(delta : float) -> float:
 	var output : float = 0
 	
-	if(type == GameTypes.none):
-		output = 0;
-	elif(type == GameTypes.capitol):
-		# *2 because gens double the normal amount
-		output += genRate * effectiveness * 2 * delta
-	elif(type == GameTypes.factory):
-		output += genRate * effectiveness * delta
+	match type:
+		GameTypes.none: output = 0
+		GameTypes.capitol: output = generateRate * generateEffectiveness * delta * 2
+		GameTypes.factory: output = generateRate * generateEffectiveness * delta
 	
 	return output
 
@@ -119,17 +122,20 @@ func recalculateInfluences():
 	var numArtillery : int = 0
 	
 	for neighbor : GameNode in neighbors:
-		# If neighbor == reactor and our color, add 0.5x to our generation speed
-		if(neighbor.type == GameTypes.reactor):
-			if(neighbor.color == color):
-				numPowerPlants += 1
-		
-		# If neighbor == artillery and different color (Enemy color), add one to artillery
-		elif(neighbor.type == GameTypes.artillery):
-			if(neighbor.color != color):
-				numArtillery += 1
+		match neighbor.type:
+			GameTypes.reactor:
+				if neighbor.color == self.color:
+					numPowerPlants += 1
+			GameTypes.artillery:
+				if neighbor.color != self.color:
+					numArtillery += 1
 	
-	effectiveness = 1 * (0.5 * numPowerPlants)
+	generateEffectiveness = pow(1.5, numPowerPlants)
+	defenseEffectiveness = (1 + (1 if isFort() else 0)) / numArtillery
+
+
+func isFort() -> bool:
+	return self.type == GameTypes.fort
 
 # For all neighbors, recalculate the influences
 func neighborsRecalculateInfluences():
@@ -204,7 +210,7 @@ func updateColor(color : GameColors.colors):
 	self.color = color
 	selfCaptured()
 
-# When captured
+# Reactors and arty sort of things
 func selfCaptured():
 	for node in neighbors:
 		node.recalculateInfluences()
@@ -213,14 +219,8 @@ func displaySelected(b : bool):
 	circle.visible = b
 
 func getBoundingRect() -> Rect2:
-	var size : Vector2 = sprite.get_rect().size
 	var r : Rect2 = sprite.get_rect()
 	r.position = global_position + r.position
-	var colorRect := ColorRect.new()
-	add_child(colorRect)
-	colorRect.size = r.size #Vector2(100, 100)
-	colorRect.global_position = r.position
-	#return Rect2(gp.x, gp.y, r.size.x, r.size.y).abs()
 	return r
 
 

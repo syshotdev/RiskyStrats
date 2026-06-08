@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/GameNode/node.tscn" id="2_t8dge"]
 [ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/Road/road.tscn" id="3_qgarv"]
 
-[node name="TestMap" unique_id=30901242 instance=ExtResource("1_s02eq")]
+[node name="TwoMap" unique_id=30901242 instance=ExtResource("1_s02eq")]
 
 [node name="Nodes" type="Node2D" parent="." index="0" unique_id=968828561]
 

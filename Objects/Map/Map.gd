@@ -26,14 +26,6 @@ func initMap():
 	
 	for road in roads:
 		setNodeNeighbors(road)
-	
-	for node in nodes:
-		node.addUnit(Unit.new(defaultNodeColor, 25))
-	
-	var nodeNumber := 6
-	if(nodes.size() > nodeNumber):
-		nodes[7].addUnit(Unit.new(GameColors.colors.GREEN, 40))
-		nodes[nodeNumber].addUnit(Unit.new(GameColors.colors.GREEN, 40))
 
 
 # Gets the road's connections and sets themselves as neighbors

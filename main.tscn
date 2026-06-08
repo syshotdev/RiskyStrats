@@ -1,20 +1,49 @@
 [gd_scene format=3 uid="uid://bi3lyw4c3emtg"]
 
 [ext_resource type="Script" uid="uid://dyc824qacnuja" path="res://main.gd" id="1_0f1fw"]
+[ext_resource type="Texture2D" uid="uid://buelimro1cygs" path="res://Sprites/1058.png" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://elf2km00t30" path="res://Objects/Player (Client)/player.tscn" id="2_cn2q5"]
-[ext_resource type="PackedScene" uid="uid://dclc615kui1at" path="res://Objects/Map/test_map.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dpn5qyk02hsp3" path="res://Objects/Map/large_void.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://vcxchimvy0va" path="res://AI.gd" id="4_lquwl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h2yge"]
+sky_top_color = Color(0.3019283, 0.4036912, 0.83676744, 1)
+sky_horizon_color = Color(0.8419457, 0.6057489, 0.15938756, 1)
+
+[sub_resource type="Sky" id="Sky_1bvp3"]
+sky_material = SubResource("ProceduralSkyMaterial_h2yge")
 
 [sub_resource type="Environment" id="Environment_h2yge"]
+background_mode = 2
+sky = SubResource("Sky_1bvp3")
 
-[node name="Main" type="Node2D" unique_id=1668038954]
+[node name="Main" type="Node2D" unique_id=1668038954 node_paths=PackedStringArray("map")]
 script = ExtResource("1_0f1fw")
+map = NodePath("LargeVoidMap")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=525805874]
 environment = SubResource("Environment_h2yge")
 
-[node name="Player" parent="." unique_id=2027691380 instance=ExtResource("2_cn2q5")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1055454932]
+layer = -10
+follow_viewport_enabled = true
 
-[node name="TestMap" parent="." unique_id=30901242 instance=ExtResource("4_1bvp3")]
+[node name="Background" type="Sprite2D" parent="CanvasLayer" unique_id=447356154]
+visible = false
+modulate = Color(1, 1, 1, 0.16078432)
+texture_repeat = 2
+scale = Vector2(2.3521194, 1.5455556)
+texture = ExtResource("2_1bvp3")
+region_enabled = true
+region_rect = Rect2(0, 0, 519, 450)
+
+[node name="Player" parent="." unique_id=2027691380 instance=ExtResource("2_cn2q5")]
+color = 3
+
+[node name="AI" type="Node2D" parent="." unique_id=2045442627]
+script = ExtResource("4_lquwl")
+
+[node name="LargeVoidMap" parent="." unique_id=2065704354 instance=ExtResource("4_1bvp3")]
 
 [connection signal="orderBuyBuilding" from="Player" to="." method="orderBuyBuilding"]
 [connection signal="orderSendPayload" from="Player" to="." method="orderSendPayload"]

@@ -111,8 +111,7 @@ pan={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.9122889, 0.9122889, 0.9122887, 1)
-viewport/transparent_background=true
+environment/defaults/default_clear_color=Color(0.84705883, 0.84705883, 0.84705883, 0.5254902)
 
 [run]
 

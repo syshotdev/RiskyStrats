@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dryh8yhb5p6cp"]
+
+[ext_resource type="PackedScene" uid="uid://daa7f3k87hkvh" path="res://Objects/Map/map.tscn" id="1_vgcfe"]
+[ext_resource type="PackedScene" uid="uid://cjpcojig6iwdw" path="res://Objects/GameNode/node.tscn" id="2_470ig"]
+[ext_resource type="PackedScene" uid="uid://cx5e5su7u3ix0" path="res://Objects/Road/road.tscn" id="3_u5hpy"]
+[ext_resource type="Script" uid="uid://b2e85xp6vk1w" path="res://Objects/Road/Road.gd" id="4_470ig"]
+
+[node name="TwoMap" unique_id=30901242 instance=ExtResource("1_vgcfe")]
+
+[node name="Nodes" type="Node2D" parent="." index="0" unique_id=968828561]
+
+[node name="GameNode" parent="Nodes" index="0" unique_id=286820746 instance=ExtResource("2_470ig")]
+color = 2
+type = 1
+
+[node name="GameNode2" parent="Nodes" index="1" unique_id=647693188 instance=ExtResource("2_470ig")]
+position = Vector2(93, -47)
+color = 3
+
+[node name="Roads" type="Node2D" parent="." index="1" unique_id=122338408]
+
+[node name="Road2" type="Node2D" parent="Roads" index="1" unique_id=1922446174 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("3_u5hpy")]
+z_index = -1
+position = Vector2(46.5, -23.5)
+script = ExtResource("4_470ig")
+node1 = NodePath("../../Nodes/GameNode")
+node2 = NodePath("../../Nodes/GameNode2")

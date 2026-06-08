@@ -8,11 +8,20 @@ signal buyButtonPressed(type : GameTypes.buildingType)
 @onready var verticalOptions := $VerticalOptions
 
 var buttonTypes : Dictionary = {} # Key: button, Value: buildingType
-var currentNode : GameNode # The node that this was spawned on, and will affect
+var target : GameNode # The node that this was spawned on, and will affect
 
 
 func _ready():
 	generateButtons()
+
+
+func on(node : GameNode):
+	self.visible = true
+	self.position = node.position
+	self.target = node
+
+func off():
+	self.visible = false
 
 # Generates all the buttons and adds them as children and gets signals
 func generateButtons():

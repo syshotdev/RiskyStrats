@@ -1,24 +1,12 @@
 [gd_scene format=3 uid="uid://cjpcojig6iwdw"]
 
 [ext_resource type="Script" uid="uid://kn08hcbgyxp7" path="res://Objects/GameNode/GameNode.gd" id="1_j8hsk"]
-[ext_resource type="Script" uid="uid://ck0v4x4psbuxf" path="res://Objects/GameNode/Select.gd" id="3_pq1u5"]
 [ext_resource type="Script" uid="uid://hg7jhvdchyrn" path="res://Useful scripts/ShapeVisualizer.gd" id="5_wid6i"]
 [ext_resource type="Script" uid="uid://cq50gv8alpln0" path="res://Objects/GameNode/ChangeColor.gd" id="7_b3igk"]
 [ext_resource type="Texture2D" uid="uid://oc8t8fo7664r" path="res://Sprites/Node.png" id="8_cwwdh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kh0e4"]
-size = Vector2(40, 40)
-
 [node name="GameNode" type="Node2D" unique_id=286820746]
 script = ExtResource("1_j8hsk")
-
-[node name="SelectionBox" type="Area2D" parent="." unique_id=1875054301 node_paths=PackedStringArray("whiteCircle")]
-script = ExtResource("3_pq1u5")
-whiteCircle = NodePath("../ColorManager/WhiteCircle")
-
-[node name="Area" type="CollisionShape2D" parent="SelectionBox" unique_id=927463418]
-shape = SubResource("RectangleShape2D_kh0e4")
-debug_color = Color(0, 0, 0, 0.368627)
 
 [node name="ColorManager" type="Control" parent="." unique_id=1259438191]
 layout_mode = 3
@@ -62,8 +50,6 @@ grow_vertical = 0
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1753144155]
 position = Vector2(-10, -10)
 rect = Rect2(-10, -10, 40, 40)
+show_rect = false
 
-[connection signal="area_entered" from="SelectionBox" to="SelectionBox" method="areaEntered"]
-[connection signal="area_exited" from="SelectionBox" to="SelectionBox" method="areaExited"]
-[connection signal="selected" from="SelectionBox" to="SelectionBox" method="onSelected"]
 [connection signal="ready" from="ColorManager/Sprite2D" to="ColorManager" method="spriteReady"]

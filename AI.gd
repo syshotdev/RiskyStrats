@@ -1,9 +1,7 @@
 extends Node2D
 
-class_name Player
-
 signal orderSendPayload(
-	color : GameColors.colors, 
+	player : Player, 
 	nodes : Array[GameNode], 
 	target : GameNode, 
 	amount : int
@@ -58,7 +56,7 @@ func sendPayload(amount : int):
 	if !hoveredNode or selectedNodes.size() == 0:
 		return
 	
-	orderSendPayload.emit(self.color, selectedNodes, hoveredNode, amount)
+	orderSendPayload.emit(self, selectedNodes, hoveredNode, amount)
 
 # Checks the current hovered node, and turns buy menu visibility on if circumstances right.
 func buyMenuOn():
@@ -74,4 +72,4 @@ func buyMenuOff():
 
 
 func buyButtonPressed(type : GameTypes.buildingType) -> void:
-	orderBuyBuilding.emit(self.color, buyMenu.target, type)
+	orderBuyBuilding.emit(self, buyMenu.target, type)

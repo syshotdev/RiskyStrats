@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://daa7f3k87hkvh"]
+[gd_scene format=3 uid="uid://daa7f3k87hkvh"]
 
-[ext_resource type="Script" path="res://Objects/Map/Map.gd" id="1_emrkw"]
+[ext_resource type="Script" uid="uid://du51tpdrlbbus" path="res://Objects/Map/Map.gd" id="1_emrkw"]
 
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node2D" unique_id=2065704354]
 script = ExtResource("1_emrkw")
+
+[node name="Nodes" type="Node2D" parent="." unique_id=761833810]
+
+[node name="Roads" type="Node2D" parent="." unique_id=558487703]
