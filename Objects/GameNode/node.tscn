@@ -32,6 +32,7 @@ size_flags_vertical = 4
 script = ExtResource("7_b3igk")
 
 [node name="WhiteCircle" type="Node2D" parent="ColorManager" unique_id=1236495788]
+visible = false
 script = ExtResource("5_wid6i")
 shapeToDraw = 1
 color = Color(0.776471, 0.776471, 0.776471, 1)
@@ -62,8 +63,6 @@ grow_vertical = 0
 position = Vector2(-10, -10)
 rect = Rect2(-10, -10, 40, 40)
 
-[connection signal="buildingTypeChanged" from="." to="ColorManager" method="updateBuildingDisplay"]
-[connection signal="updateColorDisplay" from="." to="ColorManager" method="updateColorDisplay"]
 [connection signal="area_entered" from="SelectionBox" to="SelectionBox" method="areaEntered"]
 [connection signal="area_exited" from="SelectionBox" to="SelectionBox" method="areaExited"]
 [connection signal="selected" from="SelectionBox" to="SelectionBox" method="onSelected"]

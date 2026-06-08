@@ -1,16 +1,14 @@
 extends Node2D
 class_name GameNode
 
-signal updateColorDisplay(units : Array[Unit])
-signal buildingTypeChanged(type : GameTypes.buildingType)
-
 # Mapping variables
 @export var color : GameColors.colors
 @export var type : GameTypes.buildingType
 
 @onready var visibilityNotifier := $VisibleOnScreenNotifier2D
-@onready var visualSelection := $ColorManager/WhiteCircle
-@onready var visualRect := $ColorManager/Sprite2D
+@onready var colorManager := $ColorManager
+@onready var circle := $ColorManager/WhiteCircle
+@onready var sprite := $ColorManager/Sprite2D
 
 var neighbors : Array[GameNode] = [] # Neighboring nodes
 var roads : Dictionary = {} # Key node, value road. Which roads to get to a neighbor?
@@ -25,8 +23,8 @@ func _ready() -> void:
 	visibilityNotifier.screen_entered.connect(func() -> void: add_to_group(GameTypes.GROUP_ONSCREEN))
 	visibilityNotifier.screen_exited.connect(func() -> void: remove_from_group(GameTypes.GROUP_ONSCREEN))
 	
-	updateColorDisplays(unitAmounts)
-	changeBuildingType(type)
+	updateColorDisplay(unitAmounts)
+	updateBuildingType(type)
 
 
 func tick(delta):
@@ -39,7 +37,7 @@ func tick(delta):
 # Every tick, it takes damage from other armies until one is dead
 # Lanchester's square law
 func takeDamage(delta : float) -> void:
-	updateColorDisplays(unitAmounts)
+	updateColorDisplay(unitAmounts)
 	
 	unitAmounts = ridOfEmptySlots(unitAmounts)
 	
@@ -112,16 +110,8 @@ func buyBuildingType(type : GameTypes.buildingType) -> bool:
 	if(unitAmounts[color] <= cost):
 		return false
 	unitAmounts[color] -= cost
-	changeBuildingType(type)
+	updateBuildingType(type)
 	return true
-
-func changeBuildingType(type : GameTypes.buildingType):
-	type = type
-	buildingTypeChanged.emit(type)
-	
-	# If we're a powerplant, send out a signal to update other nodes
-	if(type == GameTypes.reactor):
-		neighborsRecalculateInfluences()
 
 # Takes all node neighbors and finds if they're powerplant
 func recalculateInfluences():
@@ -197,22 +187,17 @@ func sendRoadUnit(roadUnit : RoadUnit):
 	road.addUnitToRoad(roadUnit)
 
 
-# ---------- DISPLAY ----------
+# ---------- DISPLAY -----------
+func updateColorDisplay(colorUnits : Dictionary):
+	colorManager.updateColorDisplay(colorUnits)
 
-# Updates the color of the colorRect and the label displays
-func updateColorDisplays(colorUnits : Dictionary):
-	var units : Array[Unit] = []
-	for color in colorUnits:
-		var unit = Unit.new(color)
-		
-		# Get amount of units
-		unit.units = colorUnits[color]
-		
-		# Add to units array
-		units.append(unit)
+func updateBuildingType(type : GameTypes.buildingType):
+	self.type = type
+	colorManager.updateBuildingDisplay(type)
 	
-	# Send signal to update labels
-	updateColorDisplay.emit(units)
+	# If we're a powerplant, send out a signal to update other nodes
+	if(type == GameTypes.reactor):
+		neighborsRecalculateInfluences()
 
 # Basically when color changed (captured by another color)
 func updateColor(color : GameColors.colors):
@@ -224,16 +209,19 @@ func selfCaptured():
 	for node in neighbors:
 		node.recalculateInfluences()
 
-func displaySelected(v : bool):
-	visualSelection.visible = v
+func displaySelected(b : bool):
+	circle.visible = b
 
 func getBoundingRect() -> Rect2:
-	var r : Rect2 = visualRect.get_rect()
-	var gp = global_position
-	$ColorManager/WhiteCircle.global_position = gp
-	$ColorManager/WhiteCircle.radius = r.size.x
-	$ColorManager/WhiteCircle.queue_redraw()
-	return Rect2(gp.x, gp.y, r.size.x, r.size.y)
+	var size : Vector2 = sprite.get_rect().size
+	var r : Rect2 = sprite.get_rect()
+	r.position = global_position + r.position
+	var colorRect := ColorRect.new()
+	add_child(colorRect)
+	colorRect.size = r.size #Vector2(100, 100)
+	colorRect.global_position = r.position
+	#return Rect2(gp.x, gp.y, r.size.x, r.size.y).abs()
+	return r
 
 
 # ---------- UTILITIES ----------

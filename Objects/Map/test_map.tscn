@@ -21,6 +21,3 @@ color = 3
 [node name="Road" parent="Roads" index="0" unique_id=1922446174 node_paths=PackedStringArray("node1", "node2") instance=ExtResource("3_qgarv")]
 node1 = NodePath("../../Nodes/GameNode")
 node2 = NodePath("../../Nodes/GameNode2")
-
-[connection signal="updateColorDisplay" from="Nodes/GameNode" to="Nodes/GameNode/ColorManager" method="updateColorDisplay"]
-[connection signal="updateColorDisplay" from="Nodes/GameNode2" to="Nodes/GameNode2/ColorManager" method="updateColorDisplay"]

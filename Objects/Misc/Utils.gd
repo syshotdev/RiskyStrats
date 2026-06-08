@@ -40,7 +40,7 @@ func calculate_rect(start_pos: Vector2, end_pos: Vector2) -> Rect2:
 	elif end_pos.x > start_pos.x && end_pos.y < start_pos.y:
 		area.position = Vector2(start_pos.x, end_pos.y)
 		area.end = Vector2(end_pos.x, start_pos.y)
-	return area
+	return area.abs()
 	
 # -------------------------------------------------------------------------------------------------
 func return_timestamp_string() -> String:

@@ -10,7 +10,10 @@ func _ready():
 	changeSprite(spriteType)
 
 
-func updateColorDisplay(units : Array[Unit]):
+func updateColorDisplay(colorUnits : Dictionary):
+	assert(colorUnits.get_typed_key_builtin() is GameColors.colors)
+	assert(colorUnits.get_typed_value_builtin() is int)
+	var units := convertColorUnitsToUnits(colorUnits)
 	updateLabelDisplay(units)
 	if units.size() <= 0:
 		return
@@ -21,6 +24,15 @@ func updateColorDisplay(units : Array[Unit]):
 			biggestUnit = unit
 	
 	sprite.modulate = GameColors.getColorFromEnum(biggestUnit.color)
+
+
+func convertColorUnitsToUnits(colorUnits : Dictionary) -> Array[Unit]:
+	var units : Array[Unit] = []
+	for color in colorUnits:
+		var unit = Unit.new(color)
+		unit.units = colorUnits[color]
+		units.append(unit)
+	return units
 
 # Changes the sprite based on building type
 func updateBuildingDisplay(type : GameTypes.buildingType):
@@ -39,19 +51,19 @@ func changeSprite(type : GameTypes.buildingType):
 		sprite.texture = newTexture
 
 func updateLabelDisplay(units : Array[Unit]):
-	eraseLabelBoxChildren()
+	deleteLabels()
 	for unit in units:
 		var unitAmountInt : int = floor(unit.units)
-		var label = createTextWithColor(str(unitAmountInt), unit.color)
+		var label = createLabelWithColor(str(unitAmountInt), unit.color)
 		labelBox.add_child(label)
 
-func eraseLabelBoxChildren():
+func deleteLabels():
 	for child in labelBox.get_children():
 		labelBox.remove_child(child)
 
 # Returns a label with a color and text
-func createTextWithColor(text : String, color : GameColors.colors):
-	# This exists to decipher number amounts when same color as color rect
+func createLabelWithColor(text : String, color : GameColors.colors):
+	# So we can read the label when it's the same color as the node
 	var colorOffset : Color = Color(0.2,0.2,0.2,0.0)
 	var labelColor : Color = GameColors.getColorFromEnum(color) - colorOffset
 	labelColor = clampColor(labelColor)

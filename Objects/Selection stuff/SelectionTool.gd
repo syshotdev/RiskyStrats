@@ -46,7 +46,7 @@ func tool_event(event: InputEvent) -> void:
 					_multi_selecting = false
 					_build_bounding_boxes()
 				else:
-					_state = State.MOVING
+					_state = State.SELECTING
 					_mouse_moved_during_pressed = false
 			# LMB up - stop selection or movement
 			else:
@@ -73,12 +73,18 @@ func tool_event(event: InputEvent) -> void:
 
 # ------------------------------------------------------------------------------------------------
 func compute_selection(start_pos: Vector2, end_pos: Vector2) -> void:
+	print("Computing selection")
 	var selection_rect : Rect2 = Utils.calculate_rect(start_pos, end_pos)
-	for node: GameNode in get_tree().get_nodes_in_group(GameTypes.GROUP_ONSCREEN):
+	var nodes : Array = get_tree().get_nodes_in_group(GameTypes.GROUP_ONSCREEN)
+	assert(nodes.size() == 2)
+	for node : GameNode in nodes:
 		var bounding_box: Rect2 = _bounding_box_cache[node]
-		if selection_rect.intersects(bounding_box):
+		assert(bounding_box.size.x > 0)
+		assert(bounding_box.size.y > 0)
+		assert(selection_rect.size.x >= 0)
+		assert(selection_rect.size.y >= 0)
+		if selection_rect.intersects(bounding_box, true):
 			_set_node_selected(node)
-			break
 
 # ------------------------------------------------------------------------------------------------
 func calculate_rect(start_pos: Vector2, end_pos: Vector2) -> Rect2:
@@ -135,11 +141,9 @@ func _deselect_marked_nodes() -> void:
 func deselect_all_nodes() -> void:
 	var selected_nodes: Array = get_selected_nodes()
 	if selected_nodes.size():
+		# TODO: Remove these
 		get_tree().set_group(GROUP_SELECTED_NODES, "modulate", Color.WHITE)
 		get_tree().set_group(GROUP_NODES_IN_SELECTION_RECTANGLE, "modulate", Color.WHITE)
-		Utils.remove_group_from_all_nodes(GROUP_SELECTED_NODES)
-		Utils.remove_group_from_all_nodes(GROUP_MARKED_FOR_DESELECTION)
-		Utils.remove_group_from_all_nodes(GROUP_NODES_IN_SELECTION_RECTANGLE)
 
 # ------------------------------------------------------------------------------------------------
 func is_selecting() -> bool:
