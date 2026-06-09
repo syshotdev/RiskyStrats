@@ -9,7 +9,7 @@ signal orderSendPayload(
 	amount : int
 )
 signal orderBuyBuilding(
-	player : Player, 
+	color : GameColors.colors, 
 	target : GameNode, 
 	type : GameTypes.buildingType
 )

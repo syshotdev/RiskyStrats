@@ -17,8 +17,9 @@ sky_material = SubResource("ProceduralSkyMaterial_h2yge")
 background_mode = 2
 sky = SubResource("Sky_1bvp3")
 
-[node name="Main" type="Node2D" unique_id=1668038954 node_paths=PackedStringArray("map")]
+[node name="Main" type="Node2D" unique_id=1668038954 node_paths=PackedStringArray("player", "map")]
 script = ExtResource("1_0f1fw")
+player = NodePath("Player")
 map = NodePath("LargeVoidMap")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=525805874]
@@ -40,10 +41,15 @@ region_rect = Rect2(0, 0, 519, 450)
 [node name="Player" parent="." unique_id=2027691380 instance=ExtResource("2_cn2q5")]
 color = 3
 
+[node name="LargeVoidMap" parent="." unique_id=2065704354 instance=ExtResource("4_1bvp3")]
+
 [node name="AI" type="Node2D" parent="." unique_id=2045442627]
 script = ExtResource("4_lquwl")
+color = 5
 
-[node name="LargeVoidMap" parent="." unique_id=2065704354 instance=ExtResource("4_1bvp3")]
+[node name="Timer" type="Timer" parent="AI" unique_id=1106003517]
+autostart = true
 
 [connection signal="orderBuyBuilding" from="Player" to="." method="orderBuyBuilding"]
 [connection signal="orderSendPayload" from="Player" to="." method="orderSendPayload"]
+[connection signal="timeout" from="AI/Timer" to="AI" method="chooseAction"]

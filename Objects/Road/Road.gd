@@ -14,7 +14,7 @@ const selectionColor : Color = Color("fa9c1cff")
 
 
 # For ALL RoadUnits
-const nodeSpeed := 100.0
+const nodeSpeed := 250.0
 @onready var roadLength = node1.position.distance_to(node2.position)
 var isSelected := false
 

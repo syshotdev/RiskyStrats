@@ -16,7 +16,7 @@ var neighbors : Array[GameNode] = [] # Neighboring nodes
 var roads : Dictionary = {} # Key node, value road. Which roads to get to a neighbor?
 
 const killRate : float = 0.02 # The rate at which one soldier can kill another per unit of time
-const generateRate : float = 5.0 # Rate default node generates per second
+const generateRate : float = 20.0 # Rate default node generates per second
 var generateEffectiveness : float = 1.0 # Multiplier for genRate
 var defenseEffectiveness : float = 1.0 # Forts -> up; Artilleries -> down.
 

@@ -37,7 +37,7 @@ func setNodeNeighbors(road : Road):
 
 
 # Sends payloads to destination with some ifs
-func orderSendPayload(nodes : Array[GameNode], target : GameNode, unit : Unit):
+func orderSendPayload(nodes : Array, target : GameNode, unit : Unit):
 	for node in nodes:
 		var color := unit.color
 		

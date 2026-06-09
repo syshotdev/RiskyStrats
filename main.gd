@@ -4,6 +4,7 @@
 
 extends Node2D
 
+@export var player : Player
 @export var map : Map
 
 func _process(delta: float) -> void:
@@ -14,24 +15,28 @@ func changeMap(newMap : Map):
 	map.loadMap(newMap)
 
 func orderSendPayload(
-	player : Player, 
-	nodes : Array[GameNode], 
+	color : GameColors.colors, 
+	nodes : Array, 
 	target : GameNode, 
 	amount : int
 ) -> void:
 	# Pass along the request to the map
 	# Map deals with literal values to make implementation easier :)
-	if player == null or target == null: return
+	if target == null: return
 	if nodes == null or nodes.size() == 0: return
-	map.orderSendPayload(nodes, target, Unit.new(player.color, amount))
+	map.orderSendPayload(nodes, target, Unit.new(color, amount))
 
 func orderBuyBuilding(
-	player : Player, 
+	color : GameColors.colors,
 	target : GameNode, 
 	type : GameTypes.buildingType
 ) -> void:
-	if player == null or target == null: return
-	if player.color != target.color: return
+	if target == null: return
+	if color != target.color: return
 	var success := map.orderBuyBuilding(target, type)
-	if success:
+	if success and player.color == color:
 		player.buyMenuOff()
+
+
+func getAllNodes() -> Array:
+	return map.nodes
